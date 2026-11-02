@@ -1,0 +1,26 @@
+{
+  "_aide": "Réglages du rappel « dernière consultation ». moisDelai = nombre de mois après la dernière consultation. heureAlerte = heure des alertes (la veille et le jour même). Modifiez seulement le texte entre guillemets ou les nombres.",
+  "moisDelai": 6,
+  "heureAlerte": 9,
+  "evenement": {
+    "titre": "Un bilan ostéo ? Dernière consultation il y a 6 mois",
+    "description": "Bonjour, cela fait 6 mois depuis votre dernière consultation au cabinet. Il est peut-être temps de refaire un bilan. Prendre rendez-vous : https://www.osteo-savasta.fr/prendre-rendez-vous. Téléphone : 07 85 85 52 26.",
+    "nomFichier": "rappel-bilan-osteo.ics"
+  },
+  "textes": {
+    "titreBloc": "Votre dernière consultation",
+    "aide": "Facultatif : indiquez la date de votre dernière consultation pour créer un rappel dans l'agenda de votre téléphone. Le jour peut rester vide.",
+    "caseConserver": "Garder cette date sur mon téléphone",
+    "boutonCreer": "Créer mon rappel",
+    "lienIgnorer": "Je n'ai pas encore consulté / Ignorer",
+    "prochainBilan": "Votre prochain bilan",
+    "boutonTelecharger": "Ajouter à l'agenda",
+    "aideTelechargement": "Le fichier s'ouvre avec l'agenda de votre téléphone. Il contient une alerte la veille et une le jour même.",
+    "bilanPasse": "Cette date est déjà passée : aucun rappel d'agenda n'est proposé.",
+    "boutonModifier": "Modifier",
+    "boutonEffacer": "Effacer",
+    "boutonDeplier": "Votre dernière consultation : créer un rappel",
+    "erreurMois": "Choisissez au moins le mois et l'année.",
+    "erreurFutur": "Cette date est dans le futur : vérifiez le mois et l'année."
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "_aide": "Infos du cabinet, reprises de osteo-savasta.fr. La présentation ne s'affiche que si son statut est \"validee\" (sans accent). Laissez un champ vide (\"\") pour ne pas l'afficher.",
+  "nom": "David Savasta",
+  "profession": "Ostéopathe D.O.-T.O. · Diplôme reconnu par l'État",
+  "ville": "Chirens, à 5 minutes de Voiron",
+  "adresse": "Pôle Santé de Chirens, 365 avenue du 19 Mars 1962, 38850 Chirens",
+  "infosPratiques": {
+    "horaires": "Du lundi au vendredi, de 8 h 30 à 19 h 45",
+    "lieu": "Consultations au cabinet ou à domicile",
+    "urgence": "Rendez-vous en urgence possible : contactez le cabinet par téléphone.",
+    "tarif": "60 € la consultation",
+    "paiement": "Espèces, chèque, carte bancaire",
+    "stationnement": "Parking gratuit (zone bleue, disque) juste devant le Pôle Santé. Cabinet aux normes PMR.",
+    "communes": "Chirens, Voiron, Apprieu, Rives, Bilieu, Montferrat, Charavines, Le Pin, Paladru, Massieu, Saint-Geoirs-en-Valdaine"
+  },
+  "presentation": {
+    "statut": "validee",
+    "texte": [
+      "Bienvenue dans l'application du cabinet d'ostéopathie du Pôle Santé de Chirens, dans le pays voironnais.",
+      "L'ostéopathie s'adresse à tous : nourrissons, enfants, adultes, femmes enceintes, sportifs, seniors.",
+      "Vous trouverez ici de quoi prendre rendez-vous ou contacter le cabinet, ainsi que des exemples d'étirements et des informations de diététique."
+    ]
+  }
+}

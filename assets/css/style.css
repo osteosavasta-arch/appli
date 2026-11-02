@@ -1,0 +1,529 @@
+/* =========================================================
+   Styles de l'application — conçus d'abord pour le téléphone.
+   Pour changer les couleurs, modifiez uniquement les variables
+   du bloc :root ci-dessous.
+   ========================================================= */
+
+/* Charte reprise de osteo-savasta.fr : bleu des titres, boutons noirs
+   arrondis, fond bleu très pâle, polices Manrope (titres) et Nunito Sans (texte). */
+:root {
+  --couleur-principale: #1470af;   /* bleu du site : en-tête, titres */
+  --couleur-accent: #000000;       /* noir : bouton rendez-vous, comme sur le site */
+  --couleur-fond: #f7faff;         /* fond de page bleu très pâle */
+  --couleur-carte: #ffffff;        /* fond des cartes */
+  --couleur-texte: #1a1a1a;        /* texte principal */
+  --couleur-texte-doux: #4b5157;   /* texte secondaire (reste lisible) */
+  --couleur-bordure: #dfe3ea;
+  --couleur-pastille: #e3eef7;     /* fond de l'étiquette de saison */
+  --couleur-relecture: #fff3c4;    /* fond des contenus « à relire » (mode relecture seulement) */
+
+  /* Polices du site si elles sont présentes sur le téléphone, sinon celles du téléphone */
+  --police-titres: Manrope, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --police-texte: "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --rayon: 14px;
+  --rayon-bouton: 300px;           /* boutons « pilule », comme sur le site */
+  --hauteur-menu: 68px;
+  --taille-texte: 1.0625rem;       /* 17 px : confortable sur mobile */
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--couleur-fond);
+  color: var(--couleur-texte);
+  /* Aucune police téléchargée depuis un site tiers */
+  font-family: var(--police-texte);
+  font-size: var(--taille-texte);
+  line-height: 1.55;
+  /* Laisse la place au menu fixe du bas */
+  padding-bottom: calc(var(--hauteur-menu) + env(safe-area-inset-bottom));
+}
+
+a { color: var(--couleur-principale); }
+
+/* Contour bien visible quand on navigue au clavier */
+:focus-visible {
+  outline: 3px solid var(--couleur-accent);
+  outline-offset: 2px;
+}
+
+/* Lien caché « Aller au contenu », visible au clavier */
+.lien-evitement {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: #fff;
+  padding: 12px;
+  z-index: 100;
+}
+.lien-evitement:focus { left: 8px; }
+
+/* ---------- En-tête ---------- */
+.entete {
+  background: var(--couleur-principale);
+  padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
+  text-align: center;
+}
+/* Nom centré avec le petit logo rond juste à sa gauche */
+.entete-titre {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.entete-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  flex: none;
+}
+
+/* ---------- Contenu ---------- */
+.contenu {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 8px;
+}
+.contenu:focus { outline: none; }
+
+h1, h2, h3, .entete-titre { font-family: var(--police-titres); }
+h1, h2, h3 { color: var(--couleur-principale); line-height: 1.25; }
+h1 { font-size: 1.6rem; margin: 0 0 12px; }
+h2 { font-size: 1.25rem; margin: 24px 0 10px; }
+h3 { font-size: 1.1rem; margin: 0 0 8px; }
+
+.chargement, .vide { color: var(--couleur-texte-doux); }
+
+.carte {
+  background: var(--couleur-carte);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon);
+  padding: 16px;
+  margin: 0 0 16px;
+}
+
+.sous-titre { color: var(--couleur-texte-doux); margin: -6px 0 16px; }
+
+/* ---------- Gros boutons ---------- */
+.bouton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 60px;
+  padding: 14px 18px;
+  margin: 0 0 12px;
+  border-radius: var(--rayon-bouton);
+  border: 2px solid transparent;
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.bouton-rdv { background: var(--couleur-accent); color: #fff; text-transform: uppercase; letter-spacing: 0.03em; }
+.bouton-appel {
+  background: var(--couleur-carte);
+  color: var(--couleur-principale);
+  border-color: var(--couleur-principale);
+}
+.bouton-appel small { display: block; font-weight: 400; font-size: 1rem; }
+
+/* ---------- Tuiles d'accès rapide ---------- */
+.tuiles {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.tuile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 92px;
+  padding: 14px;
+  border-radius: var(--rayon);
+  background: var(--couleur-carte);
+  border: 1px solid var(--couleur-bordure);
+  color: var(--couleur-principale);
+  font-weight: 700;
+  text-decoration: none;
+}
+.tuile-bientot { color: var(--couleur-texte-doux); background: transparent; border-style: dashed; }
+.tuile-bientot span { font-weight: 400; font-size: 0.95rem; }
+
+/* ---------- Calendrier ---------- */
+.navigation-mois {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.navigation-mois h1 { margin: 0; text-align: center; flex: 1; }
+.fleche {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid var(--couleur-principale);
+  background: var(--couleur-carte);
+  color: var(--couleur-principale);
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.saison {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--couleur-pastille);
+  color: var(--couleur-principale);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.conseils { padding-left: 1.2em; margin: 0; }
+.conseils li { margin-bottom: 8px; }
+
+.liste-mois {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.liste-mois a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-radius: 10px;
+  border: 1px solid var(--couleur-bordure);
+  background: var(--couleur-carte);
+  color: var(--couleur-texte);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.liste-mois a[aria-current="true"] {
+  background: var(--couleur-principale);
+  color: #fff;
+  border-color: var(--couleur-principale);
+}
+
+/* ---------- Mode relecture (uniquement sur votre ordinateur) ---------- */
+.bandeau-relecture {
+  background: var(--couleur-relecture);
+  border: 2px dashed #8a6d00;
+  border-radius: var(--rayon);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.a-relire { background: var(--couleur-relecture); }
+.etiquette-relire {
+  display: inline-block;
+  background: #8a6d00;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 1px 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+/* ---------- Pages texte (confidentialité, mentions) ---------- */
+.page-texte h1 { font-size: 1.45rem; }
+.page-texte ul { padding-left: 1.2em; }
+
+/* ---------- Pied de page ---------- */
+.pied {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 8px 16px 24px;
+  color: var(--couleur-texte-doux);
+  font-size: 0.95rem;
+}
+.pied-liens {
+  border-top: 1px solid var(--couleur-bordure);
+  padding-top: 12px;
+}
+.pied-liens a { color: var(--couleur-texte-doux); }
+
+/* ---------- Menu du bas ---------- */
+.menu {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--couleur-carte);
+  border-top: 1px solid var(--couleur-bordure);
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 50;
+}
+.menu a, .menu button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--hauteur-menu);
+  padding: 4px 2px;
+  border: 0;
+  background: none;
+  color: var(--couleur-texte-doux);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.menu-icone { font-size: 1.4rem; line-height: 1.1; }
+.menu a[aria-current="page"] { color: var(--couleur-principale); box-shadow: inset 0 3px 0 var(--couleur-principale); }
+.menu .menu-rdv { color: var(--couleur-accent); }
+
+/* ---------- Bouton secondaire et liens discrets ---------- */
+.bouton-secondaire {
+  background: var(--couleur-principale);
+  color: #fff;
+}
+.lien-discret {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--couleur-principale);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---------- Accueil : liste de boutons identiques (variante A) ---------- */
+.liste-boutons {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: grid;
+  gap: 12px;
+}
+.bouton-accueil {
+  height: 64px;          /* hauteur identique pour tous, même avec 2 lignes */
+  min-height: 64px;
+  margin: 0;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1.2;
+  background: var(--couleur-principale);
+  color: #fff;
+}
+.bouton-accueil small { font-weight: 400; font-size: 0.95rem; }
+.bouton-espace { margin-top: 12px; }
+.bouton-accueil[aria-disabled="true"] { cursor: default; }
+
+/* ---------- Bloc « Votre dernière consultation » ---------- */
+.rappel { padding: 14px 16px 6px; }
+.rappel:has(.rappel-deplier) { padding: 0; }
+.rappel-deplier {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-height: 56px;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: var(--rayon);
+  background: none;
+  color: var(--couleur-principale);
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+.rappel-deplier span[aria-hidden] { font-size: 1.6rem; line-height: 1; }
+.rappel-titre { margin: 0 0 4px; font-size: 1.1rem; }
+.rappel-aide { margin: 0 0 10px; font-size: 0.95rem; color: var(--couleur-texte-doux); }
+.rappel-selects {
+  display: grid;
+  grid-template-columns: 0.8fr 1.4fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.rappel-selects label { font-size: 0.9rem; font-weight: 600; }
+.rappel-selects select {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 4px;
+  padding: 0 8px;
+  border: 1px solid var(--couleur-texte-doux);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--couleur-texte);
+  font: inherit;
+}
+.rappel-case {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.rappel-case input { width: 24px; height: 24px; flex: none; accent-color: var(--couleur-principale); }
+.rappel-erreur { color: #a1260d; font-weight: 600; margin: 0 0 8px; }
+.rappel-resultat { font-size: 1.1rem; margin: 0 0 10px; }
+.rappel-actions { display: flex; flex-wrap: wrap; column-gap: 16px; }
+
+/* ---------- Panneau du bas (Renseignements) ---------- */
+.panneau {
+  width: 100%;
+  max-width: 640px;
+  margin: auto auto 0;
+  padding: 16px 16px calc(20px + env(safe-area-inset-bottom));
+  border: 0;
+  border-radius: 20px 20px 0 0;
+  background: var(--couleur-carte);
+  color: var(--couleur-texte);
+}
+.panneau::backdrop { background: rgba(0, 0, 0, 0.45); }
+.panneau-entete { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.panneau-entete h2 { margin: 0; }
+.panneau-fermer {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--couleur-pastille);
+  color: var(--couleur-texte);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.panneau-mention { font-weight: 600; margin: 8px 0 0; }
+.panneau-horaires { color: var(--couleur-texte-doux); margin: 6px 0 0; }
+
+/* ---------- Diététique : fiches dépliables ---------- */
+.fiche {
+  border-top: 1px solid var(--couleur-bordure);
+  padding: 4px 0;
+}
+.fiche summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  min-height: 56px;
+  font-weight: 700;
+  color: var(--couleur-principale);
+  cursor: pointer;
+}
+.fiche-categorie { font-weight: 400; font-size: 0.9rem; color: var(--couleur-texte-doux); }
+.fiche h4 { margin: 14px 0 4px; font-size: 1rem; }
+.fiche ul { padding-left: 1.2em; margin: 0; }
+.fiche li { margin-bottom: 6px; }
+.mention-conseil {
+  padding: 10px 12px;
+  border-left: 4px solid var(--couleur-principale);
+  background: var(--couleur-pastille);
+  font-weight: 600;
+}
+.mention-affilie { color: var(--couleur-texte); }
+.fiche-date { font-size: 0.9rem; color: var(--couleur-texte-doux); }
+.tableau-nutrition { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.tableau-nutrition th, .tableau-nutrition td { padding: 6px 4px; border-bottom: 1px solid var(--couleur-bordure); }
+.tableau-nutrition th { text-align: left; font-weight: 400; }
+.tableau-nutrition td { text-align: right; white-space: nowrap; }
+.choix-nutriment { display: grid; gap: 4px; margin: 0 0 12px; font-weight: 600; }
+.choix-nutriment select {
+  min-height: 48px;
+  padding: 0 8px;
+  border: 1px solid var(--couleur-texte-doux);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--couleur-texte);
+  font: inherit;
+  font-weight: 400;
+}
+.classement { border-top: 1px solid var(--couleur-bordure); padding-top: 8px; }
+.classement .fiche { border-top: 0; }
+.classement-valeur { margin: 0; }
+.badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--couleur-pastille);
+  color: var(--couleur-principale);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.badge-neutre { background: #eef0f3; color: var(--couleur-texte-doux); }
+.groupe-titre {
+  margin: 20px 0 4px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: var(--couleur-pastille);
+  font-size: 1.05rem;
+}
+.recette { margin-top: 10px; }
+.recette-titre { font-weight: 700; margin-bottom: 4px; }
+.recette-titre span { font-weight: 400; color: var(--couleur-texte-doux); }
+.recette ol { padding-left: 1.4em; }
+
+/* ---------- Étirements ---------- */
+.onglets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.onglets a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: var(--rayon-bouton);
+  border: 1px solid var(--couleur-bordure);
+  background: var(--couleur-carte);
+  color: var(--couleur-texte);
+  text-decoration: none;
+}
+.onglets a[aria-current="true"] { background: var(--couleur-principale); border-color: var(--couleur-principale); color: #fff; }
+.video-chaine { color: var(--couleur-texte-doux); margin: 0 0 10px; }
+/* Lecteur : au moins 200 × 200 px (exigence YouTube), 16/9 sinon */
+.video-lecteur {
+  display: block;
+  width: 100%;
+  height: max(200px, calc((min(100vw, 640px) - 66px) * 0.5625));
+  border: 0;
+  border-radius: 10px;
+}
+.note-tiers { font-size: 0.9rem; color: var(--couleur-texte-doux); }
+
+/* Réduit les animations si le téléphone le demande */
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}

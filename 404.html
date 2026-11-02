@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page introuvable – Ostéo Savasta</title>
+  <script>
+    // Page inconnue : retour à l'accueil de l'application.
+    // Sur une adresse « xxx.github.io/nom-appli/… », l'accueil est « /nom-appli/ » ;
+    // avec un nom de domaine à soi, c'est « / ».
+    var morceaux = location.pathname.split('/');
+    var base = location.hostname.endsWith('github.io') && morceaux[1] ? '/' + morceaux[1] + '/' : '/';
+    location.replace(base);
+  </script>
+</head>
+<body style="font-family: system-ui, sans-serif; padding: 16px;">
+  <p>Page introuvable. <a href="./">Retour à l'accueil</a></p>
+</body>
+</html>

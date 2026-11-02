@@ -1,0 +1,6 @@
+# Clé API YouTube : ne doit JAMAIS être envoyée sur GitHub
+.env
+
+# Fichiers techniques
+__pycache__/
+.claude/

@@ -1,0 +1,398 @@
+{
+  "_aide": "Fiches des compléments alimentaires (rubrique Diététique). Une fiche ne s'affiche que si \"statut\" vaut \"validee\". Aucune allégation de santé, aucun dosage ni posologie dans ces fiches. Les champs produit (marque, forme, prix, enseignes, urlProduit) restent vides tant que vous n'avez pas choisi de produit. lienAffilie : mettre true si un lien produit est affilié (une mention s'affiche alors). Dossier de recherche complet : veille/complements-recherche.md role : rôle dans l'organisme = allégations autorisées dans l'UE, mot pour mot (règlement 432/2012). nutritionPour100g : table Ciqual 2025 (ANSES), seulement pour les compléments qui sont des aliments (spiruline, huile de foie de morue).",
+  "mention": "Demandez conseil à votre pharmacien ou à votre médecin avant toute prise, notamment si vous êtes enceinte, si vous allaitez, si vous avez une pathologie ou un traitement, ou pour un enfant.",
+  "complements": [
+    {
+      "id": "spiruline",
+      "nom": "Spiruline",
+      "categorie": "Micro-algue (cyanobactérie)",
+      "description": "Cyanobactérie consommée traditionnellement dans plusieurs pays, vendue le plus souvent en poudre ou en comprimés.",
+      "role": [
+        "Aucune allégation de santé n'est autorisée dans l'Union européenne pour la spiruline elle-même.",
+        "Elle contient notamment des protéines, du fer et du bêta-carotène (voir les valeurs nutritionnelles)."
+      ],
+      "nutritionPour100g": {
+        "energie": {
+          "libelle": "Énergie",
+          "valeur": "374",
+          "unite": "kcal"
+        },
+        "proteines": {
+          "libelle": "Protéines",
+          "valeur": "60,4",
+          "unite": "g"
+        },
+        "glucides": {
+          "libelle": "Glucides",
+          "valeur": "17,7",
+          "unite": "g"
+        },
+        "lipides": {
+          "libelle": "Lipides",
+          "valeur": "6,27",
+          "unite": "g"
+        },
+        "agSatures": {
+          "libelle": "dont acides gras saturés",
+          "valeur": "3,28",
+          "unite": "g"
+        },
+        "agMono": {
+          "libelle": "dont acides gras mono-insaturés",
+          "valeur": "0,74",
+          "unite": "g"
+        },
+        "agPoly": {
+          "libelle": "dont acides gras polyinsaturés",
+          "valeur": "2,25",
+          "unite": "g"
+        },
+        "epa": {
+          "libelle": "dont EPA (oméga-3)",
+          "valeur": "0",
+          "unite": "g"
+        },
+        "dha": {
+          "libelle": "dont DHA (oméga-3)",
+          "valeur": "0",
+          "unite": "g"
+        },
+        "fibres": {
+          "libelle": "Fibres",
+          "valeur": "2,71",
+          "unite": "g"
+        },
+        "vitamineA": {
+          "libelle": "Vitamine A (équivalents rétinol)",
+          "valeur": "12900",
+          "unite": "µg"
+        },
+        "betaCarotene": {
+          "libelle": "Bêta-carotène",
+          "valeur": "155000",
+          "unite": "µg"
+        },
+        "vitamineD": {
+          "libelle": "Vitamine D",
+          "valeur": "0",
+          "unite": "µg"
+        },
+        "vitamineE": {
+          "libelle": "Vitamine E",
+          "valeur": "11,2",
+          "unite": "mg"
+        },
+        "vitamineB12": {
+          "libelle": "Vitamine B12",
+          "valeur": "0",
+          "unite": "µg"
+        },
+        "fer": {
+          "libelle": "Fer",
+          "valeur": "80,6",
+          "unite": "mg"
+        },
+        "calcium": {
+          "libelle": "Calcium",
+          "valeur": "469",
+          "unite": "mg"
+        },
+        "magnesium": {
+          "libelle": "Magnésium",
+          "valeur": "615",
+          "unite": "mg"
+        },
+        "potassium": {
+          "libelle": "Potassium",
+          "valeur": "1560",
+          "unite": "mg"
+        },
+        "iode": {
+          "libelle": "Iode",
+          "valeur": "22,4",
+          "unite": "µg"
+        }
+      },
+      "ciqual": {
+        "code": "11086",
+        "nom": "Spiruline (Spirulina sp.), séchée ou déshydratée"
+      },
+      "precautions": [
+        "L'ANSES déconseille sa consommation aux personnes atteintes de phénylcétonurie.",
+        "L'ANSES la déconseille aussi aux personnes ayant un terrain allergique.",
+        "Risque de contamination (cyanotoxines, bactéries, métaux) : l'ANSES recommande des circuits d'approvisionnement fiables, avec un fabricant identifié et une traçabilité.",
+        "Selon l'ANSES, ce n'est pas une source fiable de vitamine B12 pour les personnes végétaliennes."
+      ],
+      "avisAutorites": [
+        {
+          "titre": "ANSES – Compléments à base de spiruline (30/11/2017)",
+          "url": "https://www.anses.fr/en/news/food-supplements-containing-spirulina-importance-choosing-trustworthy-supply-channels"
+        }
+      ],
+      "produit": {
+        "marque": "",
+        "forme": "",
+        "prixIndicatif": "",
+        "enseignes": [],
+        "urlProduit": "",
+        "lienAffilie": false
+      },
+      "dateVerification": "2026-11-02",
+      "statut": "validee"
+    },
+    {
+      "id": "iode",
+      "nom": "Iode",
+      "categorie": "Minéral (oligo-élément)",
+      "description": "Oligo-élément apporté notamment par les produits de la mer, les produits laitiers, les œufs et le sel iodé.",
+      "role": [
+        "L'iode contribue à la production normale d'hormones thyroïdiennes et à une fonction thyroïdienne normale.",
+        "L'iode contribue à une fonction cognitive normale.",
+        "L'iode contribue à un métabolisme énergétique normal.",
+        "L'iode contribue au fonctionnement normal du système nerveux.",
+        "L'iode contribue au maintien d'une peau normale."
+      ],
+      "nutritionPour100g": {},
+      "ciqual": {
+        "code": "",
+        "nom": ""
+      },
+      "precautions": [
+        "Un excès d'iode peut perturber le fonctionnement de la thyroïde.",
+        "Maladie de la thyroïde ou traitement antithyroïdien : avis médical indispensable.",
+        "Interactions possibles avec certains médicaments de la tension artérielle et certains diurétiques.",
+        "Grossesse et allaitement : l'ANSES déconseille les compléments à base d'algues sans avis médical."
+      ],
+      "avisAutorites": [
+        {
+          "titre": "ANSES – Risque d'excès d'iode lié aux algues (avis 2017-SA-0086)",
+          "url": "https://www.anses.fr/fr/system/files/NUT2017SA0086.pdf"
+        }
+      ],
+      "produit": {
+        "marque": "",
+        "forme": "",
+        "prixIndicatif": "",
+        "enseignes": [],
+        "urlProduit": "",
+        "lienAffilie": false
+      },
+      "dateVerification": "2026-11-02",
+      "statut": "validee"
+    },
+    {
+      "id": "vitamine-c",
+      "nom": "Vitamine C",
+      "categorie": "Vitamine (hydrosoluble)",
+      "description": "Vitamine hydrosoluble (acide ascorbique), apportée surtout par les fruits et légumes frais.",
+      "role": [
+        "La vitamine C contribue au fonctionnement normal du système immunitaire.",
+        "La vitamine C contribue à la formation normale de collagène pour assurer le fonctionnement normal des vaisseaux sanguins.",
+        "La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale des os.",
+        "La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale des cartilages.",
+        "La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale des gencives.",
+        "La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale de la peau.",
+        "La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale des dents.",
+        "La vitamine C contribue à un métabolisme énergétique normal.",
+        "La vitamine C contribue au fonctionnement normal du système nerveux.",
+        "La vitamine C contribue à des fonctions psychologiques normales.",
+        "La vitamine C contribue à protéger les cellules contre le stress oxydatif.",
+        "La vitamine C contribue à réduire la fatigue.",
+        "La vitamine C contribue à la régénération de la forme réduite de la vitamine E.",
+        "La vitamine C accroît l'absorption de fer."
+      ],
+      "nutritionPour100g": {},
+      "ciqual": {
+        "code": "",
+        "nom": ""
+      },
+      "precautions": [
+        "À forte dose, des troubles digestifs sont possibles (diarrhée, nausées, crampes).",
+        "Hémochromatose (surcharge en fer) : avis médical indispensable.",
+        "Traitement d'un cancer (chimiothérapie, radiothérapie) : en parler à l'équipe soignante avant toute prise."
+      ],
+      "avisAutorites": [],
+      "produit": {
+        "marque": "",
+        "forme": "",
+        "prixIndicatif": "",
+        "enseignes": [],
+        "urlProduit": "",
+        "lienAffilie": false
+      },
+      "dateVerification": "2026-11-02",
+      "statut": "validee"
+    },
+    {
+      "id": "vitamine-d",
+      "nom": "Vitamine D",
+      "categorie": "Vitamine (liposoluble)",
+      "description": "Vitamine liposoluble, produite par la peau exposée au soleil et apportée par quelques aliments (poissons gras, huiles de foie de poisson, jaune d'œuf).",
+      "role": [
+        "La vitamine D contribue à l'absorption et à l'utilisation normales du calcium et du phosphore.",
+        "La vitamine D contribue à une calcémie normale.",
+        "La vitamine D contribue au maintien d'une ossature normale.",
+        "La vitamine D contribue au maintien d'une fonction musculaire normale.",
+        "La vitamine D contribue au maintien d'une dentition normale.",
+        "La vitamine D contribue au fonctionnement normal du système immunitaire.",
+        "La vitamine D joue un rôle dans le processus de division cellulaire."
+      ],
+      "nutritionPour100g": {},
+      "ciqual": {
+        "code": "",
+        "nom": ""
+      },
+      "precautions": [
+        "Un excès peut provoquer une hypercalcémie (trop de calcium dans le sang), avec un risque d'atteinte des reins.",
+        "Enfants et nourrissons : l'ANSM et l'ANSES recommandent de privilégier les médicaments prescrits plutôt que les compléments alimentaires, de vérifier la quantité par goutte et de ne pas cumuler les produits contenant de la vitamine D.",
+        "Interactions possibles avec certains médicaments (certains diurétiques, corticoïdes, médicaments contre le cholestérol ou l'obésité)."
+      ],
+      "avisAutorites": [
+        {
+          "titre": "ANSM – Vitamine D chez l'enfant : risque de surdosage (2021)",
+          "url": "https://ansm.sante.fr/actualites/vitamine-d-chez-lenfant-recourir-aux-medicaments-et-non-aux-complements-alimentaires-pour-prevenir-le-risque-de-surdosage"
+        },
+        {
+          "titre": "ANSES – Avis 2022-VIG-0166 (surdosages chez des nourrissons)",
+          "url": "https://www.anses.fr/system/files/NUT2022VIG0166.pdf"
+        }
+      ],
+      "produit": {
+        "marque": "",
+        "forme": "",
+        "prixIndicatif": "",
+        "enseignes": [],
+        "urlProduit": "",
+        "lienAffilie": false
+      },
+      "dateVerification": "2026-11-02",
+      "statut": "validee"
+    },
+    {
+      "id": "huile-foie-morue",
+      "nom": "Huile de foie de morue",
+      "categorie": "Huile de poisson",
+      "description": "Huile extraite du foie de morue, qui contient naturellement des vitamines A et D et des acides gras oméga-3 (EPA, DHA). En France, elle existe aussi sous forme de médicament.",
+      "role": [
+        "Aucune allégation de santé n'est autorisée dans l'Union européenne pour l'huile de foie de morue elle-même.",
+        "Elle contient de la vitamine D et des acides gras oméga-3 (EPA et DHA).",
+        "La vitamine D contribue au maintien d'une ossature normale.",
+        "La vitamine D contribue au maintien d'une fonction musculaire normale.",
+        "La vitamine D contribue au fonctionnement normal du système immunitaire."
+      ],
+      "nutritionPour100g": {
+        "energie": {
+          "libelle": "Énergie",
+          "valeur": "900",
+          "unite": "kcal"
+        },
+        "proteines": {
+          "libelle": "Protéines",
+          "valeur": "0",
+          "unite": "g"
+        },
+        "glucides": {
+          "libelle": "Glucides",
+          "valeur": "0",
+          "unite": "g"
+        },
+        "lipides": {
+          "libelle": "Lipides",
+          "valeur": "100",
+          "unite": "g"
+        },
+        "agSatures": {
+          "libelle": "dont acides gras saturés",
+          "valeur": "22,6",
+          "unite": "g"
+        },
+        "agMono": {
+          "libelle": "dont acides gras mono-insaturés",
+          "valeur": "46,7",
+          "unite": "g"
+        },
+        "agPoly": {
+          "libelle": "dont acides gras polyinsaturés",
+          "valeur": "22,5",
+          "unite": "g"
+        },
+        "epa": {
+          "libelle": "dont EPA (oméga-3)",
+          "valeur": "6,9",
+          "unite": "g"
+        },
+        "dha": {
+          "libelle": "dont DHA (oméga-3)",
+          "valeur": "11",
+          "unite": "g"
+        },
+        "fibres": {
+          "libelle": "Fibres",
+          "valeur": "0",
+          "unite": "g"
+        },
+        "vitamineD": {
+          "libelle": "Vitamine D",
+          "valeur": "250",
+          "unite": "µg"
+        },
+        "vitamineB12": {
+          "libelle": "Vitamine B12",
+          "valeur": "0",
+          "unite": "µg"
+        },
+        "fer": {
+          "libelle": "Fer",
+          "valeur": "0",
+          "unite": "mg"
+        },
+        "calcium": {
+          "libelle": "Calcium",
+          "valeur": "0",
+          "unite": "mg"
+        },
+        "magnesium": {
+          "libelle": "Magnésium",
+          "valeur": "0",
+          "unite": "mg"
+        },
+        "potassium": {
+          "libelle": "Potassium",
+          "valeur": "0",
+          "unite": "mg"
+        },
+        "iode": {
+          "libelle": "Iode",
+          "valeur": "400",
+          "unite": "µg"
+        }
+      },
+      "ciqual": {
+        "code": "17630",
+        "nom": "Huile de foie de morue"
+      },
+      "precautions": [
+        "Contre-indiquée en cas d'allergie à l'un de ses constituants.",
+        "Contient des vitamines A et D : ne pas l'associer à d'autres produits qui en contiennent.",
+        "Grossesse et allaitement : l'apport en vitamine A doit être limité ; avis médical indispensable.",
+        "Un surdosage peut provoquer notamment des maux de tête répétés, une fatigue intense, des nausées ou des vomissements."
+      ],
+      "avisAutorites": [
+        {
+          "titre": "ANSM – Notice « Huile de foie de morue Cooper » (médicament)",
+          "url": "https://agence-prd.ansm.sante.fr/php/ecodex/notice/N0197288.htm"
+        }
+      ],
+      "produit": {
+        "marque": "",
+        "forme": "",
+        "prixIndicatif": "",
+        "enseignes": [],
+        "urlProduit": "",
+        "lienAffilie": false
+      },
+      "dateVerification": "2026-11-02",
+      "statut": "validee"
+    }
+  ]
+}

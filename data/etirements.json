@@ -1,0 +1,87 @@
+{
+  "_aide": "Liste FIXE des vidéos d'étirements (aucune mise à jour automatique). Une vidéo s'affiche seulement si statut = \"validee\" ET masquee = false. Pour retirer une vidéo en 1 minute : mettez \"masquee\": true. idVideo = les 11 caractères après « v= » dans l'adresse YouTube. sousCategorie = membre-superieur, membre-inferieur, dos ou cou-nuque. indisponible est rempli d'après le script scripts/verifier_liens.py.",
+  "sousCategories": [
+    {
+      "id": "membre-superieur",
+      "nom": "Membre supérieur"
+    },
+    {
+      "id": "membre-inferieur",
+      "nom": "Membre inférieur"
+    },
+    {
+      "id": "dos",
+      "nom": "Dos"
+    },
+    {
+      "id": "cou-nuque",
+      "nom": "Cou et nuque"
+    }
+  ],
+  "videos": [
+    {
+      "_exemple": "Modèle à recopier : cette ligne d'exemple n'est jamais affichée (statut a-relire et masquee true).",
+      "idVideo": "XXXXXXXXXXX",
+      "titre": "Titre de la vidéo",
+      "chaine": "Nom de la chaîne",
+      "sousCategorie": "dos",
+      "statut": "a-relire",
+      "masquee": true,
+      "indisponible": false
+    },
+    {
+      "idVideo": "q8PU5HG5vbc",
+      "titre": "Épaules et bras : protocole de 8 étirements",
+      "chaine": "Michael Osteo Prepa Physique",
+      "sousCategorie": "membre-superieur",
+      "statut": "validee",
+      "masquee": false,
+      "indisponible": false
+    },
+    {
+      "idVideo": "yH31fBFv1GE",
+      "titre": "Bas du corps et dos : protocole de 6 assouplissements",
+      "chaine": "Michael Osteo Prepa Physique",
+      "sousCategorie": "membre-inferieur",
+      "statut": "validee",
+      "masquee": false,
+      "indisponible": false
+    },
+    {
+      "idVideo": "RoqZK_rLcEs",
+      "titre": "Lombaires : protocole de 6 étirements et assouplissements",
+      "chaine": "Michael Osteo Prepa Physique",
+      "sousCategorie": "dos",
+      "statut": "validee",
+      "masquee": false,
+      "indisponible": false
+    },
+    {
+      "idVideo": "czTf7yF8vDA",
+      "titre": "Dos, zone thoracique : étirements et assouplissements",
+      "chaine": "Michael Osteo Prepa Physique",
+      "sousCategorie": "dos",
+      "statut": "validee",
+      "masquee": false,
+      "indisponible": false
+    },
+    {
+      "idVideo": "nILamYD92sQ",
+      "titre": "Colonne vertébrale : synthèse des étirements et assouplissements",
+      "chaine": "Michael Osteo Prepa Physique",
+      "sousCategorie": "dos",
+      "statut": "validee",
+      "masquee": false,
+      "indisponible": false
+    },
+    {
+      "idVideo": "v2lLKEYv3Wg",
+      "titre": "Cervicales : protocole de 6 étirements et assouplissements",
+      "chaine": "Michael Osteo Prepa Physique",
+      "sousCategorie": "cou-nuque",
+      "statut": "validee",
+      "masquee": false,
+      "indisponible": false
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "_aide": "Modifiez uniquement le texte entre guillemets à droite des deux-points. Gardez les guillemets et les virgules. horairesReponse peut rester vide (\"\").",
+  "rendezVous": {
+    "libelle": "Prendre rendez-vous",
+    "url": "https://www.osteo-savasta.fr/prendre-rendez-vous"
+  },
+  "telephone": {
+    "libelle": "Appeler le cabinet",
+    "affichage": "07 85 85 52 26",
+    "lien": "tel:+33785855226"
+  },
+  "renseignements": {
+    "libelle": "Contacter le cabinet",
+    "titrePanneau": "Contacter le cabinet",
+    "mention": "Merci de ne pas envoyer d'informations médicales détaillées par message.",
+    "horairesReponse": "",
+    "boutonFermer": "Fermer",
+    "whatsapp": {
+      "libelle": "WhatsApp Business",
+      "url": "https://wa.me/33785855226",
+      "message": "Bonjour, j'ai une question concernant le cabinet d'ostéopathie."
+    },
+    "email": {
+      "_aide": "L'adresse est découpée en deux morceaux (avant et après @) pour ne pas être lue par les robots qui collectent les adresses.",
+      "libelle": "E-mail",
+      "identifiant": "osteo.savasta",
+      "domaine": "gmail.com",
+      "objet": "Demande de renseignements"
+    },
+    "appel": {
+      "libelle": "Appeler",
+      "affichage": "07 85 85 52 26",
+      "lien": "tel:+33785855226"
+    }
+  }
+}

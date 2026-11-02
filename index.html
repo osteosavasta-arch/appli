@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ostéo Savasta</title>
+  <meta name="description" content="Application du cabinet d'ostéopathie de Chirens : rendez-vous, contact, étirements, diététique.">
+  <!-- Couleur de la barre du navigateur sur mobile -->
+  <meta name="theme-color" content="#1470af">
+  <!-- Installation (PWA) -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icones/icone-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icones/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Ostéo Savasta">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+  <header class="entete">
+    <!-- Titre centré, petit logo à gauche du nom -->
+    <a href="#accueil" class="entete-titre">
+      <img src="assets/icones/logo-entete.png" alt="" width="40" height="40" class="entete-logo">
+      <span>Ostéo Savasta</span>
+    </a>
+  </header>
+
+  <!-- Le contenu de chaque écran est inséré ici par assets/js/app.js -->
+  <main id="contenu" class="contenu" tabindex="-1">
+    <p class="chargement">Chargement…</p>
+  </main>
+
+  <footer class="pied">
+    <p class="pied-liens">
+      <a href="#confidentialite">Confidentialité</a> ·
+      <a href="#mentions-legales">Mentions légales</a>
+    </p>
+  </footer>
+
+  <!-- Menu fixe en bas de l'écran, facile à atteindre avec le pouce -->
+  <nav class="menu" aria-label="Menu principal">
+    <a href="#accueil" data-route="accueil">
+      <span class="menu-icone" aria-hidden="true">⌂</span>Accueil
+    </a>
+    <!-- Lien rendez-vous : l'adresse est remplacée au chargement par celle de config/liens.json -->
+    <a href="https://www.osteo-savasta.fr/prendre-rendez-vous" class="menu-rdv js-lien-rdv"
+       target="_blank" rel="noopener">
+      <span class="menu-icone" aria-hidden="true">✚</span>Rendez-vous
+    </a>
+    <!-- Ouvre le panneau « Contacter le cabinet » (appel, WhatsApp, e-mail) -->
+    <button type="button" data-ouvrir="renseignements">
+      <span class="menu-icone" aria-hidden="true">✉</span>Contacter
+    </button>
+    <a href="#infos" data-route="infos">
+      <span class="menu-icone" aria-hidden="true">ⓘ</span>Infos
+    </a>
+  </nav>
+
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+{
+  "_aide": "Un bloc par mois. Un mois ne s'affiche dans l'appli que si \"statut\" vaut \"validee\". Tant qu'il vaut \"a-relire\", il reste masqué. Les fruits et légumes du mois arriveront en phase 3.",
+  "mois": [
+    {
+      "numero": 1,
+      "nom": "Janvier",
+      "saison": "Hiver",
+      "theme": "Reprendre en douceur",
+      "conseils": [
+        "Après les fêtes, reprenez une activité physique progressivement plutôt que d'un coup.",
+        "Pour déneiger, pliez les genoux, gardez la pelle près du corps et faites des pauses.",
+        "Sur les trottoirs glissants, de bonnes chaussures et des petits pas limitent les risques de chute."
+      ],
+      "statut": "a-relire"
+    },
+    {
+      "numero": 2,
+      "nom": "Février",
+      "saison": "Hiver",
+      "theme": "Sports d'hiver",
+      "conseils": [
+        "Avant une journée de ski, quelques minutes d'échauffement préparent les articulations.",
+        "Écoutez la fatigue : beaucoup de chutes arrivent en fin de journée.",
+        "Pensez à boire, même par temps froid."
+      ],
+      "statut": "a-relire"
+    },
+    {
+      "numero": 3,
+      "nom": "Mars",
+      "saison": "Printemps",
+      "theme": "Retour au jardin",
+      "conseils": [
+        "Pour les premiers travaux de jardin, alternez les tâches et les positions.",
+        "Portez les sacs de terreau à deux mains, près du corps, en pliant les jambes.",
+        "Un petit tabouret ou une genouillère évite de rester longtemps penché."
+      ],
+      "statut": "a-relire"
+    },
+    {
+      "numero": 4,
+      "nom": "Avril",
+      "saison": "Printemps",
+      "theme": "Sortir le vélo",
+      "conseils": [
+        "Vérifiez la hauteur de la selle et du guidon avant les premières sorties.",
+        "Reprenez avec des parcours courts, puis allongez progressivement.",
+        "Profitez des journées plus longues pour marcher davantage."
+      ],
+      "statut": "a-relire"
+    },
+    {
+      "numero": 5,
+      "nom": "Mai",
+      "saison": "Printemps",
+      "theme": "Randonnée",
+      "conseils": [
+        "Choisissez un sac bien réglé, porté sur les deux épaules, avec la sangle de taille attachée.",
+        "En montagne, adaptez la durée de la sortie à votre forme du moment.",
+        "Des bâtons de marche peuvent soulager la descente."
+      ],
+      "statut": "a-relire"
+    },
+    {
+      "numero": 6,
+      "nom": "Juin",
+      "saison": "Été",
+      "theme": "Premières chaleurs",
+      "conseils": [
+        "Buvez régulièrement, sans attendre d'avoir soif.",
+        "Déplacez vos activités physiques vers les heures les plus fraîches.",
+        "Au bureau, levez-vous et bougez quelques minutes toutes les heures."
+      ],
+      "statut": "a-relire"
+    },
+    {
+      "numero": 7,
+      "nom": "Juillet",
+      "saison": "Été",
+      "theme": "Départs en vacances",
+      "conseils": [
+        "Sur la route, faites une pause toutes les deux heures pour marcher un peu.",
+        "Réglez le siège de la voiture pour avoir le dos appuyé et les bras légèrement pliés.",
+        "Préférez plusieurs bagages légers à une seule valise très lourde."
+      ],
+      "statut": "a-relire"
+    },
+    {
+      "numero": 8,
+      "nom": "Août",
+      "saison": "Été",
+      "theme": "Garder le rythme",
+      "conseils": [
+        "Même en vacances, gardez des horaires de sommeil assez réguliers.",
+        "La baignade et la marche sont des activités faciles à intégrer à la journée.",
+        "Protégez-vous du soleil aux heures les plus chaudes."
+      ],
+      "statut": "a-relire"
+    },
+    {
+      "numero": 9,
+      "nom": "Septembre",
+      "saison": "Automne",
+      "theme": "La rentrée",
+      "conseils": [
+        "Pour les enfants, un cartable porté sur les deux épaules et bien réglé est plus confortable.",
+        "Au bureau, placez le haut de l'écran à hauteur des yeux.",
+        "Choisissez pour l'année une activité physique que vous aimez : c'est ce qui aide le plus à continuer."
+      ],
+      "statut": "a-relire"
+    },
+    {
+      "numero": 10,
+      "nom": "Octobre",
+      "saison": "Automne",
+      "theme": "Bois et feuilles",
+      "conseils": [
+        "Pour rentrer le bois, faites plusieurs petits trajets plutôt qu'un seul très chargé.",
+        "Ratissez en changeant régulièrement de côté.",
+        "Après le changement d'heure, laissez-vous quelques jours pour retrouver vos repères."
+      ],
+      "statut": "a-relire"
+    },
+    {
+      "numero": 11,
+      "nom": "Novembre",
+      "saison": "Automne",
+      "theme": "Bouger malgré la grisaille",
+      "conseils": [
+        "Profitez de la lumière du jour en sortant marcher à midi.",
+        "Quand il pleut, quelques étirements doux à la maison permettent de rester actif.",
+        "Une pause régulière loin des écrans fait du bien aux yeux et à la nuque."
+      ],
+      "statut": "a-relire"
+    },
+    {
+      "numero": 12,
+      "nom": "Décembre",
+      "saison": "Hiver",
+      "theme": "Préparer les fêtes",
+      "conseils": [
+        "Pour les courses, répartissez le poids des sacs dans les deux mains.",
+        "Pour décorer en hauteur, utilisez un escabeau stable plutôt qu'une chaise.",
+        "Gardez un moment de marche dans les journées chargées."
+      ],
+      "statut": "a-relire"
+    }
+  ]
+}

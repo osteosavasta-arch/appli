@@ -1,0 +1,11 @@
+{
+  "_aide": "Liste blanche des chaînes YouTube utilisées UNIQUEMENT par le script manuel scripts/chercher_videos.py (recherche de vidéos candidates). idChaine commence par « UC » (visible dans l'adresse de la chaîne ou dans « À propos > Partager la chaîne > Copier l'ID »). La recherche ne propose que des candidates : rien n'est ajouté à l'appli sans vous.",
+  "chaines": [],
+  "recherches": {
+    "membre-superieur": "étirements épaule bras poignet",
+    "membre-inferieur": "étirements jambes hanches mollets",
+    "dos": "étirements dos lombaires",
+    "cou-nuque": "étirements cou nuque cervicales"
+  },
+  "_exempleChaine": { "nom": "Nom de la chaîne", "idChaine": "UCxxxxxxxxxxxxxxxxxxxxxx" }
+}
