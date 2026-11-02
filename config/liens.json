@@ -32,5 +32,11 @@
       "affichage": "07 85 85 52 26",
       "lien": "tel:+33785855226"
     }
+  },
+  "avis": {
+    "libelle": "Laisser un avis",
+    "titreSection": "Votre avis compte",
+    "texte": "Vous avez apprécié votre consultation ou l'application ? Vous pouvez laisser un avis sur Google.",
+    "url": "https://g.page/r/CTUPqcI52fHfEBM/review"
   }
 }

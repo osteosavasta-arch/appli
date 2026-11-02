@@ -42,6 +42,12 @@ export async function afficherInfos() {
     </div>
 
     <div class="carte">
+      <h2>${echapper(liens.avis.titreSection)}</h2>
+      <p>${echapper(liens.avis.texte)}</p>
+      <a class="bouton bouton-accueil" href="${echapper(liens.avis.url)}" target="_blank" rel="noopener">⭐ ${echapper(liens.avis.libelle)}</a>
+    </div>
+
+    <div class="carte">
       <h2>Installer l'application</h2>
       ${blocInstallation() || '<p>L\'application est installée sur ce téléphone.</p>'}
       <p>Une fois ouverte, l'application reste consultable sans connexion pour les pages déjà visitées.</p>

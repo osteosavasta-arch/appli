@@ -24,6 +24,7 @@ L'application ne charge aucun service tiers tant que vous ne le demandez pas. Ce
 
 - **Prendre rendez-vous** ouvre la page de rendez-vous du site du cabinet (osteo-savasta.fr, hébergé par Squarespace), qui intègre le module de réservation Doctolib. Ces services ont leurs propres politiques de confidentialité et de cookies.
 - **WhatsApp Business** (bouton « Contacter le cabinet ») ouvre l'application WhatsApp avec un message pré-rempli que vous pouvez modifier ou ne pas envoyer. Si vous l'envoyez, l'échange est soumis aux règles de WhatsApp (Meta) : [politique de confidentialité de WhatsApp](https://www.whatsapp.com/legal/privacy-policy-eea).
+- **Laisser un avis** ouvre la page d'avis Google du cabinet. Si vous publiez un avis, il est soumis aux règles de Google : [règles de confidentialité de Google](https://policies.google.com/privacy).
 - **E-mail** ouvre votre messagerie habituelle. **Appeler** lance un appel depuis votre téléphone.
 - **Vidéos d'étirements** : aucune image ni lecteur YouTube n'est chargé avant que vous touchiez « Lire la vidéo ». Le lecteur utilise alors le mode « confidentialité renforcée » de YouTube (youtube-nocookie.com). À partir de ce moment, YouTube (Google) reçoit des données techniques (adresse IP, appareil) et peut utiliser des traceurs. Les vidéos sont choisies par le cabinet. Voir les [conditions d'utilisation de YouTube](https://www.youtube.com/t/terms) et les [règles de confidentialité de Google](https://policies.google.com/privacy).
 

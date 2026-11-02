@@ -9,7 +9,7 @@
    rechargés depuis Internet quand il y a du réseau.
    ========================================================= */
 
-const VERSION = 'v15';
+const VERSION = 'v16';
 const CACHE = `osteo-savasta-${VERSION}`;
 
 // Fichiers enregistrés dès l'installation
