@@ -3,6 +3,7 @@
    # Titre, ## Sous-titre, - élément de liste, **gras**, [texte](adresse). */
 
 import { chargerJSON, echapper } from '../app.js';
+import { blocInstallation } from '../installation.js';
 
 export async function afficherInfos() {
   const [cabinet, liens] = await Promise.all([
@@ -42,8 +43,7 @@ export async function afficherInfos() {
 
     <div class="carte">
       <h2>Installer l'application</h2>
-      <p><strong>iPhone :</strong> dans Safari, touchez le bouton Partager, puis « Sur l'écran d'accueil ».</p>
-      <p><strong>Android :</strong> dans Chrome, touchez le menu ⋮, puis « Installer l'application » ou « Ajouter à l'écran d'accueil ».</p>
+      ${blocInstallation() || '<p>L\'application est installée sur ce téléphone.</p>'}
       <p>Une fois ouverte, l'application reste consultable sans connexion pour les pages déjà visitées.</p>
     </div>
 

@@ -341,6 +341,26 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
 .bouton-espace { margin-top: 12px; }
 .bouton-accueil[aria-disabled="true"] { cursor: default; }
 
+/* ---------- Aide à l'installation ---------- */
+.bloc-installation { margin-bottom: 16px; }
+.bouton-installer { background: var(--couleur-accent); color: #fff; margin: 0; }
+.aide-installation {
+  background: var(--couleur-carte);
+  border: 2px solid var(--couleur-principale);
+  border-radius: var(--rayon);
+  padding: 0 16px;
+}
+.aide-installation summary {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  font-weight: 700;
+  color: var(--couleur-principale);
+  cursor: pointer;
+}
+.aide-installation ol { margin: 0 0 14px; padding-left: 1.3em; }
+.aide-installation li { margin-bottom: 6px; }
+
 /* ---------- Bloc « Votre dernière consultation » ---------- */
 .rappel { padding: 14px 16px 6px; }
 .rappel:has(.rappel-deplier) { padding: 0; }

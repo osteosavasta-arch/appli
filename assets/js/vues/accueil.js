@@ -4,6 +4,7 @@
 
 import { chargerJSON, estVisible, marqueRelecture, echapper } from '../app.js';
 import { blocRappel } from '../rappel.js';
+import { blocInstallation } from '../installation.js';
 
 export async function afficherAccueil() {
   const [cabinet, liens, rappel] = await Promise.all([
@@ -30,6 +31,7 @@ export async function afficherAccueil() {
     <li><span class="bouton bouton-accueil" aria-disabled="true">${echapper(libelle)} <small>(bientôt)</small></span></li>`;
 
   return `
+    ${blocInstallation()}
     ${rappel}
 
     <nav aria-label="Accès rapide">
