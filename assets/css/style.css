@@ -414,6 +414,7 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
 .rappel-case input { width: 24px; height: 24px; flex: none; accent-color: var(--couleur-principale); }
 .rappel-erreur { color: #a1260d; font-weight: 600; margin: 0 0 8px; }
 .rappel-resultat { font-size: 1.1rem; margin: 0 0 10px; }
+.rappel-rdv { margin: 0 0 10px; }
 .rappel-actions { display: flex; flex-wrap: wrap; column-gap: 16px; }
 
 /* ---------- Panneau du bas (Renseignements) ---------- */
@@ -474,6 +475,30 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
 .tableau-nutrition th, .tableau-nutrition td { padding: 6px 4px; border-bottom: 1px solid var(--couleur-bordure); }
 .tableau-nutrition th { text-align: left; font-weight: 400; }
 .tableau-nutrition td { text-align: right; white-space: nowrap; }
+/* Onglets de l'écran Diététique (deux moitiés égales, faciles à toucher) */
+.onglets-diet {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin: 0 0 16px;
+  padding: 4px;
+  border-radius: var(--rayon);
+  background: var(--couleur-pastille);
+}
+.onglet-diet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  color: var(--couleur-principale);
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.2;
+}
+.onglet-diet[aria-current="page"] { background: var(--couleur-principale); color: #fff; }
 .choix-nutriment { display: grid; gap: 4px; margin: 0 0 12px; font-weight: 600; }
 .choix-nutriment select {
   min-height: 48px;

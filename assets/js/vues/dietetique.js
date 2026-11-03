@@ -1,9 +1,9 @@
-/* Diététique : deux sections, « Apports naturels » (data/fruits-legumes.json :
+/* Diététique : deux onglets, « Apports alimentaires » (data/fruits-legumes.json :
    fruits et légumes filtrés automatiquement sur le mois en cours, viandes,
    poissons et œufs toute l'année) et « Compléments alimentaires » (data/complements.json).
    Seules les fiches au statut "validee" s'affichent ; chaque fiche
    porte la mention « Demandez conseil… ». Aucun dosage n'est affiché.
-   Adresse : #dietetique */
+   Adresses : #dietetique (apports, #dietetique/fer pour un nutriment) et #dietetique/complements */
 
 import { chargerJSON, estVisible, marqueRelecture, echapper } from '../app.js';
 
@@ -211,27 +211,40 @@ document.addEventListener('change', (evenement) => {
   location.hash = cle ? `dietetique/${cle}` : 'dietetique';
 });
 
-export async function afficherDietetique(cleNutriment) {
-  const [donnees, saison] = await Promise.all([
-    chargerJSON('data/complements.json'),
-    chargerJSON('data/fruits-legumes.json'),
-  ]);
-  const fiches = donnees.complements.filter(estVisible);
+/* Deux onglets, chacun avec son adresse :
+   #dietetique (ou #dietetique/fer…) → Apports alimentaires ; #dietetique/complements → Compléments */
+function onglets(actif) {
+  const onglet = (cle, adresse, libelle) =>
+    `<a href="#${adresse}" class="onglet-diet" ${actif === cle ? 'aria-current="page"' : ''}>${libelle}</a>`;
+  return `
+    <nav class="onglets-diet" aria-label="Rubriques de diététique">
+      ${onglet('apports', 'dietetique', 'Apports alimentaires')}
+      ${onglet('complements', 'dietetique/complements', 'Compléments alimentaires')}
+    </nav>`;
+}
 
-  const complements = fiches.length
-    ? fiches.map((c) => ficheComplement(c, donnees.mention)).join('')
-    : '<p class="vide">Bientôt disponible.</p>';
+export async function afficherDietetique(parametre) {
+  if (parametre === 'complements') {
+    const donnees = await chargerJSON('data/complements.json');
+    const fiches = donnees.complements.filter(estVisible);
+    const complements = fiches.length
+      ? fiches.map((c) => ficheComplement(c, donnees.mention)).join('')
+      : '<p class="vide">Bientôt disponible.</p>';
+    return `
+      <h1>Diététique</h1>
+      ${onglets('complements')}
+      <section class="carte" aria-labelledby="titre-complements">
+        <h2 id="titre-complements">Compléments alimentaires</h2>
+        ${complements}
+      </section>`;
+  }
 
+  const saison = await chargerJSON('data/fruits-legumes.json');
   return `
     <h1>Diététique</h1>
-
+    ${onglets('apports')}
     <section class="carte" aria-labelledby="titre-fruits-legumes">
-      <h2 id="titre-fruits-legumes">Apports naturels</h2>
-      ${sectionApports(saison, cleNutriment)}
-    </section>
-
-    <section class="carte" aria-labelledby="titre-complements">
-      <h2 id="titre-complements">Compléments alimentaires</h2>
-      ${complements}
+      <h2 id="titre-fruits-legumes">Apports alimentaires</h2>
+      ${sectionApports(saison, parametre)}
     </section>`;
 }

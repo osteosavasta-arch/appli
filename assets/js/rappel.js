@@ -4,10 +4,14 @@
    - La date n'est enregistrée (localStorage) QUE si la personne
      coche « Garder cette date sur mon téléphone ».
    - Le rappel est un fichier .ics ouvert par l'agenda du téléphone.
-   Réglages et textes : config/rappel.json
+   - Tout est recalculé à chaque affichage de l'accueil : une date gardée
+     fait apparaître toute seule le message « 6 mois ou plus » le jour venu.
+     Aucune notification, aucune fenêtre : seulement dans l'appli ouverte.
+   Réglages et textes : config/rappel.json — calcul : calcul-rappel.js
    ========================================================= */
 
-import { chargerJSON, echapper } from './app.js';
+import { chargerJSON, echapper, estVisible, marqueRelecture } from './app.js';
+import { verifierSaisie, situationRappel, versJour } from './calcul-rappel.js';
 
 const CLE_STOCKAGE = 'osteo-savasta-derniere-consultation';
 const NOMS_MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet',
@@ -33,21 +37,11 @@ function effacerStockage() {
   try { localStorage.removeItem(CLE_STOCKAGE); } catch (e) { /* ignoré */ }
 }
 
-/* ---------- Calcul de la date du prochain bilan ---------- */
-/** date = { jour (facultatif), mois 1-12, annee } → même jour N mois plus tard. */
-export function calculerProchainBilan(date, moisDelai) {
-  const totalMois = (date.mois - 1) + moisDelai;
-  const annee = date.annee + Math.floor(totalMois / 12);
-  const mois = (totalMois % 12) + 1;
-  // Jour inconnu → le 1er du mois ; 31 août + 6 mois → dernier jour de février
-  const dernierJour = new Date(annee, mois, 0).getDate();
-  const jour = date.jour ? Math.min(date.jour, dernierJour) : 1;
-  return { jour, mois, annee, jourConnu: Boolean(date.jour) };
-}
-
-function dateEnClair(d) {
+/* ---------- Date lisible ---------- */
+// Jour inconnu : l'échéance est le dernier jour du mois, d'où « fin … »
+function dateEnClair(d, jourConnu) {
   const moisAnnee = `${NOMS_MOIS[d.mois - 1]} ${d.annee}`;
-  if (!d.jourConnu) return `début ${moisAnnee}`;
+  if (!jourConnu) return `fin ${moisAnnee}`;
   return `${d.jour === 1 ? '1er' : d.jour} ${moisAnnee}`;
 }
 
@@ -149,23 +143,40 @@ function htmlFormulaire(t, date) {
     <button type="button" class="lien-discret" data-rappel="ignorer">${echapper(t.lienIgnorer)}</button>`;
 }
 
-/** Version compacte : une ligne de date + une ligne d'actions. */
-function htmlResultat(t, bilan) {
-  // Date déjà passée : un rappel d'agenda ne servirait à rien, on ne le propose pas
-  const aujourdhui = new Date();
-  aujourdhui.setHours(0, 0, 0, 0);
-  const passee = new Date(bilan.annee, bilan.mois - 1, bilan.jour) < aujourdhui;
-  const agenda = passee
+/** Version compacte : le message selon le délai + une ligne d'actions. */
+function htmlResultat(reglages, liens, situation) {
+  const t = reglages.textes;
+  const messages = reglages.messages;
+  const dateLisible = dateEnClair(situation.echeance, situation.jourConnu);
+  let message;
+  if (estVisible(messages)) {
+    const marque = marqueRelecture(messages);
+    message = situation.atteint
+      // 6 mois ou plus : invitation à refaire un bilan, pas de fichier agenda
+      ? `${marque.etiquette}<p class="rappel-resultat">${echapper(messages.seuilAtteint)}</p>
+         <a class="bouton bouton-secondaire rappel-rdv" href="${echapper(liens.rendezVous.url)}" target="_blank" rel="noopener">${echapper(liens.rendezVous.libelle)}</a>`
+      : `${marque.etiquette}<p class="rappel-resultat">${messageProchainBilan(messages.prochainBilan, dateLisible)}</p>`;
+  } else {
+    // Messages pas encore validés : affichage d'avant (date du prochain bilan)
+    message = `<p class="rappel-resultat">${echapper(t.prochainBilan)} : <strong>${echapper(dateLisible)}</strong></p>
+      ${situation.atteint ? `<p class="rappel-aide">${echapper(t.bilanPasse)}</p>` : ''}`;
+  }
+  const agenda = situation.atteint
     ? ''
     : `<button type="button" class="lien-discret" data-rappel="telecharger" title="${echapper(t.aideTelechargement)}">${echapper(t.boutonTelecharger)}</button>`;
   return `
-    <p class="rappel-resultat">${echapper(t.prochainBilan)} : <strong>${echapper(dateEnClair(bilan))}</strong></p>
-    ${passee ? `<p class="rappel-aide">${echapper(t.bilanPasse)}</p>` : ''}
+    ${message}
     <div class="rappel-actions">
       ${agenda}
       <button type="button" class="lien-discret" data-rappel="modifier">${echapper(t.boutonModifier)}</button>
       <button type="button" class="lien-discret" data-rappel="effacer">${echapper(t.boutonEffacer)}</button>
     </div>`;
+}
+
+/** « Votre prochain bilan : {date} » → la date (en gras) remplace {date}. */
+function messageProchainBilan(modele, dateLisible) {
+  const morceaux = String(modele).split('{date}');
+  return morceaux.map(echapper).join(`<strong>${echapper(dateLisible)}</strong>`);
 }
 
 /** Version repliée (par défaut) : une seule ligne qui ouvre le formulaire. */
@@ -178,20 +189,24 @@ function htmlReplie(t) {
 
 /** Renvoie le HTML du bloc (appelé par l'écran d'accueil). */
 export async function blocRappel() {
-  const reglages = await chargerJSON('config/rappel.json');
+  const [reglages, liens] = await Promise.all([chargerJSON('config/rappel.json'), chargerJSON('config/liens.json')]);
   if (!etatInitialise) {
     etatInitialise = true;
     const enregistree = lireStockage();
-    if (enregistree) etat = { mode: 'resultat', date: enregistree, conserver: true, erreur: '' };
+    // Date gardée mais devenue incohérente (ex. horloge du téléphone changée) : on l'ignore
+    if (enregistree && !verifierSaisie(enregistree, versJour(new Date()))) {
+      etat = { mode: 'resultat', date: enregistree, conserver: true, erreur: '' };
+    }
   }
-  return `<section class="carte rappel" id="bloc-rappel" aria-live="polite">${contenuBloc(reglages)}</section>`;
+  return `<section class="carte rappel" id="bloc-rappel" aria-live="polite">${contenuBloc(reglages, liens)}</section>`;
 }
 
-function contenuBloc(reglages) {
+function contenuBloc(reglages, liens) {
   const t = reglages.textes;
   if (etat.mode === 'replie') return htmlReplie(t);
   if (etat.mode === 'resultat') {
-    return htmlResultat(t, calculerProchainBilan(etat.date, reglages.moisDelai));
+    // Recalculé à chaque affichage, avec la date du jour
+    return htmlResultat(reglages, liens, situationRappel(etat.date, reglages.moisDelai, versJour(new Date())));
   }
   return htmlFormulaire(t, etat.date);
 }
@@ -200,9 +215,10 @@ function contenuBloc(reglages) {
 export async function activerRappel(zone) {
   const bloc = zone.querySelector('#bloc-rappel');
   if (!bloc) return;
-  const reglages = await chargerJSON('config/rappel.json');
+  const [reglages, liens] = await Promise.all([chargerJSON('config/rappel.json'), chargerJSON('config/liens.json')]);
   const t = reglages.textes;
-  const reafficher = () => { bloc.innerHTML = contenuBloc(reglages); };
+  const reafficher = () => { bloc.innerHTML = contenuBloc(reglages, liens); };
+  const erreurs = { mois: t.erreurMois, invalide: t.erreurDateInvalide, futur: t.erreurFutur };
 
   bloc.addEventListener('click', (evenement) => {
     const action = evenement.target.closest('[data-rappel]')?.dataset.rappel;
@@ -213,18 +229,17 @@ export async function activerRappel(zone) {
       const date = { jour: lire('jour'), mois: lire('mois'), annee: lire('annee') };
       etat.conserver = bloc.querySelector('[name="conserver"]').checked;
       etat.date = date;
-      if (!date.mois || !date.annee) {
-        etat.erreur = t.erreurMois;
-      } else if (new Date(date.annee, date.mois - 1, date.jour || 1) > new Date()) {
-        etat.erreur = t.erreurFutur;
+      const probleme = verifierSaisie(date, versJour(new Date()));
+      if (probleme) {
+        etat.erreur = erreurs[probleme];
       } else {
         etat.erreur = '';
         etat.mode = 'resultat';
         if (etat.conserver) ecrireStockage(date); else effacerStockage();
       }
     } else if (action === 'telecharger') {
-      const bilan = calculerProchainBilan(etat.date, reglages.moisDelai);
-      telechargerIcs(creerIcs(bilan, reglages), reglages.evenement.nomFichier);
+      const { echeance } = situationRappel(etat.date, reglages.moisDelai, versJour(new Date()));
+      telechargerIcs(creerIcs(echeance, reglages), reglages.evenement.nomFichier);
       return;
     } else if (action === 'modifier') {
       etat.mode = 'formulaire';

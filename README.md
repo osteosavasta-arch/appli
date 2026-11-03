@@ -100,6 +100,15 @@ La liste est **fixe** : rien ne change tout seul.
 ## 6. Le rappel « dernière consultation » et le bouton « Contacter le cabinet »
 
 - Le rappel est **facultatif** pour les patients et calculé dans leur téléphone : rien ne vous est envoyé. Vous réglez le délai (6 mois) et les textes dans `config/rappel.json`.
+- Selon la date saisie :
+  - **6 mois ou plus** (6 mois pile compris) : message « Cela fait 6 mois ou plus… » et bouton *Prendre rendez-vous*, sans fichier agenda ;
+  - **moins de 6 mois** : « Votre prochain bilan : [date] » et bouton *Ajouter à l'agenda* (fichier .ics) ;
+  - **aucune date** : rien de plus que la ligne repliée.
+- Ces deux messages sont dans `config/rappel.json` (bloc `messages`) et ne s'affichent qu'une fois leur statut passé à `"validee"`. Avant, l'appli garde l'affichage précédent (date du prochain bilan).
+- Calcul en mois du calendrier : 31 août + 6 mois = fin février ; 29 février + 6 mois = 29 août. Si le jour n'est pas indiqué, on prend le **dernier jour du mois** (le message n'arrive jamais trop tôt).
+- Si la date est gardée sur le téléphone, le calcul est refait à chaque ouverture de l'appli : le message apparaît tout seul le jour venu. Aucune notification.
+- Si vous changez le délai (`moisDelai`), pensez à changer aussi le « 6 mois » écrit dans les textes.
+- Tests du calcul : lancez le serveur local (`python -m http.server 8080`), puis ouvrez `http://localhost:8080/tests/calcul-rappel.html`. Tout doit être vert.
 - Le bouton **Contacter le cabinet** (accueil et menu du bas) ouvre un panneau avec trois choix : appel, WhatsApp Business, e-mail. Pour ajouter des horaires de réponse, remplissez `horairesReponse` dans `config/liens.json`.
 
 ## 7. Installer l'appli sur un téléphone
@@ -135,6 +144,8 @@ config/                 réglages : liens, présentation, rappel, liste blanche 
 data/                   contenus : étirements, calendrier (désactivé), puis fruits et légumes, etc.
 pages/                  confidentialité, mentions légales
 scripts/                programmes YouTube à lancer à la main (jamais automatiques)
+tests/                  tests automatiques du calcul du rappel (à ouvrir avec le serveur local)
+SUIVI.md                journal des modifications et points à relire
 veille/                 rapports produits par ces programmes
 .env.exemple            modèle pour la clé YouTube (le vrai .env ne va jamais sur GitHub)
 ```
