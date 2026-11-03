@@ -199,7 +199,7 @@ function sectionApports(donnees, cleNutriment) {
       : `${deSaison ? `<h3 class="groupe-titre">De saison en ${NOMS_MOIS[moisCourant - 1]}</h3>${deSaison}` : ''}
          ${touteLAnnee ? `<h3 class="groupe-titre">Toute l'année</h3>${touteLAnnee}` : ''}`}
     <p class="note-tiers">
-      Saisonnalité : <a href="${echapper(lienSur(s.saisonnaliteUrl))}" target="_blank" rel="noopener">ADEME – Impact CO2</a>.
+      Saisonnalité : <a href="${echapper(lienSur(s.saisonnaliteUrl))}" target="_blank" rel="noopener">${echapper(s.saisonnaliteLibelle || 'source')}</a>.
       Valeurs nutritionnelles : <a href="${echapper(lienSur(s.nutritionUrl))}" target="_blank" rel="noopener">Anses, table Ciqual 2025</a>.
     </p>`;
 }

@@ -1,8 +1,9 @@
 {
-  "_aide": "Fiches « Apports naturels » : fruits et légumes de saison (moisSaison) et viandes, poissons, œuf disponibles toute l'année (toutLAnnee = true). Une fiche ne s'affiche que si \"statut\" vaut \"validee\". moisSaison : 1 = janvier … 12 = décembre (source ADEME). nutritionPour100g : valeurs de la table Ciqual 2025 (ANSES), recopiées telles quelles ; vide = donnée absente. pointsForts : calculés automatiquement avec les seuils européens (« source de » ≥ 15 % des valeurs de référence, « riche en » ≥ 30 %). impact et recettes : à rédiger ou valider par vous.",
+  "_aide": "Fiches « Apports naturels » : fruits et légumes de saison (moisSaison) et viandes, poissons, œuf disponibles toute l'année (toutLAnnee = true). Une fiche ne s'affiche que si \"statut\" vaut \"validee\". moisSaison : 1 = janvier … 12 = décembre (source FranceAgriMer, RNM ; liste vide = pas de données FranceAgriMer suffisantes, mois à compléter à la main). nutritionPour100g : valeurs de la table Ciqual 2025 (ANSES), recopiées telles quelles ; vide = donnée absente. pointsForts : calculés automatiquement avec les seuils européens (« source de » ≥ 15 % des valeurs de référence, « riche en » ≥ 30 %). impact et recettes : à rédiger ou valider par vous.",
   "sources": {
-    "saisonnalite": "ADEME, Impact CO2 – fruits et légumes de saison (API consultée le 02/11/2026). Réutilisation non commerciale et pédagogique, source citée.",
-    "saisonnaliteUrl": "https://impactco2.fr/outils/fruitsetlegumes",
+    "saisonnalite": "FranceAgriMer, Réseau des nouvelles des marchés (RNM) : mois où le produit d'origine France est coté aux stades production, expédition et marché de producteurs (moyennes mensuelles de novembre 2023 à octobre 2026, consultées le 03/11/2026 ; un mois est retenu quand au moins la moitié des cotations suivies y figurent). Réutilisation autorisée, y compris commerciale, sous réserve de citer la source (licence ouverte FranceAgriMer).",
+    "saisonnaliteLibelle": "FranceAgriMer – RNM",
+    "saisonnaliteUrl": "https://rnm.franceagrimer.fr/",
     "nutrition": "Anses. 2025. Table de composition nutritionnelle des aliments Ciqual (licence Etalab 2.0).",
     "nutritionUrl": "https://doi.org/10.57745/RDMHWY"
   },
@@ -13,7 +14,8 @@
       "type": "légume",
       "categorie": "Bulbe",
       "moisSaison": [
-        7,
+        1,
+        2,
         8,
         9,
         10,
@@ -194,7 +196,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -203,11 +205,13 @@
       "type": "légume",
       "categorie": "Légume-fleur",
       "moisSaison": [
+        4,
         5,
         6,
         7,
         8,
-        9
+        9,
+        10
       ],
       "ciqual": {
         "code": "20052",
@@ -394,9 +398,9 @@
       "type": "légume",
       "categorie": "Légume-tige",
       "moisSaison": [
+        3,
         4,
-        5,
-        6
+        5
       ],
       "ciqual": {
         "code": "20279",
@@ -576,10 +580,12 @@
       "type": "légume",
       "categorie": "Légume-fruit",
       "moisSaison": [
+        5,
         6,
         7,
         8,
-        9
+        9,
+        10
       ],
       "ciqual": {
         "code": "20053",
@@ -765,6 +771,12 @@
         1,
         2,
         3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
         10,
         11,
         12
@@ -942,7 +954,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -951,12 +963,15 @@
       "type": "légume",
       "categorie": "Légume-feuille",
       "moisSaison": [
+        1,
+        2,
+        3,
+        4,
+        5,
         6,
-        7,
-        8,
-        9,
         10,
-        11
+        11,
+        12
       ],
       "ciqual": {
         "code": "20004",
@@ -1129,7 +1144,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -1138,6 +1153,10 @@
       "type": "légume",
       "categorie": "Chou",
       "moisSaison": [
+        5,
+        6,
+        7,
+        8,
         9,
         10,
         11
@@ -1313,7 +1332,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -1325,6 +1344,10 @@
         1,
         2,
         3,
+        5,
+        6,
+        7,
+        8,
         9,
         10,
         11,
@@ -1502,7 +1525,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -1514,6 +1537,8 @@
         1,
         2,
         3,
+        4,
+        9,
         10,
         11,
         12
@@ -1689,7 +1714,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -1701,6 +1726,8 @@
         1,
         2,
         3,
+        4,
+        9,
         10,
         11,
         12
@@ -1878,7 +1905,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -1890,9 +1917,7 @@
         1,
         2,
         3,
-        10,
-        11,
-        12
+        11
       ],
       "ciqual": {
         "code": "20058",
@@ -2068,7 +2093,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -2080,6 +2105,11 @@
         1,
         2,
         3,
+        4,
+        5,
+        6,
+        7,
+        8,
         9,
         10,
         11,
@@ -2255,7 +2285,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -2264,6 +2294,7 @@
       "type": "légume",
       "categorie": "Légume-fruit",
       "moisSaison": [
+        4,
         5,
         6,
         7,
@@ -2453,6 +2484,7 @@
       "categorie": "Cucurbitacée",
       "moisSaison": [
         1,
+        2,
         9,
         10,
         11,
@@ -2634,7 +2666,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -2830,20 +2862,7 @@
       "nom": "Cresson",
       "type": "légume",
       "categorie": "Légume-feuille",
-      "moisSaison": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "20022",
         "nom": "Cresson de fontaine, cru"
@@ -3017,7 +3036,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -3026,6 +3045,15 @@
       "type": "légume",
       "categorie": "Bulbe",
       "moisSaison": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
         10,
         11,
         12
@@ -3197,7 +3225,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -3211,7 +3239,10 @@
         3,
         4,
         5,
-        10
+        9,
+        10,
+        11,
+        12
       ],
       "ciqual": {
         "code": "20026",
@@ -3396,7 +3427,8 @@
         3,
         4,
         5,
-        9,
+        6,
+        7,
         10,
         11,
         12
@@ -3577,7 +3609,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -3586,13 +3618,15 @@
       "type": "légume",
       "categorie": "Bulbe",
       "moisSaison": [
+        3,
         4,
+        5,
         6,
         7,
-        8,
         9,
         10,
-        11
+        11,
+        12
       ],
       "ciqual": {
         "code": "20028",
@@ -3763,7 +3797,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -3772,6 +3806,7 @@
       "type": "légume",
       "categorie": "Légume-gousse",
       "moisSaison": [
+        5,
         6,
         7,
         8,
@@ -3959,11 +3994,18 @@
       "type": "légume",
       "categorie": "Salade",
       "moisSaison": [
+        1,
+        2,
+        3,
+        4,
         5,
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11,
+        12
       ],
       "ciqual": {
         "code": "20031",
@@ -4147,6 +4189,8 @@
       "moisSaison": [
         1,
         2,
+        3,
+        4,
         10,
         11,
         12
@@ -4324,7 +4368,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -4332,11 +4376,7 @@
       "nom": "Maïs doux",
       "type": "légume",
       "categorie": "Céréale",
-      "moisSaison": [
-        7,
-        8,
-        9
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "20108",
         "nom": "Maïs doux, en épis, surgelé, cru"
@@ -4521,6 +4561,8 @@
         3,
         4,
         5,
+        6,
+        9,
         10,
         11,
         12
@@ -4695,7 +4737,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -4708,6 +4750,8 @@
         2,
         3,
         4,
+        5,
+        6,
         9,
         10,
         11,
@@ -4881,7 +4925,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -4893,6 +4937,7 @@
         1,
         2,
         3,
+        4,
         10,
         11,
         12
@@ -5070,7 +5115,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -5079,9 +5124,9 @@
       "type": "légume",
       "categorie": "Légume-gousse",
       "moisSaison": [
+        4,
         5,
-        6,
-        7
+        6
       ],
       "ciqual": {
         "code": "20072",
@@ -5272,6 +5317,7 @@
         2,
         3,
         4,
+        5,
         9,
         10,
         11,
@@ -5449,7 +5495,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -5458,10 +5504,11 @@
       "type": "légume",
       "categorie": "Légume-fruit",
       "moisSaison": [
-        6,
         7,
         8,
-        9
+        9,
+        10,
+        11
       ],
       "ciqual": {
         "code": "20041",
@@ -5642,13 +5689,7 @@
       "nom": "Potiron",
       "type": "légume",
       "categorie": "Cucurbitacée",
-      "moisSaison": [
-        1,
-        9,
-        10,
-        11,
-        12
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "20044",
         "nom": "Potiron, cru"
@@ -5819,7 +5860,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -5828,10 +5869,18 @@
       "type": "légume",
       "categorie": "Légume-racine",
       "moisSaison": [
+        1,
+        2,
         3,
         4,
         5,
-        6
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
       ],
       "ciqual": {
         "code": "20045",
@@ -6011,13 +6060,7 @@
       "nom": "Salsifis",
       "type": "légume",
       "categorie": "Légume-racine",
-      "moisSaison": [
-        1,
-        2,
-        3,
-        11,
-        12
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "20197",
         "nom": "Salsifis noir, ou scorsonère d'Espagne, cru"
@@ -6189,7 +6232,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -6198,10 +6241,12 @@
       "type": "légume",
       "categorie": "Légume-fruit",
       "moisSaison": [
+        5,
         6,
         7,
         8,
-        9
+        9,
+        10
       ],
       "ciqual": {
         "code": "20385",
@@ -6386,6 +6431,9 @@
       "moisSaison": [
         1,
         2,
+        3,
+        4,
+        10,
         11,
         12
       ],
@@ -6559,7 +6607,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -6748,11 +6796,7 @@
       "nom": "Cassis",
       "type": "fruit",
       "categorie": "Petit fruit rouge",
-      "moisSaison": [
-        6,
-        7,
-        8
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "13007",
         "nom": "Cassis, cru"
@@ -6935,8 +6979,8 @@
       "type": "fruit",
       "categorie": "Fruit à noyau",
       "moisSaison": [
-        6,
-        7
+        5,
+        6
       ],
       "ciqual": {
         "code": "13008",
@@ -7299,10 +7343,7 @@
       "nom": "Citron",
       "type": "fruit",
       "categorie": "Agrume",
-      "moisSaison": [
-        1,
-        2
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "13009",
         "nom": "Citron, chair sans peau, sans pépins, cru"
@@ -7483,7 +7524,6 @@
       "categorie": "Agrume",
       "moisSaison": [
         1,
-        2,
         11,
         12
       ],
@@ -7658,7 +7698,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -7666,9 +7706,7 @@
       "nom": "Coing",
       "type": "fruit",
       "categorie": "Fruit à pépins",
-      "moisSaison": [
-        10
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "13010",
         "nom": "Coing, cru"
@@ -7846,7 +7884,6 @@
       "type": "fruit",
       "categorie": "Fruit",
       "moisSaison": [
-        7,
         8,
         9,
         10
@@ -8030,9 +8067,10 @@
       "type": "fruit",
       "categorie": "Petit fruit rouge",
       "moisSaison": [
+        3,
+        4,
         5,
-        6,
-        7
+        6
       ],
       "ciqual": {
         "code": "13014",
@@ -8212,9 +8250,12 @@
       "type": "fruit",
       "categorie": "Petit fruit rouge",
       "moisSaison": [
+        5,
         6,
         7,
-        8
+        8,
+        9,
+        10
       ],
       "ciqual": {
         "code": "13015",
@@ -8398,10 +8439,9 @@
       "type": "fruit",
       "categorie": "Fruit",
       "moisSaison": [
-        1,
-        2,
-        11,
-        12
+        9,
+        10,
+        11
       ],
       "ciqual": {
         "code": "13018",
@@ -8573,7 +8613,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -8581,11 +8621,7 @@
       "nom": "Groseille",
       "type": "fruit",
       "categorie": "Petit fruit rouge",
-      "moisSaison": [
-        6,
-        7,
-        8
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "13019",
         "nom": "Groseille, crue"
@@ -8766,10 +8802,8 @@
       "type": "fruit",
       "categorie": "Fruit",
       "moisSaison": [
-        1,
         10,
-        11,
-        12
+        11
       ],
       "ciqual": {
         "code": "13066",
@@ -8938,7 +8972,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -8950,6 +8984,7 @@
         1,
         2,
         3,
+        4,
         11,
         12
       ],
@@ -9123,7 +9158,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -9131,12 +9166,7 @@
       "nom": "Mandarine",
       "type": "fruit",
       "categorie": "Agrume",
-      "moisSaison": [
-        1,
-        2,
-        11,
-        12
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "13024",
         "nom": "Clémentine ou mandarine, chair sans peau, sans pépins, crue"
@@ -9304,7 +9334,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -9494,10 +9524,7 @@
       "nom": "Mûre",
       "type": "fruit",
       "categorie": "Petit fruit",
-      "moisSaison": [
-        8,
-        9
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "13029",
         "nom": "Mûre (de ronce), crue"
@@ -9675,11 +9702,7 @@
       "nom": "Myrtille",
       "type": "fruit",
       "categorie": "Petit fruit",
-      "moisSaison": [
-        7,
-        8,
-        9
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "13028",
         "nom": "Myrtille, crue"
@@ -9861,6 +9884,8 @@
       "type": "fruit",
       "categorie": "Fruit à noyau",
       "moisSaison": [
+        6,
+        7,
         8,
         9
       ],
@@ -10040,11 +10065,7 @@
       "nom": "Noisette",
       "type": "fruit",
       "categorie": "Fruit à coque",
-      "moisSaison": [
-        9,
-        10,
-        11
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "15004",
         "nom": "Noisette, sans sel ajouté"
@@ -10220,7 +10241,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -10229,8 +10250,11 @@
       "type": "fruit",
       "categorie": "Fruit à coque",
       "moisSaison": [
-        9,
-        10
+        1,
+        2,
+        10,
+        11,
+        12
       ],
       "ciqual": {
         "code": "15005",
@@ -10417,11 +10441,7 @@
       "nom": "Orange",
       "type": "fruit",
       "categorie": "Agrume",
-      "moisSaison": [
-        1,
-        2,
-        3
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "13034",
         "nom": "Orange, chair sans peau, sans pépins, crue"
@@ -10597,13 +10617,7 @@
       "nom": "Pamplemousse",
       "type": "fruit",
       "categorie": "Agrume",
-      "moisSaison": [
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "13040",
         "nom": "Pomelo (dit Pamplemousse), chair sans peau, sans pépins, cru"
@@ -10780,7 +10794,6 @@
       "type": "fruit",
       "categorie": "Fruit",
       "moisSaison": [
-        6,
         7,
         8,
         9
@@ -11142,14 +11155,9 @@
       "type": "fruit",
       "categorie": "Fruit à pépins",
       "moisSaison": [
-        1,
-        2,
-        3,
-        8,
         9,
         10,
-        11,
-        12
+        11
       ],
       "ciqual": {
         "code": "13037",
@@ -11320,7 +11328,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -11333,7 +11341,6 @@
         2,
         3,
         4,
-        8,
         9,
         10,
         11,
@@ -11511,7 +11518,7 @@
           ]
         }
       ],
-      "statut": "validee",
+      "statut": "a-relire",
       "toutLAnnee": false
     },
     {
@@ -11699,6 +11706,7 @@
       "type": "fruit",
       "categorie": "Fruit",
       "moisSaison": [
+        8,
         9,
         10
       ],
@@ -11878,6 +11886,8 @@
       "type": "fruit",
       "categorie": "Fruit à noyau",
       "moisSaison": [
+        7,
+        8,
         9
       ],
       "ciqual": {
@@ -12053,11 +12063,7 @@
       "nom": "Rhubarbe",
       "type": "fruit",
       "categorie": "Légume-tige consommé en dessert",
-      "moisSaison": [
-        4,
-        5,
-        6
-      ],
+      "moisSaison": [],
       "ciqual": {
         "code": "13047",
         "nom": "Rhubarbe, tige, crue"
