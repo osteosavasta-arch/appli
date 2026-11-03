@@ -3,7 +3,7 @@
   "moisDelai": 6,
   "heureAlerte": 9,
   "messages": {
-    "statut": "a-relire",
+    "statut": "validee",
     "seuilAtteint": "Cela fait 6 mois ou plus que vous avez consulté. Peut-être serait-il intéressant de refaire un bilan.",
     "prochainBilan": "Votre prochain bilan : {date}"
   },

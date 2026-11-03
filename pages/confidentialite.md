@@ -11,6 +11,7 @@
 - La saisie est facultative : vous pouvez ignorer ce bloc.
 - Le calcul de la date de votre prochain bilan se fait entièrement dans votre téléphone. Rien n'est transmis.
 - La date n'est enregistrée dans votre téléphone (stockage local du navigateur) que si vous cochez « Garder cette date sur mon téléphone ». Sinon, elle est oubliée à la fermeture de l'application.
+- Si vous avez gardé la date, l'application refait le calcul à chaque ouverture et affiche, le moment venu, un message vous proposant de refaire un bilan. Ce message n'apparaît que dans l'application ouverte : aucune notification ne vous est envoyée.
 - Vous pouvez l'effacer à tout moment avec le bouton « Effacer », ou en effaçant les données du site dans votre navigateur.
 - Le rappel est un fichier agenda (.ics) créé dans votre téléphone. Une fois ajouté à votre agenda, il dépend de votre application d'agenda (et, le cas échéant, de son service de synchronisation, comme iCloud ou Google Agenda).
 
@@ -39,4 +40,4 @@ L'application est hébergée par GitHub Pages (GitHub, Inc.). Selon la documenta
 Pour toute question sur vos données : osteo.savasta@gmail.com.
 Vous pouvez aussi adresser une réclamation à la CNIL : [https://www.cnil.fr](https://www.cnil.fr).
 
-Dernière mise à jour : 2 novembre 2026
+Dernière mise à jour : 3 novembre 2026
