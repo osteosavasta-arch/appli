@@ -1,9 +1,10 @@
 {
-  "_aide": "Infos du cabinet, reprises de osteo-savasta.fr. La présentation ne s'affiche que si son statut est \"validee\" (sans accent). Laissez un champ vide (\"\") pour ne pas l'afficher.",
+  "_aide": "Infos du cabinet, reprises de osteo-savasta.fr. La présentation ne s'affiche que si son statut est \"validee\" (sans accent). Laissez un champ vide (\"\") pour ne pas l'afficher. rechercheGoogleMaps = texte recherché dans Google Maps quand on touche l'adresse (votre fiche Google plutôt que le Pôle Santé).",
   "nom": "David Savasta",
   "profession": "Ostéopathe D.O.-T.O. · Diplôme reconnu par l'État",
   "ville": "Chirens, à 5 minutes de Voiron",
   "adresse": "Pôle Santé de Chirens, 365 avenue du 19 Mars 1962, 38850 Chirens",
+  "rechercheGoogleMaps": "David Savasta ostéopathe Chirens",
   "infosPratiques": {
     "horaires": "Du lundi au vendredi, de 8 h 30 à 19 h 45",
     "lieu": "Consultations au cabinet ou à domicile",

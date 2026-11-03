@@ -22,8 +22,9 @@ export async function afficherInfos() {
     .map((cle) => `<p><strong>${libelles[cle]} :</strong> ${echapper(infos[cle])}</p>`)
     .join('');
 
-  // Adresse cliquable : ouvre Google Maps (l'application si elle est installée)
-  const urlPlan = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cabinet.adresse || '')}`;
+  // Adresse cliquable : ouvre Google Maps (l'application si elle est installée) sur la fiche
+  // du cabinet (config/cabinet.json → rechercheGoogleMaps), à défaut sur l'adresse
+  const urlPlan = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cabinet.rechercheGoogleMaps || cabinet.adresse || '')}`;
   const adresse = cabinet.adresse
     ? `<p><strong>Adresse :</strong> <a href="${echapper(urlPlan)}" target="_blank" rel="noopener">${echapper(cabinet.adresse)}</a>
          <br><a href="${echapper(urlPlan)}" target="_blank" rel="noopener">📍 Voir sur Google Maps</a></p>`

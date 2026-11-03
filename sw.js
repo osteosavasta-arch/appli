@@ -9,7 +9,7 @@
    rechargés depuis Internet quand il y a du réseau.
    ========================================================= */
 
-const VERSION = 'v20';
+const VERSION = 'v21';
 const CACHE = `osteo-savasta-${VERSION}`;
 
 // Fichiers enregistrés dès l'installation
@@ -40,9 +40,13 @@ const FICHIERS_DE_BASE = [
   'pages/mentions-legales.md',
 ];
 
+// cache: 'reload' : chaque fichier est repris sur Internet, jamais dans le cache du
+// navigateur (GitHub le garde 10 min), sinon une nouvelle version pourrait garder l'ancien code
 self.addEventListener('install', (evenement) => {
   evenement.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(FICHIERS_DE_BASE)).then(() => self.skipWaiting())
+    caches.open(CACHE)
+      .then((cache) => cache.addAll(FICHIERS_DE_BASE.map((fichier) => new Request(fichier, { cache: 'reload' }))))
+      .then(() => self.skipWaiting())
   );
 });
 
