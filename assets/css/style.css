@@ -444,6 +444,23 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
 .panneau-mention { font-weight: 600; margin: 8px 0 0; }
 .panneau-horaires { color: var(--couleur-texte-doux); margin: 6px 0 0; }
 
+/* Panneau « Partager l'application » */
+.partage-qr { text-align: center; margin: 0 0 12px; }
+.partage-qr img {
+  width: min(240px, 70vw);
+  height: auto;
+  padding: 8px;
+  background: #fff;              /* fond blanc : le QR code reste lisible par les appareils photo */
+  border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon);
+}
+.partage-qr p { color: var(--couleur-texte-doux); margin: 6px 0 0; }
+.partage-choix { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 0 12px; }
+.partage-choix[hidden] { display: none; }
+.partage-choix .bouton { margin: 0; }
+.partage-adresse { grid-column: 1 / -1; margin: 0; text-align: center; word-break: break-all; color: var(--couleur-texte-doux); }
+.partage-confirmation { font-weight: 600; color: var(--couleur-principale); text-align: center; margin: 0; }
+
 /* ---------- Diététique : fiches dépliables ---------- */
 .fiche {
   border-top: 1px solid var(--couleur-bordure);

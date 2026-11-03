@@ -42,6 +42,7 @@ export async function afficherAccueil() {
         <li><a class="bouton bouton-accueil" href="#dietetique">Diététique</a></li>
         ${bientot('Ressources')}
         <li><a class="bouton bouton-accueil" href="${echapper(liens.avis.url)}" target="_blank" rel="noopener">⭐ ${echapper(liens.avis.libelle)}</a></li>
+        <li><button type="button" class="bouton bouton-accueil" data-ouvrir="partage">📤 ${echapper(liens.partage.libelle)}</button></li>
       </ul>
     </nav>
 

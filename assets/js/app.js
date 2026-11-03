@@ -12,6 +12,7 @@ import { afficherDietetique } from './vues/dietetique.js';
 import { afficherInfos, afficherPageTexte } from './vues/pages.js';
 import { activerRappel } from './rappel.js';
 import './renseignements.js';
+import './partage.js';
 
 /* ---------- Mode relecture ----------
    Sur votre ordinateur uniquement (adresse « localhost »), ajouter

@@ -38,5 +38,21 @@
     "titreSection": "Votre avis compte",
     "texte": "Vous avez apprécié votre consultation ou l'application ? Vous pouvez laisser un avis sur Google.",
     "url": "https://g.page/r/CTUPqcI52fHfEBM/review"
+  },
+  "partage": {
+    "libelle": "Partager l'application",
+    "titrePanneau": "Partager l'application",
+    "url": "https://osteosavasta-arch.github.io/appli/",
+    "boutonQr": "Afficher le QR code",
+    "aideQr": "À scanner avec l'appareil photo d'un autre téléphone.",
+    "boutonLien": "Envoyer le lien (WhatsApp, SMS, e-mail…)",
+    "titreMessage": "Application du cabinet d'ostéopathie de Chirens",
+    "message": "Voici l'application du cabinet d'ostéopathie de David Savasta à Chirens :",
+    "objetEmail": "Application du cabinet d'ostéopathie",
+    "boutonWhatsapp": "WhatsApp",
+    "boutonEmail": "E-mail",
+    "boutonSms": "SMS",
+    "boutonCopier": "Copier le lien",
+    "lienCopie": "Lien copié"
   }
 }
