@@ -22,12 +22,19 @@ export async function afficherInfos() {
     .map((cle) => `<p><strong>${libelles[cle]} :</strong> ${echapper(infos[cle])}</p>`)
     .join('');
 
+  // Adresse cliquable : ouvre Google Maps (l'application si elle est installée)
+  const urlPlan = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cabinet.adresse || '')}`;
+  const adresse = cabinet.adresse
+    ? `<p><strong>Adresse :</strong> <a href="${echapper(urlPlan)}" target="_blank" rel="noopener">${echapper(cabinet.adresse)}</a>
+         <br><a href="${echapper(urlPlan)}" target="_blank" rel="noopener">📍 Voir sur Google Maps</a></p>`
+    : '';
+
   return `
     <h1>Infos pratiques</h1>
 
     <div class="carte">
       <h2>Le cabinet</h2>
-      ${cabinet.adresse ? `<p><strong>Adresse :</strong> ${echapper(cabinet.adresse)}</p>` : ''}
+      ${adresse}
       ${lignes}
     </div>
 
