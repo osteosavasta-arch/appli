@@ -1,8 +1,11 @@
 {
-  "_aide": "Fiches « Apports naturels » : fruits et légumes de saison (moisSaison) et viandes, poissons, œuf disponibles toute l'année (toutLAnnee = true). Une fiche ne s'affiche que si \"statut\" vaut \"validee\". moisSaison : 1 = janvier … 12 = décembre (source FranceAgriMer, RNM ; liste vide = pas de données FranceAgriMer suffisantes, mois à compléter à la main). nutritionPour100g : valeurs de la table Ciqual 2025 (ANSES), recopiées telles quelles ; vide = donnée absente. pointsForts : calculés automatiquement avec les seuils européens (« source de » ≥ 15 % des valeurs de référence, « riche en » ≥ 30 %). impact et recettes : à rédiger ou valider par vous.",
+  "_aide": "Fiches « Apports naturels » : fruits et légumes de saison (moisSaison) et viandes, poissons, œuf disponibles toute l'année (toutLAnnee = true). Une fiche ne s'affiche que si \"statut\" vaut \"validee\". moisSaison : 1 = janvier … 12 = décembre (source FranceAgriMer, RNM ; sourceSaisonnalite = \"franceagrimer-grossistes\" : mois tirés des cotations de gros d'origine France ; \"ademe\" : mois repris de l'ADEME faute de données FranceAgriMer). nutritionPour100g : valeurs de la table Ciqual 2025 (ANSES), recopiées telles quelles ; vide = donnée absente. pointsForts : calculés automatiquement avec les seuils européens (« source de » ≥ 15 % des valeurs de référence, « riche en » ≥ 30 %). impact et recettes : à rédiger ou valider par vous.",
   "sources": {
-    "saisonnalite": "FranceAgriMer, Réseau des nouvelles des marchés (RNM) : mois où le produit d'origine France est coté aux stades production, expédition et marché de producteurs (moyennes mensuelles de novembre 2023 à octobre 2026, consultées le 03/11/2026 ; un mois est retenu quand au moins la moitié des cotations suivies y figurent). Réutilisation autorisée, y compris commerciale, sous réserve de citer la source (licence ouverte FranceAgriMer).",
+    "saisonnalite": "FranceAgriMer, Réseau des nouvelles des marchés (RNM) : mois où le produit d'origine France est coté aux stades production, expédition et marché de producteurs (moyennes mensuelles de novembre 2023 à octobre 2026, consultées le 03/11/2026 ; un mois est retenu quand au moins la moitié des cotations suivies y figurent). Pour les fiches marquées sourceSaisonnalite = \"franceagrimer-grossistes\", faute de cotations suffisantes à ces stades, sont aussi retenues les cotations des marchés de gros dont le libellé indique une origine France (ex. « MYRTILLE France », « ORANGE Corse »), de novembre 2015 à octobre 2026 selon les produits. Réutilisation autorisée, y compris commerciale, sous réserve de citer la source (licence ouverte FranceAgriMer).",
     "saisonnaliteLibelle": "FranceAgriMer – RNM",
+    "saisonnaliteComplement": "ADEME, Impact CO2 – fruits et légumes de saison (API consultée le 02/11/2026), pour les produits sans données FranceAgriMer suffisantes (champ sourceSaisonnalite = \"ademe\"). Réutilisation non commerciale et pédagogique, source citée.",
+    "saisonnaliteComplementLibelle": "ADEME – Impact CO2",
+    "saisonnaliteComplementUrl": "https://impactco2.fr/outils/fruitsetlegumes",
     "saisonnaliteUrl": "https://rnm.franceagrimer.fr/",
     "nutrition": "Anses. 2025. Table de composition nutritionnelle des aliments Ciqual (licence Etalab 2.0).",
     "nutritionUrl": "https://doi.org/10.57745/RDMHWY"
@@ -2862,7 +2865,17 @@
       "nom": "Cresson",
       "type": "légume",
       "categorie": "Légume-feuille",
-      "moisSaison": [],
+      "moisSaison": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        10,
+        11,
+        12
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "20022",
         "nom": "Cresson de fontaine, cru"
@@ -4376,7 +4389,12 @@
       "nom": "Maïs doux",
       "type": "légume",
       "categorie": "Céréale",
-      "moisSaison": [],
+      "moisSaison": [
+        7,
+        8,
+        9
+      ],
+      "sourceSaisonnalite": "ademe",
       "ciqual": {
         "code": "20108",
         "nom": "Maïs doux, en épis, surgelé, cru"
@@ -5689,7 +5707,15 @@
       "nom": "Potiron",
       "type": "légume",
       "categorie": "Cucurbitacée",
-      "moisSaison": [],
+      "moisSaison": [
+        1,
+        2,
+        9,
+        10,
+        11,
+        12
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "20044",
         "nom": "Potiron, cru"
@@ -6060,7 +6086,13 @@
       "nom": "Salsifis",
       "type": "légume",
       "categorie": "Légume-racine",
-      "moisSaison": [],
+      "moisSaison": [
+        1,
+        2,
+        3,
+        12
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "20197",
         "nom": "Salsifis noir, ou scorsonère d'Espagne, cru"
@@ -6796,7 +6828,11 @@
       "nom": "Cassis",
       "type": "fruit",
       "categorie": "Petit fruit rouge",
-      "moisSaison": [],
+      "moisSaison": [
+        6,
+        7
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "13007",
         "nom": "Cassis, cru"
@@ -7343,7 +7379,13 @@
       "nom": "Citron",
       "type": "fruit",
       "categorie": "Agrume",
-      "moisSaison": [],
+      "moisSaison": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "13009",
         "nom": "Citron, chair sans peau, sans pépins, cru"
@@ -7706,7 +7748,12 @@
       "nom": "Coing",
       "type": "fruit",
       "categorie": "Fruit à pépins",
-      "moisSaison": [],
+      "moisSaison": [
+        9,
+        10,
+        11
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "13010",
         "nom": "Coing, cru"
@@ -8621,7 +8668,14 @@
       "nom": "Groseille",
       "type": "fruit",
       "categorie": "Petit fruit rouge",
-      "moisSaison": [],
+      "moisSaison": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "13019",
         "nom": "Groseille, crue"
@@ -9166,7 +9220,13 @@
       "nom": "Mandarine",
       "type": "fruit",
       "categorie": "Agrume",
-      "moisSaison": [],
+      "moisSaison": [
+        1,
+        2,
+        11,
+        12
+      ],
+      "sourceSaisonnalite": "ademe",
       "ciqual": {
         "code": "13024",
         "nom": "Clémentine ou mandarine, chair sans peau, sans pépins, crue"
@@ -9334,7 +9394,7 @@
           ]
         }
       ],
-      "statut": "a-relire",
+      "statut": "validee",
       "toutLAnnee": false
     },
     {
@@ -9524,7 +9584,14 @@
       "nom": "Mûre",
       "type": "fruit",
       "categorie": "Petit fruit",
-      "moisSaison": [],
+      "moisSaison": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "13029",
         "nom": "Mûre (de ronce), crue"
@@ -9702,7 +9769,13 @@
       "nom": "Myrtille",
       "type": "fruit",
       "categorie": "Petit fruit",
-      "moisSaison": [],
+      "moisSaison": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "13028",
         "nom": "Myrtille, crue"
@@ -10065,7 +10138,19 @@
       "nom": "Noisette",
       "type": "fruit",
       "categorie": "Fruit à coque",
-      "moisSaison": [],
+      "moisSaison": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "15004",
         "nom": "Noisette, sans sel ajouté"
@@ -10441,7 +10526,11 @@
       "nom": "Orange",
       "type": "fruit",
       "categorie": "Agrume",
-      "moisSaison": [],
+      "moisSaison": [
+        2,
+        3
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "13034",
         "nom": "Orange, chair sans peau, sans pépins, crue"
@@ -10617,7 +10706,15 @@
       "nom": "Pamplemousse",
       "type": "fruit",
       "categorie": "Agrume",
-      "moisSaison": [],
+      "moisSaison": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "13040",
         "nom": "Pomelo (dit Pamplemousse), chair sans peau, sans pépins, cru"
@@ -12063,7 +12160,13 @@
       "nom": "Rhubarbe",
       "type": "fruit",
       "categorie": "Légume-tige consommé en dessert",
-      "moisSaison": [],
+      "moisSaison": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "sourceSaisonnalite": "franceagrimer-grossistes",
       "ciqual": {
         "code": "13047",
         "nom": "Rhubarbe, tige, crue"
