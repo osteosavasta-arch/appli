@@ -4,27 +4,61 @@
    du bloc :root ci-dessous.
    ========================================================= */
 
-/* Charte reprise de osteo-savasta.fr : bleu des titres, boutons noirs
-   arrondis, fond bleu très pâle, polices Manrope (titres) et Nunito Sans (texte). */
+/* Polices enregistrées dans l'appli (assets/polices) : rien n'est demandé à
+   Google, l'adresse IP des patients ne quitte pas l'appli. */
+@font-face {
+  font-family: "Lora";
+  src: url("../polices/lora-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("../polices/lato-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("../polices/lato-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Charte Cabinet Savasta (couleurs relevées sur les photos de la salle) : mur bleu
+   ardoise, murs blancs, chêne, toile de Miyajima et plantes. Direction « La salle de soins ». */
 :root {
-  --couleur-principale: #1470af;   /* bleu du site : en-tête, titres */
-  --couleur-accent: #000000;       /* noir : bouton rendez-vous, comme sur le site */
-  --couleur-fond: #f7faff;         /* fond de page bleu très pâle */
-  --couleur-carte: #ffffff;        /* fond des cartes */
-  --couleur-texte: #1a1a1a;        /* texte principal */
-  --couleur-texte-doux: #4b5157;   /* texte secondaire (reste lisible) */
-  --couleur-bordure: #dfe3ea;
-  --couleur-pastille: #e3eef7;     /* fond de l'étiquette de saison */
+  --couleur-principale: #41546e;   /* bleu ardoise : bandeaux, boutons, liens */
+  --couleur-principale-foncee: #2f3e54; /* survol */
+  --couleur-accent: #1f2a3a;       /* encre */
+  --couleur-fond: #ffffff;         /* fond de page */
+  --couleur-carte: #faf7f2;        /* blanc chaud : cartes et listes */
+  --couleur-texte: #1f2a3a;        /* texte principal */
+  --couleur-texte-doux: #3b4350;   /* paragraphes */
+  --couleur-discret: #6a6f78;      /* légendes (14 px minimum) */
+  --couleur-bordure: #e6dfd5;      /* filets et contours */
+  --couleur-bordure-champ: #d9cfc2; /* contour des champs */
+  --couleur-sur-sombre: #c7d1e0;   /* texte secondaire sur bleu ardoise */
+  --couleur-torii: #d57c4e;        /* filet sous les titres, mois en cours */
+  --couleur-bois-clair: #efe3d3;   /* bloc du rappel */
+  --couleur-rose: #f8e6de;         /* mention de conseil */
+  --couleur-sauge: #e1e7d8;        /* points forts */
+  --couleur-plante: #4f6b3a;       /* picto Diététique */
+  --couleur-alerte: #a33a3a;       /* messages d'erreur */
+  --couleur-pastille: #efe3d3;     /* étiquettes */
   --couleur-relecture: #fff3c4;    /* fond des contenus « à relire » (mode relecture seulement) */
 
-  /* Polices du site si elles sont présentes sur le téléphone, sinon celles du téléphone */
-  --police-titres: Manrope, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --police-texte: "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --police-titres: "Lora", Georgia, "Times New Roman", serif;
+  --police-texte: "Lato", "Helvetica Neue", Arial, sans-serif;
 
-  --rayon: 14px;
-  --rayon-bouton: 300px;           /* boutons « pilule », comme sur le site */
+  --rayon: 16px;                   /* cartes, listes, photos */
+  --rayon-bouton: 6px;             /* boutons et champs */
   --hauteur-menu: 68px;
   --taille-texte: 1.0625rem;       /* 17 px : confortable sur mobile */
+  --marge-haut: calc(20px + env(safe-area-inset-top)); /* sous la barre d'état du téléphone */
   color-scheme: light;
 }
 
@@ -45,6 +79,7 @@ body {
 }
 
 a { color: var(--couleur-principale); }
+a:hover { color: var(--couleur-principale-foncee); }
 
 /* Contour bien visible quand on navigue au clavier */
 :focus-visible {
@@ -63,47 +98,92 @@ a { color: var(--couleur-principale); }
 }
 .lien-evitement:focus { left: 8px; }
 
-/* ---------- En-tête ---------- */
-.entete {
-  background: var(--couleur-principale);
-  padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
-  text-align: center;
-}
-/* Nom centré avec le petit logo rond juste à sa gauche */
-.entete-titre {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  color: #fff;
-  font-size: 1.25rem;
-  font-weight: 700;
-  text-decoration: none;
-}
-.entete-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #fff;
+.icone {
+  width: 24px;
+  height: 24px;
   flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
+.icone-petite { width: 18px; height: 18px; }
+.icone-pleine { fill: currentColor; stroke: none; }
 
 /* ---------- Contenu ---------- */
 .contenu {
   max-width: 640px;
   margin: 0 auto;
-  padding: 20px 16px 8px;
+  padding: var(--marge-haut) 16px 8px;
 }
 .contenu:focus { outline: none; }
 
-h1, h2, h3, .entete-titre { font-family: var(--police-titres); }
-h1, h2, h3 { color: var(--couleur-principale); line-height: 1.25; }
+h1, h2, h3, h4 { font-family: var(--police-titres); font-weight: 600; }
+h1, h2, h3 { color: var(--couleur-texte); line-height: 1.2; text-wrap: balance; }
 h1 { font-size: 1.6rem; margin: 0 0 12px; }
-h2 { font-size: 1.25rem; margin: 24px 0 10px; }
-h3 { font-size: 1.1rem; margin: 0 0 8px; }
+h2 { font-size: 1.3rem; margin: 24px 0 10px; }
+h3 { font-size: 1.15rem; margin: 0 0 8px; }
 
 .chargement, .vide { color: var(--couleur-texte-doux); }
 
+.surtitre {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--couleur-principale);
+}
+.filet-torii { width: 48px; height: 3px; margin: 0 0 12px; background: var(--couleur-torii); }
+
+/* ---------- Ouverture des écrans : photo ou bandeau, avec la feuille blanche qui remonte dessus ---------- */
+.ouverture {
+  position: relative;
+  margin: calc(-1 * var(--marge-haut)) -16px 16px;
+}
+.ouverture::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 24px;
+  background: var(--couleur-fond);
+  border-radius: var(--rayon) var(--rayon) 0 0;
+}
+.ouverture-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: 86% 28%;
+}
+.bandeau {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: calc(24px + env(safe-area-inset-top)) 16px 44px;
+  background: var(--couleur-principale);
+  color: #fff;
+}
+.bandeau .surtitre, .bandeau-sous-titre { color: var(--couleur-sur-sombre); }
+.bandeau h1 { margin: 0; color: #fff; font-size: 2rem; line-height: 1.15; }
+.bandeau-retour {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 4px;
+  min-height: 44px;
+  color: var(--couleur-sur-sombre);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.bandeau-retour:hover { color: #fff; }
+
+/* ---------- Cartes ---------- */
+.carte-titre { margin-top: 0; }
 .carte {
   background: var(--couleur-carte);
   border: 1px solid var(--couleur-bordure);
@@ -112,61 +192,114 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   margin: 0 0 16px;
 }
 
-.sous-titre { color: var(--couleur-texte-doux); margin: -6px 0 16px; }
-
-/* ---------- Gros boutons ---------- */
+/* ---------- Boutons ---------- */
 .bouton {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
-  min-height: 60px;
-  padding: 14px 18px;
+  min-height: 54px;
+  padding: 10px 16px;
   margin: 0 0 12px;
   border-radius: var(--rayon-bouton);
   border: 2px solid transparent;
   font: inherit;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
+  line-height: 1.2;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
 }
-.bouton-rdv { background: var(--couleur-accent); color: #fff; text-transform: uppercase; letter-spacing: 0.03em; }
-.bouton-appel {
-  background: var(--couleur-carte);
-  color: var(--couleur-principale);
+.bouton-secondaire { background: var(--couleur-principale); color: #fff; }
+.bouton-secondaire:hover { background: var(--couleur-principale-foncee); color: #fff; }
+.bouton-contour {
+  background: var(--couleur-fond);
   border-color: var(--couleur-principale);
+  color: var(--couleur-principale);
 }
-.bouton-appel small { display: block; font-weight: 400; font-size: 1rem; }
+.lien-discret {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--couleur-principale);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
-/* ---------- Tuiles d'accès rapide ---------- */
+/* ---------- Accueil ---------- */
+.identite { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; }
+.identite img { width: 56px; height: 56px; flex: none; border-radius: 50%; background: #fff; }
+.identite div { min-width: 0; }
+.identite h1 { margin: 0; font-size: 1.75rem; }
+.accueil-qualite { margin: 0 0 16px; color: var(--couleur-texte-doux); }
+.accueil-adresse { margin: 0 0 16px; color: var(--couleur-texte-doux); }
 .tuiles {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 16px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 .tuile {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 92px;
-  padding: 14px;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  min-height: 96px;
+  padding: 16px 12px;
   border-radius: var(--rayon);
   background: var(--couleur-carte);
   border: 1px solid var(--couleur-bordure);
-  color: var(--couleur-principale);
+  color: var(--couleur-texte);
+  font: inherit;
   font-weight: 700;
+  line-height: 1.25;
+  text-align: left;
   text-decoration: none;
+  cursor: pointer;
 }
-.tuile-bientot { color: var(--couleur-texte-doux); background: transparent; border-style: dashed; }
-.tuile-bientot span { font-weight: 400; font-size: 0.95rem; }
+.tuile .icone { color: var(--couleur-principale); }
+.tuile-verte .icone { color: var(--couleur-plante); }
+.tuile-bientot {
+  background: var(--couleur-fond);
+  border-style: dashed;
+  border-color: var(--couleur-bordure-champ);
+  color: var(--couleur-discret);
+  cursor: default;
+}
+.tuile-bientot .icone { color: var(--couleur-discret); }
+.tuile-bientot small { font-weight: 400; font-size: 0.875rem; }
+.actions-liens {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 20px;
+  margin: 0 0 16px;
+}
+.actions-liens .lien-discret, .actions-liens a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--couleur-principale);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
-/* ---------- Calendrier ---------- */
+/* ---------- Calendrier (écran désactivé pour le moment) ---------- */
 .navigation-mois {
   display: flex;
   align-items: center;
@@ -201,7 +334,6 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
 }
 .conseils { padding-left: 1.2em; margin: 0; }
 .conseils li { margin-bottom: 8px; }
-
 .liste-mois {
   list-style: none;
   padding: 0;
@@ -214,7 +346,7 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   align-items: center;
   justify-content: center;
   min-height: 48px;
-  border-radius: 10px;
+  border-radius: var(--rayon-bouton);
   border: 1px solid var(--couleur-bordure);
   background: var(--couleur-carte);
   color: var(--couleur-texte);
@@ -257,14 +389,15 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   max-width: 640px;
   margin: 0 auto;
   padding: 8px 16px 24px;
-  color: var(--couleur-texte-doux);
+  color: var(--couleur-discret);
   font-size: 0.95rem;
 }
 .pied-liens {
+  margin: 0;
   border-top: 1px solid var(--couleur-bordure);
   padding-top: 12px;
 }
-.pied-liens a { color: var(--couleur-texte-doux); }
+.pied-liens a { color: var(--couleur-discret); }
 
 /* ---------- Menu du bas ---------- */
 .menu {
@@ -274,7 +407,7 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   bottom: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: var(--couleur-carte);
+  background: var(--couleur-fond);
   border-top: 1px solid var(--couleur-bordure);
   padding-bottom: env(safe-area-inset-bottom);
   z-index: 50;
@@ -284,6 +417,7 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 2px;
   min-height: var(--hauteur-menu);
   padding: 4px 2px;
   border: 0;
@@ -291,69 +425,31 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   color: var(--couleur-texte-doux);
   font: inherit;
   font-size: 0.8rem;
-  font-weight: 600;
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
 }
-.menu-icone { font-size: 1.4rem; line-height: 1.1; }
-.menu a[aria-current="page"] { color: var(--couleur-principale); box-shadow: inset 0 3px 0 var(--couleur-principale); }
-.menu .menu-rdv { color: var(--couleur-accent); }
-
-/* ---------- Bouton secondaire et liens discrets ---------- */
-.bouton-secondaire {
-  background: var(--couleur-principale);
-  color: #fff;
-}
-.lien-discret {
-  display: inline-flex;
-  align-items: center;
-  min-height: 48px;
-  padding: 0 4px;
-  border: 0;
-  background: none;
+.menu .icone { width: 22px; height: 22px; }
+.menu a[aria-current="page"] {
   color: var(--couleur-principale);
-  font: inherit;
-  text-decoration: underline;
-  cursor: pointer;
+  font-weight: 700;
+  box-shadow: inset 0 3px 0 var(--couleur-torii);
 }
-
-/* ---------- Accueil : liste de boutons identiques (variante A) ---------- */
-.liste-boutons {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 24px;
-  display: grid;
-  gap: 12px;
-}
-.bouton-accueil {
-  height: 64px;          /* hauteur identique pour tous, même avec 2 lignes */
-  min-height: 64px;
-  margin: 0;
-  flex-direction: column;
-  gap: 0;
-  line-height: 1.2;
-  background: var(--couleur-principale);
-  color: #fff;
-}
-.bouton-accueil small { font-weight: 400; font-size: 0.95rem; }
-.bouton-espace { margin-top: 12px; }
-.bouton-accueil[aria-disabled="true"] { cursor: default; }
 
 /* ---------- Aide à l'installation ---------- */
 .bloc-installation { margin-bottom: 16px; }
-.bouton-installer { background: var(--couleur-accent); color: #fff; margin: 0; }
+.bouton-installer { background: var(--couleur-fond); border-color: var(--couleur-principale); color: var(--couleur-principale); margin: 0; }
 .aide-installation {
   background: var(--couleur-carte);
-  border: 2px solid var(--couleur-principale);
+  border: 1px solid var(--couleur-bordure);
   border-radius: var(--rayon);
   padding: 0 16px;
 }
 .aide-installation summary {
   display: flex;
   align-items: center;
-  min-height: 56px;
+  min-height: 52px;
   font-weight: 700;
   color: var(--couleur-principale);
   cursor: pointer;
@@ -362,7 +458,7 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
 .aide-installation li { margin-bottom: 6px; }
 
 /* ---------- Bloc « Votre dernière consultation » ---------- */
-.rappel { padding: 14px 16px 6px; }
+.rappel { padding: 16px 16px 6px; background: var(--couleur-bois-clair); border: 0; }
 .rappel:has(.rappel-deplier) { padding: 0; }
 .rappel-deplier {
   display: flex;
@@ -370,19 +466,18 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   justify-content: space-between;
   gap: 8px;
   width: 100%;
-  min-height: 56px;
+  min-height: 52px;
   padding: 8px 16px;
   border: 0;
   border-radius: var(--rayon);
   background: none;
-  color: var(--couleur-principale);
+  color: var(--couleur-texte);
   font: inherit;
-  font-weight: 700;
+  font-size: 0.95rem;
   text-align: left;
   cursor: pointer;
 }
-.rappel-deplier span[aria-hidden] { font-size: 1.6rem; line-height: 1; }
-.rappel-titre { margin: 0 0 4px; font-size: 1.1rem; }
+.rappel-titre { margin: 0 0 4px; font-size: 1.15rem; }
 .rappel-aide { margin: 0 0 10px; font-size: 0.95rem; color: var(--couleur-texte-doux); }
 .rappel-selects {
   display: grid;
@@ -390,15 +485,15 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   gap: 8px;
   margin-bottom: 10px;
 }
-.rappel-selects label { font-size: 0.9rem; font-weight: 600; }
+.rappel-selects label { font-size: 0.9rem; font-weight: 700; }
 .rappel-selects select {
   display: block;
   width: 100%;
   min-height: 48px;
   margin-top: 4px;
   padding: 0 8px;
-  border: 1px solid var(--couleur-texte-doux);
-  border-radius: 10px;
+  border: 1px solid var(--couleur-bordure-champ);
+  border-radius: var(--rayon-bouton);
   background: #fff;
   color: var(--couleur-texte);
   font: inherit;
@@ -412,23 +507,23 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   cursor: pointer;
 }
 .rappel-case input { width: 24px; height: 24px; flex: none; accent-color: var(--couleur-principale); }
-.rappel-erreur { color: #a1260d; font-weight: 600; margin: 0 0 8px; }
+.rappel-erreur { color: var(--couleur-alerte); font-weight: 700; margin: 0 0 8px; }
 .rappel-resultat { font-size: 1.1rem; margin: 0 0 10px; }
 .rappel-rdv { margin: 0 0 10px; }
 .rappel-actions { display: flex; flex-wrap: wrap; column-gap: 16px; }
 
-/* ---------- Panneau du bas (Renseignements) ---------- */
+/* ---------- Panneau du bas (Contacter, Partager) ---------- */
 .panneau {
   width: 100%;
   max-width: 640px;
   margin: auto auto 0;
   padding: 16px 16px calc(20px + env(safe-area-inset-bottom));
   border: 0;
-  border-radius: 20px 20px 0 0;
-  background: var(--couleur-carte);
+  border-radius: var(--rayon) var(--rayon) 0 0;
+  background: var(--couleur-fond);
   color: var(--couleur-texte);
 }
-.panneau::backdrop { background: rgba(0, 0, 0, 0.45); }
+.panneau::backdrop { background: rgba(31, 42, 58, 0.5); }
 .panneau-entete { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .panneau-entete h2 { margin: 0; }
 .panneau-fermer {
@@ -436,22 +531,23 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   height: 48px;
   border: 0;
   border-radius: 50%;
-  background: var(--couleur-pastille);
+  background: var(--couleur-carte);
   color: var(--couleur-texte);
   font-size: 1.2rem;
   cursor: pointer;
 }
-.panneau-mention { font-weight: 600; margin: 8px 0 0; }
+.panneau .bouton { min-height: 50px; margin-bottom: 8px; }
+.panneau-mention { font-weight: 700; margin: 8px 0 0; }
 .panneau-horaires { color: var(--couleur-texte-doux); margin: 6px 0 0; }
 
 /* Panneau « Partager l'application » */
 .partage-qr { text-align: center; margin: 0 0 12px; }
 .partage-qr img {
-  width: min(240px, 70vw);
+  width: min(220px, 62vw);
   height: auto;
   padding: 8px;
   background: #fff;              /* fond blanc : le QR code reste lisible par les appareils photo */
-  border: 1px solid var(--couleur-bordure);
+  border: 1px solid var(--couleur-bordure-champ);
   border-radius: var(--rayon);
 }
 .partage-qr p { color: var(--couleur-texte-doux); margin: 6px 0 0; }
@@ -459,99 +555,141 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
 .partage-choix[hidden] { display: none; }
 .partage-choix .bouton { margin: 0; }
 .partage-adresse { grid-column: 1 / -1; margin: 0; text-align: center; word-break: break-all; color: var(--couleur-texte-doux); }
-.partage-confirmation { font-weight: 600; color: var(--couleur-principale); text-align: center; margin: 0; }
+.partage-confirmation { font-weight: 700; color: var(--couleur-principale); text-align: center; margin: 0; }
 
-/* ---------- Diététique : fiches dépliables ---------- */
-.fiche {
-  border-top: 1px solid var(--couleur-bordure);
-  padding: 4px 0;
-}
-.fiche summary {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 10px;
-  min-height: 56px;
-  font-weight: 700;
-  color: var(--couleur-principale);
-  cursor: pointer;
-}
-.fiche-categorie { font-weight: 400; font-size: 0.9rem; color: var(--couleur-texte-doux); }
-.fiche h4 { margin: 14px 0 4px; font-size: 1rem; }
-.fiche ul { padding-left: 1.2em; margin: 0; }
-.fiche li { margin-bottom: 6px; }
-.mention-conseil {
-  padding: 10px 12px;
-  border-left: 4px solid var(--couleur-principale);
-  background: var(--couleur-pastille);
-  font-weight: 600;
-}
-.mention-affilie { color: var(--couleur-texte); }
-.fiche-date { font-size: 0.9rem; color: var(--couleur-texte-doux); }
-.tableau-nutrition { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-.tableau-nutrition th, .tableau-nutrition td { padding: 6px 4px; border-bottom: 1px solid var(--couleur-bordure); }
-.tableau-nutrition th { text-align: left; font-weight: 400; }
-.tableau-nutrition td { text-align: right; white-space: nowrap; }
-/* Onglets de l'écran Diététique (deux moitiés égales, faciles à toucher) */
+/* ---------- Diététique : onglets et listes ---------- */
 .onglets-diet {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 4px;
   margin: 0 0 16px;
   padding: 4px;
-  border-radius: var(--rayon);
-  background: var(--couleur-pastille);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon-bouton);
+  background: var(--couleur-carte);
 }
 .onglet-diet {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 48px;
-  padding: 6px 8px;
-  border-radius: 10px;
+  padding: 4px;
+  border-radius: 4px;
   color: var(--couleur-principale);
+  font-size: 0.95rem;
   font-weight: 700;
   text-align: center;
   text-decoration: none;
   line-height: 1.2;
 }
 .onglet-diet[aria-current="page"] { background: var(--couleur-principale); color: #fff; }
-.choix-nutriment { display: grid; gap: 4px; margin: 0 0 12px; font-weight: 600; }
+.choix-nutriment { display: grid; gap: 4px; margin: 0 0 16px; font-weight: 700; }
 .choix-nutriment select {
   min-height: 48px;
   padding: 0 8px;
-  border: 1px solid var(--couleur-texte-doux);
-  border-radius: 10px;
+  border: 1px solid var(--couleur-bordure-champ);
+  border-radius: var(--rayon-bouton);
   background: #fff;
   color: var(--couleur-texte);
   font: inherit;
   font-weight: 400;
 }
-.classement { border-top: 1px solid var(--couleur-bordure); padding-top: 8px; }
-.classement .fiche { border-top: 0; }
-.classement-valeur { margin: 0; }
+.groupe-titre { margin: 8px 0 4px; font-size: 1.4rem; }
+.sous-groupe { margin: 16px 0 8px; }
+.liste-fiches {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  background: var(--couleur-carte);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon);
+  overflow: hidden;
+}
+.liste-fiches li { border-bottom: 1px solid var(--couleur-bordure); }
+.liste-fiches li:last-child { border-bottom: 0; }
+.ligne-fiche {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 52px;
+  padding: 6px 16px;
+  color: var(--couleur-texte);
+  font-weight: 700;
+  line-height: 1.25;
+  text-decoration: none;
+}
+.ligne-fiche:hover { color: var(--couleur-principale); }
+.ligne-fiche small { font-weight: 400; font-size: 0.875rem; color: var(--couleur-discret); text-align: right; }
+.classement { padding: 8px 0 0; }
+.classement-valeur { margin: 0 16px 4px; }
+.classement .ligne-fiche { padding-top: 0; min-height: 44px; }
 .badge {
   display: inline-block;
   margin-left: 6px;
   padding: 1px 10px;
   border-radius: 999px;
-  background: var(--couleur-pastille);
-  color: var(--couleur-principale);
+  background: var(--couleur-sauge);
+  color: var(--couleur-texte);
   font-size: 0.85rem;
   font-weight: 700;
 }
-.badge-neutre { background: #eef0f3; color: var(--couleur-texte-doux); }
-.groupe-titre {
-  margin: 20px 0 4px;
-  padding: 6px 12px;
-  border-radius: 10px;
-  background: var(--couleur-pastille);
-  font-size: 1.05rem;
+.badge-neutre { background: var(--couleur-bois-clair); }
+
+/* ---------- Pages Fiche aliment et Fiche complément ---------- */
+.fiche-page h2 { margin: 0 0 8px; font-size: 1.2rem; }
+.fiche-page ul { margin: 0; padding-left: 1.2em; }
+.fiche-page li { margin-bottom: 6px; }
+.fiche-intro { margin: 0 0 16px; color: var(--couleur-texte-doux); }
+.encadre { margin: 0 0 16px; padding: 16px; border-radius: var(--rayon); }
+.encadre-sauge { background: var(--couleur-sauge); }
+.encadre-carte { background: var(--couleur-carte); border: 1px solid var(--couleur-bordure); }
+.mention-conseil {
+  margin: 0 0 16px;
+  padding: 16px;
+  border-radius: var(--rayon);
+  background: var(--couleur-rose);
+  font-weight: 700;
 }
-.recette { margin-top: 10px; }
-.recette-titre { font-weight: 700; margin-bottom: 4px; }
-.recette-titre span { font-weight: 400; color: var(--couleur-texte-doux); }
-.recette ol { padding-left: 1.4em; }
+.mention-affilie { color: var(--couleur-texte); }
+.fiche-date { font-size: 0.875rem; color: var(--couleur-discret); }
+.tableau-nutrition { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.tableau-nutrition th, .tableau-nutrition td { padding: 7px 0; border-bottom: 1px solid var(--couleur-bordure); }
+.tableau-nutrition tr:last-child th, .tableau-nutrition tr:last-child td { border-bottom: 0; }
+.tableau-nutrition th { text-align: left; font-weight: 400; }
+.tableau-nutrition td { text-align: right; white-space: nowrap; }
+.frise { margin: 0 0 16px; }
+.frise-barres, .frise-lettres {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 3px;
+}
+.frise-barres i { height: 8px; border-radius: 999px; background: var(--couleur-bordure); }
+.frise-barres .frise-saison { background: var(--couleur-principale); }
+.frise-barres .frise-courant { background: var(--couleur-torii); }
+.frise-lettres { margin-top: 4px; font-size: 0.75rem; color: var(--couleur-discret); text-align: center; }
+.frise-lettres .frise-actuel { color: var(--couleur-texte); font-weight: 700; }
+.recette { border-bottom: 1px solid var(--couleur-bordure); }
+.recette:last-of-type { border-bottom: 0; }
+.recette summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 52px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.recette summary small { font-weight: 400; font-size: 0.875rem; color: var(--couleur-discret); white-space: nowrap; }
+.recette ol { margin: 0 0 12px; padding-left: 1.4em; }
+
+/* ---------- Infos pratiques ---------- */
+.infos-adresse { margin: 0 0 12px; }
+.infos-liste { margin: 0 0 16px; }
+.infos-liste div { padding: 8px 0; border-bottom: 1px solid var(--couleur-bordure); }
+.infos-liste div:last-child { border-bottom: 0; }
+.infos-liste dt { font-weight: 700; }
+.infos-liste dd { margin: 0; color: var(--couleur-texte-doux); }
 
 /* ---------- Étirements ---------- */
 .onglets {
@@ -565,16 +703,18 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
 .onglets a {
   display: inline-flex;
   align-items: center;
-  min-height: 48px;
-  padding: 0 16px;
+  min-height: 44px;
+  padding: 0 14px;
   border-radius: var(--rayon-bouton);
-  border: 1px solid var(--couleur-bordure);
+  border: 1px solid var(--couleur-bordure-champ);
   background: var(--couleur-carte);
   color: var(--couleur-texte);
+  font-size: 0.95rem;
   text-decoration: none;
 }
-.onglets a[aria-current="true"] { background: var(--couleur-principale); border-color: var(--couleur-principale); color: #fff; }
-.video-chaine { color: var(--couleur-texte-doux); margin: 0 0 10px; }
+.onglets a[aria-current="true"] { background: var(--couleur-principale); border-color: var(--couleur-principale); color: #fff; font-weight: 700; }
+.video-chaine { color: var(--couleur-discret); font-size: 0.875rem; margin: 0 0 10px; }
+.carte .video-zone .bouton { margin: 0; }
 /* Lecteur : au moins 200 × 200 px (exigence YouTube), 16/9 sinon */
 .video-lecteur {
   display: block;
@@ -583,7 +723,7 @@ h3 { font-size: 1.1rem; margin: 0 0 8px; }
   border: 0;
   border-radius: 10px;
 }
-.note-tiers { font-size: 0.9rem; color: var(--couleur-texte-doux); }
+.note-tiers { font-size: 0.875rem; color: var(--couleur-discret); }
 
 /* Réduit les animations si le téléphone le demande */
 @media (prefers-reduced-motion: reduce) {

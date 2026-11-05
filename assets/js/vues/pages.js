@@ -2,14 +2,12 @@
    Les pages texte sont écrites en Markdown simple dans le dossier pages/ :
    # Titre, ## Sous-titre, - élément de liste, **gras**, [texte](adresse). */
 
-import { chargerJSON, echapper } from '../app.js';
+import { chargerJSON, echapper, bandeau } from '../app.js';
 import { blocInstallation } from '../installation.js';
+import { icone } from '../icones.js';
 
 export async function afficherInfos() {
-  const [cabinet, liens] = await Promise.all([
-    chargerJSON('config/cabinet.json'),
-    chargerJSON('config/liens.json'),
-  ]);
+  const cabinet = await chargerJSON('config/cabinet.json');
 
   // Infos pratiques de config/cabinet.json (une ligne vide n'est pas affichée)
   const infos = cabinet.infosPratiques || {};
@@ -19,52 +17,32 @@ export async function afficherInfos() {
   };
   const lignes = Object.keys(libelles)
     .filter((cle) => infos[cle])
-    .map((cle) => `<p><strong>${libelles[cle]} :</strong> ${echapper(infos[cle])}</p>`)
+    .map((cle) => `<div><dt>${libelles[cle]}</dt><dd>${echapper(infos[cle])}</dd></div>`)
     .join('');
 
   // Adresse cliquable : ouvre Google Maps (l'application si elle est installée) sur la fiche
   // du cabinet (config/cabinet.json → rechercheGoogleMaps), à défaut sur l'adresse
   const urlPlan = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cabinet.rechercheGoogleMaps || cabinet.adresse || '')}`;
   const adresse = cabinet.adresse
-    ? `<p><strong>Adresse :</strong> <a href="${echapper(urlPlan)}" target="_blank" rel="noopener">${echapper(cabinet.adresse)}</a>
-         <br><a href="${echapper(urlPlan)}" target="_blank" rel="noopener">📍 Voir sur Google Maps</a></p>`
+    ? `<p class="infos-adresse"><strong>Adresse</strong><br>
+         <a href="${echapper(urlPlan)}" target="_blank" rel="noopener">${echapper(cabinet.adresse)}</a></p>
+       <a class="bouton bouton-contour" href="${echapper(urlPlan)}" target="_blank" rel="noopener">${icone('epingle', 'icone-petite')}Voir sur Google Maps</a>`
     : '';
 
   return `
-    <h1>Infos pratiques</h1>
+    ${bandeau({ titre: 'Infos pratiques' })}
+    ${adresse}
+    <dl class="infos-liste">${lignes}</dl>
 
     <div class="carte">
-      <h2>Le cabinet</h2>
-      ${adresse}
-      ${lignes}
-    </div>
-
-    <div class="carte">
-      <h2>Rendez-vous et contact</h2>
-      <a class="bouton bouton-accueil" href="${echapper(liens.rendezVous.url)}" target="_blank" rel="noopener">
-        ${echapper(liens.rendezVous.libelle)}
-      </a>
-      <button type="button" class="bouton bouton-accueil bouton-espace" data-ouvrir="renseignements">
-        ${echapper(liens.renseignements.libelle)}
-      </button>
-    </div>
-
-    <div class="carte">
-      <h2>${echapper(liens.avis.titreSection)}</h2>
-      <p>${echapper(liens.avis.texte)}</p>
-      <a class="bouton bouton-accueil" href="${echapper(liens.avis.url)}" target="_blank" rel="noopener">⭐ ${echapper(liens.avis.libelle)}</a>
-    </div>
-
-    <div class="carte">
-      <h2>Installer l'application</h2>
-      ${blocInstallation() || '<p>L\'application est installée sur ce téléphone.</p>'}
+      <h2 class="carte-titre">Installer l'application</h2>
+      ${blocInstallation() || "<p>L'application est installée sur ce téléphone.</p>"}
       <p>Une fois ouverte, l'application reste consultable sans connexion pour les pages déjà visitées.</p>
     </div>
 
     <div class="carte">
-      <h2>Vos données</h2>
+      <h2 class="carte-titre">Vos données</h2>
       <p>Aucun compte, aucun cookie, aucune statistique : l'application ne recueille aucune donnée personnelle.</p>
-      <p><a href="#confidentialite">Confidentialité</a> · <a href="#mentions-legales">Mentions légales</a></p>
     </div>`;
 }
 

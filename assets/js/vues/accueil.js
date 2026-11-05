@@ -1,10 +1,10 @@
-/* Écran d'accueil (variante A) : rappel replié, puis une liste verticale
-   de boutons tous identiques (même taille, même style, même espacement),
-   puis la présentation du cabinet. */
+/* Écran d'accueil (direction « La salle de soins ») : photo de la salle, identité,
+   rendez-vous, quatre tuiles, rappel replié, puis la présentation du cabinet. */
 
 import { chargerJSON, estVisible, marqueRelecture, echapper } from '../app.js';
 import { blocRappel } from '../rappel.js';
 import { blocInstallation } from '../installation.js';
+import { icone } from '../icones.js';
 
 export async function afficherAccueil() {
   const [cabinet, liens, rappel] = await Promise.all([
@@ -24,30 +24,40 @@ export async function afficherAccueil() {
       </div>`;
   }
 
-  const adresse = cabinet.adresse ? `<p>${echapper(cabinet.adresse)}</p>` : '';
-
-  // Rubriques pas encore disponibles : même bouton, mais inactif et marqué « bientôt »
-  const bientot = (libelle) => `
-    <li><span class="bouton bouton-accueil" aria-disabled="true">${echapper(libelle)} <small>(bientôt)</small></span></li>`;
-
   return `
-    ${blocInstallation()}
-    ${rappel}
+    <div class="ouverture">
+      <img class="ouverture-photo" src="assets/images/salle-de-soins.webp" width="800" height="360"
+           alt="La salle de soins du cabinet : mur bleu, toile de Miyajima et plantes">
+    </div>
+
+    <div class="identite">
+      <img src="assets/icones/logo-entete.png" alt="Logo du cabinet" width="56" height="56">
+      <div>
+        <span class="surtitre">Pôle Santé de Chirens</span>
+        <h1>${echapper(cabinet.nom)}</h1>
+      </div>
+    </div>
+    <div class="filet-torii"></div>
+    <p class="accueil-qualite">${echapper(cabinet.profession)} · ${echapper(cabinet.ville)}</p>
 
     <nav aria-label="Accès rapide">
-      <ul class="liste-boutons">
-        <li><a class="bouton bouton-accueil" href="${echapper(liens.rendezVous.url)}" target="_blank" rel="noopener">${echapper(liens.rendezVous.libelle)}</a></li>
-        <li><button type="button" class="bouton bouton-accueil" data-ouvrir="renseignements">${echapper(liens.renseignements.libelle)}</button></li>
-        <li><a class="bouton bouton-accueil" href="#etirements">Étirements</a></li>
-        <li><a class="bouton bouton-accueil" href="#dietetique">Diététique</a></li>
-        ${bientot('Ressources')}
-        <li><a class="bouton bouton-accueil" href="${echapper(liens.avis.url)}" target="_blank" rel="noopener">⭐ ${echapper(liens.avis.libelle)}</a></li>
-        <li><button type="button" class="bouton bouton-accueil" data-ouvrir="partage">📤 ${echapper(liens.partage.libelle)}</button></li>
+      <a class="bouton bouton-secondaire" href="${echapper(liens.rendezVous.url)}" target="_blank" rel="noopener">${echapper(liens.rendezVous.libelle)}</a>
+      <ul class="tuiles">
+        <li><button type="button" class="tuile" data-ouvrir="renseignements">${icone('bulle')}${echapper(liens.renseignements.libelle)}</button></li>
+        <li><a class="tuile" href="#etirements">${icone('corps')}Étirements</a></li>
+        <li><a class="tuile tuile-verte" href="#dietetique">${icone('feuille')}Diététique</a></li>
+        <li><span class="tuile tuile-bientot" aria-disabled="true">${icone('document')}<span>Ressources <small>(bientôt)</small></span></span></li>
       </ul>
     </nav>
 
-    <h1>${echapper(cabinet.nom)}</h1>
-    <p class="sous-titre">${echapper(cabinet.profession)} · ${echapper(cabinet.ville)}</p>
-    ${adresse}
-    ${presentation}`;
+    ${rappel}
+
+    <div class="actions-liens">
+      <a href="${echapper(liens.avis.url)}" target="_blank" rel="noopener">${echapper(liens.avis.libelle)}</a>
+      <button type="button" class="lien-discret" data-ouvrir="partage">${echapper(liens.partage.libelle)}</button>
+    </div>
+
+    ${blocInstallation()}
+    ${presentation}
+    ${cabinet.adresse ? `<p class="accueil-adresse">${echapper(cabinet.adresse)}</p>` : ''}`;
 }

@@ -9,7 +9,7 @@
    rechargés depuis Internet quand il y a du réseau.
    ========================================================= */
 
-const VERSION = 'v22';
+const VERSION = 'v23';
 const CACHE = `osteo-savasta-${VERSION}`;
 
 // Fichiers enregistrés dès l'installation
@@ -24,6 +24,7 @@ const FICHIERS_DE_BASE = [
   'assets/js/installation.js',
   'assets/js/renseignements.js',
   'assets/js/partage.js',
+  'assets/js/icones.js',
   'assets/js/vues/accueil.js',
   'assets/js/vues/dietetique.js',
   'assets/js/vues/etirements.js',
@@ -32,6 +33,10 @@ const FICHIERS_DE_BASE = [
   'assets/icones/icone-512.png',
   'assets/icones/logo-entete.png',
   'assets/icones/qr-code-appli.svg',
+  'assets/images/salle-de-soins.webp',
+  'assets/polices/lora-latin-600-normal.woff2',
+  'assets/polices/lato-latin-400-normal.woff2',
+  'assets/polices/lato-latin-700-normal.woff2',
   'config/liens.json',
   'config/cabinet.json',
   'config/rappel.json',

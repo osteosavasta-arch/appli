@@ -34,13 +34,13 @@ window.addEventListener('appinstalled', () => {
 
 function contenu() {
   if (propositionAndroid) {
-    return `<button type="button" class="bouton bouton-installer" data-installer>📲 Installer l'application</button>`;
+    return `<button type="button" class="bouton bouton-installer" data-installer>Installer l'application</button>`;
   }
   if (estIOS()) {
     const navigateur = estDansSafari() ? '' : '<li>Ouvrez cette page dans <strong>Safari</strong>.</li>';
     return `
       <details class="aide-installation">
-        <summary>📲 Installer l'application sur l'iPhone</summary>
+        <summary>Installer l'application sur l'iPhone</summary>
         <ol>
           ${navigateur}
           <li>Touchez le bouton <strong>Partager</strong> (carré avec une flèche vers le haut).</li>
@@ -50,7 +50,7 @@ function contenu() {
   }
   return `
     <details class="aide-installation">
-      <summary>📲 Installer l'application sur le téléphone</summary>
+      <summary>Installer l'application sur le téléphone</summary>
       <ol>
         <li>Ouvrez cette page dans <strong>Chrome</strong> (si elle s'est ouverte dans l'aperçu de l'appareil photo, touchez « Ouvrir dans Chrome »).</li>
         <li>Touchez le menu <strong>⋮</strong> en haut à droite.</li>

@@ -4,7 +4,8 @@
    le mode « confidentialité renforcée » (youtube-nocookie.com).
    Adresse : #etirements (toutes) ou #etirements/dos (une sous-catégorie). */
 
-import { chargerJSON, estVisible, marqueRelecture, echapper } from '../app.js';
+import { chargerJSON, estVisible, marqueRelecture, echapper, bandeau } from '../app.js';
+import { icone } from '../icones.js';
 
 export async function afficherEtirements(parametre) {
   const donnees = await chargerJSON('data/etirements.json');
@@ -23,11 +24,11 @@ export async function afficherEtirements(parametre) {
     const cartes = liste.length
       ? liste.map(carteVideo).join('')
       : '<p class="vide">Vidéos en cours de sélection.</p>';
-    return `<h2>${echapper(categorie.nom)}</h2>${cartes}`;
+    return `<h2 class="surtitre sous-groupe">${echapper(categorie.nom)}</h2>${cartes}`;
   }).join('');
 
   return `
-    <h1>Étirements</h1>
+    ${bandeau({ titre: 'Étirements' })}
     ${onglets}
     ${sections}
     <p class="note-tiers">
@@ -54,7 +55,7 @@ function carteVideo(video) {
     <div class="carte${marque.classe}">
       ${entete}
       <div class="video-zone" data-video="${id}">
-        <button type="button" class="bouton bouton-secondaire" data-lire-video>▶ Lire la vidéo</button>
+        <button type="button" class="bouton bouton-secondaire" data-lire-video>${icone('lecture', 'icone-petite icone-pleine')}Lire la vidéo</button>
       </div>
     </div>`;
 }

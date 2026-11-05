@@ -8,9 +8,10 @@
 
 import { afficherAccueil } from './vues/accueil.js';
 import { afficherEtirements } from './vues/etirements.js';
-import { afficherDietetique } from './vues/dietetique.js';
+import { afficherDietetique, afficherAliment, afficherComplement } from './vues/dietetique.js';
 import { afficherInfos, afficherPageTexte } from './vues/pages.js';
 import { activerRappel } from './rappel.js';
+import { icone } from './icones.js';
 import './renseignements.js';
 import './partage.js';
 
@@ -47,6 +48,19 @@ export function echapper(texte) {
     .replace(/'/g, '&#39;');
 }
 
+/** Bandeau bleu ardoise en tête d'écran ; retour = { adresse, libelle } pour les fiches. */
+export function bandeau({ titre, surtitre, sousTitre, retour }) {
+  return `
+    <div class="ouverture">
+      <div class="bandeau">
+        ${retour ? `<a class="bandeau-retour" href="${echapper(retour.adresse)}">${icone('retour', 'icone-petite')}${echapper(retour.libelle)}</a>` : ''}
+        ${surtitre ? `<span class="surtitre">${echapper(surtitre)}</span>` : ''}
+        <h1>${echapper(titre)}</h1>
+        ${sousTitre ? `<span class="bandeau-sous-titre">${echapper(sousTitre)}</span>` : ''}
+      </div>
+    </div>`;
+}
+
 /** Lit un fichier JSON ; garde le résultat en mémoire pour ne pas le relire. */
 const memoire = {};
 export async function chargerJSON(chemin) {
@@ -67,6 +81,8 @@ const ecrans = {
   // réimporter afficherCalendrier et ajouter : 'calendrier': afficherCalendrier,
   'etirements': afficherEtirements,
   'dietetique': afficherDietetique,
+  'aliment': afficherAliment,
+  'complement': afficherComplement,
   'infos': afficherInfos,
   'confidentialite': () => afficherPageTexte('pages/confidentialite.md'),
   'mentions-legales': () => afficherPageTexte('pages/mentions-legales.md'),
@@ -79,10 +95,31 @@ const apresAffichage = {
 
 const zone = document.getElementById('contenu');
 
+/* Les fiches sont des pages à part : en revenant à la liste, on retrouve
+   l'endroit quitté (et le nutriment choisi, grâce à l'adresse de la liste). */
+const ECRANS_FICHE = ['aliment', 'complement'];
+let adresseListe = '';
+let positionListe = 0;
+let routePrecedente = '';
+let adresseCourante = '';
+
+/** Adresse de la liste d'où vient la fiche ouverte. */
+export function adresseRetourDietetique(parDefaut) {
+  return adresseListe || parDefaut;
+}
+
 async function afficherEcran() {
   // « #etirements/dos » → écran « etirements », paramètre « dos »
   const [nom, parametre] = location.hash.replace('#', '').split('/');
   const route = ecrans[nom] ? nom : 'accueil';
+  const versFiche = ECRANS_FICHE.includes(route);
+  const retourDeFiche = route === 'dietetique' && ECRANS_FICHE.includes(routePrecedente);
+  if (versFiche && routePrecedente === 'dietetique') {
+    adresseListe = adresseCourante;
+    positionListe = window.scrollY;
+  }
+  if (!versFiche) adresseCourante = location.hash;
+  routePrecedente = route;
 
   // Met en évidence l'onglet actif du menu
   document.querySelectorAll('.menu a[data-route]').forEach((lien) => {
@@ -101,7 +138,7 @@ async function afficherEcran() {
     console.error(erreur);
     zone.innerHTML = '<p class="vide">Ce contenu n\'a pas pu être chargé. Vérifiez votre connexion puis réessayez.</p>';
   }
-  window.scrollTo(0, 0);
+  window.scrollTo(0, retourDeFiche ? positionListe : 0);
 }
 
 /** Recopie le lien de rendez-vous de config/liens.json dans le menu. */
