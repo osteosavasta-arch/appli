@@ -134,6 +134,23 @@
     "titreLaitiers": "Produits laitiers (facultatif)",
     "aideLaitiers": "Un produit laitier par repas, à répartir entre ceux que vous choisissez. Ils comptent aussi dans la toile."
   },
+  "textesPlus": {
+    "statut": "validee",
+    "_aide": "Textes de la sélection aléatoire et des semaines enregistrées. Ces deux fonctions n'apparaissent qu'une fois ce bloc validé. {date} est remplacé par la date d'enregistrement.",
+    "boutonAleatoire": "Sélection aléatoire",
+    "aideAleatoire": "Une liste variée qui vise une toile verte. Touchez à nouveau pour une autre proposition : vos propres choix sont gardés.",
+    "pasDeVert": "Aucune liste trouvée n'atteint le vert : voici la plus complète. Touchez à nouveau pour une autre proposition.",
+    "boutonEnregistrer": "Enregistrer ma semaine",
+    "enregistre": "Semaine enregistrée sur ce téléphone.",
+    "echecEnregistrement": "L'enregistrement n'est pas possible sur ce téléphone (navigation privée, par exemple).",
+    "titreSemaines": "Mes semaines enregistrées",
+    "aideSemaines": "Gardées seulement sur ce téléphone, jusqu'à 12 semaines.",
+    "semaineDu": "Semaine du {date}",
+    "ouvrir": "Ouvrir",
+    "supprimer": "Supprimer",
+    "confirmerSuppression": "Confirmer la suppression",
+    "horsSaison": "Certains aliments de cette semaine ne sont plus proposés ce mois-ci : ils ne sont pas cochés, mais restent dans les recettes et les courses."
+  },
   "crudites": [
     "laitue",
     "mache",

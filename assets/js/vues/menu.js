@@ -21,7 +21,8 @@ const GROUPES = [
 ];
 const minimum = (reglages, groupe) => reglages.aChoisir[groupe] || 0;
 
-let etat = { personnes: 2, choisis: new Set(), resultat: null };
+// aleatoires : aliments ajoutés par « Sélection aléatoire » (remplacés au clic suivant)
+let etat = { personnes: 2, choisis: new Set(), aleatoires: new Set(), derniereAleatoire: '', resultat: null };
 let valeursAffichees = null; // pour l'animation de la toile
 let complementsCiqual = {}; // vitamine E et oméga-3 des fiches, servent seulement à la toile
 
@@ -340,6 +341,109 @@ function texteMenu(t, semaine, recettes) {
   return `${t.titre}\n\n${jours}\n\n${t.titreRecettes}\n\n${details}\n`;
 }
 
+/* ---------- Sélection aléatoire ----------
+   Complète les choix de la personne pour atteindre les minimums, avec 1 ou 2 produits laitiers
+   et une huile conseillée, en variant les catégories ; vise une toile verte (score ≥ seuil). */
+function melanger(liste) {
+  const copie = [...liste];
+  for (let i = copie.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copie[i], copie[j]] = [copie[j], copie[i]];
+  }
+  return copie;
+}
+
+/** n aliments au hasard, au plus 2 de la même catégorie (en comptant ceux déjà choisis). */
+function tirer(liste, n, deja) {
+  const pris = [];
+  const parCategorie = {};
+  deja.forEach((f) => { parCategorie[f.categorie] = (parCategorie[f.categorie] || 0) + 1; });
+  for (const f of melanger(liste)) {
+    if (pris.length >= n) break;
+    if ((parCategorie[f.categorie] || 0) >= 2) continue;
+    pris.push(f);
+    parCategorie[f.categorie] = (parCategorie[f.categorie] || 0) + 1;
+  }
+  // Pas assez de catégories différentes : on complète sans cette limite
+  for (const f of melanger(liste)) {
+    if (pris.length >= n) break;
+    if (!pris.includes(f)) pris.push(f);
+  }
+  return pris;
+}
+
+function selectionAleatoire(reglages, proposes, fixes, precedente) {
+  const libres = proposes.filter((f) => !fixes.includes(f));
+  const dejaDans = (cle) => fixes.filter((f) => groupeDe(f) === cle);
+  let meilleure = null;
+  for (let essai = 0; essai < 300; essai += 1) {
+    const besoins = {
+      'légume': Math.max(0, minimum(reglages, 'légume') - dejaDans('légume').length),
+      fruit: Math.max(0, minimum(reglages, 'fruit') - dejaDans('fruit').length),
+      proteine: Math.max(0, minimum(reglages, 'proteine') - dejaDans('proteine').length),
+      laitier: dejaDans('laitier').length ? 0 : 1 + Math.floor(Math.random() * 2),
+      matiere: dejaDans('matiere').length ? 0 : 1,
+    };
+    const tirage = [];
+    GROUPES.forEach((g) => {
+      if (!besoins[g.cle]) return;
+      let candidats = libres.filter((f) => groupeDe(f) === g.cle);
+      if (g.cle === 'matiere' && candidats.some((f) => f.conseil)) candidats = candidats.filter((f) => f.conseil);
+      tirage.push(...tirer(candidats, besoins[g.cle], dejaDans(g.cle)));
+    });
+    const cle = tirage.map((f) => f.id).sort().join('|');
+    if (cle === precedente && essai < 299) continue; // toujours une nouvelle proposition
+    let score = scoreGlobal(couvertures(reglages, fixes.concat(tirage)));
+    // Variété : deux protéines du même type (deux viandes…) passent après
+    const types = new Set(fixes.concat(tirage).filter((f) => groupeDe(f) === 'proteine').map((f) => f.type));
+    if (types.size < 2) score -= 0.05;
+    if (!meilleure || score > meilleure.score) meilleure = { tirage, score, cle };
+    if (score >= reglages.seuil) break;
+  }
+  return meilleure;
+}
+
+/* ---------- Semaines enregistrées (seulement sur ce téléphone) ---------- */
+const CLE_SEMAINES = 'osteo-savasta-semaines';
+const MAX_SEMAINES = 12;
+
+function lireSemaines() {
+  try {
+    const liste = JSON.parse(localStorage.getItem(CLE_SEMAINES));
+    return Array.isArray(liste) ? liste : [];
+  } catch (e) { return []; }
+}
+function ecrireSemaines(liste) {
+  try { localStorage.setItem(CLE_SEMAINES, JSON.stringify(liste)); return true; } catch (e) { return false; }
+}
+
+function dateLongue(iso) {
+  const [annee, mois, jour] = iso.split('-').map(Number);
+  const noms = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+  return `${jour === 1 ? '1er' : jour} ${noms[mois - 1]} ${annee}`;
+}
+
+function htmlSemaines(tp) {
+  const semaines = lireSemaines();
+  if (!semaines.length) return '';
+  return `
+    <section class="menu-semaines" aria-labelledby="menu-semaines-titre">
+      <h2 id="menu-semaines-titre">${echapper(tp.titreSemaines)}</h2>
+      <p class="menu-aide">${echapper(tp.aideSemaines)}</p>
+      <ul>
+        ${semaines.map((s) => `
+          <li>
+            <p><strong>${echapper(tp.semaineDu.replace('{date}', dateLongue(s.date)))}</strong>
+              <span>${s.personnes} ${s.personnes > 1 ? 'personnes' : 'personne'} · ${pourcent(s.score)}</span></p>
+            <div class="menu-semaines-actions">
+              <button type="button" class="bouton bouton-secondaire" data-ouvrir-semaine="${echapper(s.id)}">${echapper(tp.ouvrir)}</button>
+              <button type="button" class="bouton bouton-contour" data-supprimer-semaine="${echapper(s.id)}">${echapper(tp.supprimer)}</button>
+            </div>
+          </li>`).join('')}
+      </ul>
+    </section>`;
+}
+
 /* ---------- Affichage ---------- */
 export async function afficherMenu() {
   const { menu, proposes, recettes } = await chargerDonnees();
@@ -350,7 +454,8 @@ export async function afficherMenu() {
   }
   valeursAffichees = null;
   const r = menu.reglages;
-  const choisis = proposes.filter((f) => etat.choisis.has(f.id));
+  // Sélection aléatoire et semaines enregistrées : seulement si leurs textes sont validés
+  const tp = estVisible(menu.textesPlus) ? menu.textesPlus : null;
 
   const groupes = GROUPES.map((g) => {
     const liste = proposes.filter((f) => g.types.includes(f.type));
@@ -369,6 +474,7 @@ export async function afficherMenu() {
   return `<div class="menu-ecran">
     ${bandeau({ surtitre: 'Votre alimentation', titre: t.titre, retour })}
     <p>${echapper(t.intro)}</p>
+    ${tp ? `<div id="menu-semaines-zone">${htmlSemaines(tp)}</div>` : ''}
     <div class="menu-personnes">
       <span id="menu-personnes-libelle">${echapper(t.personnes)}</span>
       <div class="menu-compteur" role="group" aria-labelledby="menu-personnes-libelle">
@@ -382,16 +488,18 @@ export async function afficherMenu() {
       ${htmlToile(r)}
     </div>
     ${htmlMiniToile(r, t)}
+    ${tp ? `<button type="button" class="bouton bouton-secondaire menu-aleatoire" data-aleatoire>${echapper(tp.boutonAleatoire)}</button>
+      <p class="menu-aide" id="menu-aleatoire-aide" aria-live="polite">${echapper(tp.aideAleatoire)}</p>` : ''}
     <button type="button" class="bouton bouton-contour menu-vider" data-vider>${echapper(t.boutonToutDeselectionner)}</button>
     <p class="menu-toile-aide">${echapper(t.explicationToile)}</p>
     ${groupes}
     <p class="menu-manque" id="menu-manque" aria-live="polite"></p>
     <button type="button" class="bouton bouton-secondaire" id="menu-creer">${echapper(t.boutonCreer)}</button>
-    <div id="menu-resultat">${etat.resultat ? htmlResultat(t, r, etat.resultat) : ''}</div>
+    <div id="menu-resultat">${etat.resultat ? htmlResultat(t, r, etat.resultat, tp) : ''}</div>
   </div>`;
 }
 
-function htmlResultat(t, reglages, res) {
+function htmlResultat(t, reglages, res, tp) {
   const semaine = res.semaine.map((j) => `
     <tr><th scope="row">${j.jour}</th><td>${echapper(j.midi)}</td><td>${echapper(j.soir)}</td></tr>`).join('');
   const recettes = res.recettes.map((rc, i) => `
@@ -403,8 +511,15 @@ function htmlResultat(t, reglages, res) {
   const courses = res.courses.lignes.map((g) => `
     <h4 class="surtitre sous-groupe">${g.titre}</h4>
     <ul class="menu-courses">${g.elements.map((e) => `<li><span>${echapper(e.nom)}</span><span>${echapper(e.quantite)}</span></li>`).join('')}</ul>`).join('');
+  const enregistrer = tp ? `
+    <section class="menu-section menu-enregistrer">
+      ${res.horsSaison ? `<p class="menu-aide">${echapper(tp.horsSaison)}</p>` : ''}
+      <button type="button" class="bouton bouton-secondaire" data-enregistrer>${echapper(tp.boutonEnregistrer)}</button>
+      <p class="menu-copie" id="menu-enregistre" role="status" hidden></p>
+    </section>` : '';
   return `
     ${htmlBilan(t, reglages, res.bilan)}
+    ${enregistrer}
     <section class="menu-section" id="menu-semaine">
       <h2>${echapper(t.titreSemaine)}</h2>
       <div class="filet-torii"></div>
@@ -463,6 +578,7 @@ export async function activerMenu(contenu) {
   const { menu, proposes, recettes } = await chargerDonnees();
   const r = menu.reglages;
   const t = menu.textes;
+  const tp = estVisible(menu.textesPlus) ? menu.textesPlus : null;
 
   const choisis = () => proposes.filter((f) => etat.choisis.has(f.id));
   const nombre = (cle) => choisis().filter((f) => groupeDe(f) === cle).length;
@@ -489,10 +605,11 @@ export async function activerMenu(contenu) {
     dessinerToile(zone, r, couvertures(r, choisis()), t);
   }
 
-  function creer(allerAuBilan = true) {
+  /** Crée le menu ; avec une semaine enregistrée, reprend ses recettes, sa répartition et ses courses. */
+  function creer(allerAuBilan = true, enregistree = null) {
     const liste = choisis();
-    const retenues = choisirRecettes(recettes, liste, menu.crudites || []);
-    const semaine = JOURS.map((jour, i) => ({
+    const retenues = enregistree ? enregistree.recettes : choisirRecettes(recettes, liste, menu.crudites || []);
+    const semaine = enregistree ? enregistree.semaine : JOURS.map((jour, i) => ({
       jour,
       midi: retenues[REPARTITION[i * 2]]?.titre || '',
       soir: retenues[REPARTITION[i * 2 + 1]]?.titre || '',
@@ -500,11 +617,44 @@ export async function activerMenu(contenu) {
     etat.resultat = {
       semaine,
       recettes: retenues,
-      courses: courses(r, liste, etat.personnes, retenues),
+      courses: enregistree ? enregistree.courses : courses(r, liste, etat.personnes, retenues),
       bilan: bilanSemaine(r, proposes, liste),
+      horsSaison: enregistree ? enregistree.choisis.length > liste.length : false,
     };
-    zone.querySelector('#menu-resultat').innerHTML = htmlResultat(t, r, etat.resultat);
+    zone.querySelector('#menu-resultat').innerHTML = htmlResultat(t, r, etat.resultat, tp);
     if (allerAuBilan) zone.querySelector('#menu-bilan').focus();
+  }
+
+  function enregistrerSemaine() {
+    const res = etat.resultat;
+    const aujourdhui = new Date();
+    const semaine = {
+      id: aujourdhui.getTime().toString(36),
+      date: `${aujourdhui.getFullYear()}-${String(aujourdhui.getMonth() + 1).padStart(2, '0')}-${String(aujourdhui.getDate()).padStart(2, '0')}`,
+      personnes: etat.personnes,
+      score: res.bilan.score,
+      choisis: [...etat.choisis],
+      semaine: res.semaine,
+      // Recettes sans les fiches complètes : seuls les noms des aliments sont gardés
+      recettes: res.recettes.map((rc) => ({ ...rc, aliments: rc.aliments.map((f) => ({ nom: f.nom })) })),
+      courses: res.courses,
+    };
+    const ok = ecrireSemaines([semaine, ...lireSemaines()].slice(0, MAX_SEMAINES));
+    const message = zone.querySelector('#menu-enregistre');
+    message.textContent = ok ? tp.enregistre : tp.echecEnregistrement;
+    message.hidden = false;
+    zone.querySelector('#menu-semaines-zone').innerHTML = htmlSemaines(tp);
+  }
+
+  function ouvrirSemaine(id) {
+    const s = lireSemaines().find((x) => x.id === id);
+    if (!s) return;
+    etat.personnes = s.personnes;
+    zone.querySelector('#menu-personnes').textContent = etat.personnes;
+    etat.choisis = new Set(s.choisis);
+    etat.aleatoires = new Set();
+    mettreAJour();
+    creer(true, s);
   }
 
   zone.addEventListener('click', (evenement) => {
@@ -512,6 +662,7 @@ export async function activerMenu(contenu) {
     if (aliment) {
       const id = aliment.dataset.aliment;
       if (etat.choisis.has(id)) etat.choisis.delete(id); else etat.choisis.add(id);
+      etat.aleatoires.delete(id); // touché à la main : devient un choix de la personne
       etat.resultat = null;
       zone.querySelector('#menu-resultat').innerHTML = '';
       mettreAJour();
@@ -525,8 +676,39 @@ export async function activerMenu(contenu) {
       return;
     }
     if (evenement.target.closest('#menu-creer') && complet()) { creer(); return; }
+    if (evenement.target.closest('[data-aleatoire]')) {
+      // Garde les choix faits à la main, remplace la partie tirée au hasard au clic précédent
+      etat.aleatoires.forEach((id) => etat.choisis.delete(id));
+      const fixes = choisis();
+      const proposition = selectionAleatoire(r, proposes, fixes, etat.derniereAleatoire);
+      etat.aleatoires = new Set(proposition.tirage.map((f) => f.id));
+      etat.aleatoires.forEach((id) => etat.choisis.add(id));
+      etat.derniereAleatoire = proposition.cle;
+      etat.resultat = null;
+      zone.querySelector('#menu-resultat').innerHTML = '';
+      zone.querySelector('#menu-aleatoire-aide').textContent =
+        proposition.score >= r.seuil ? tp.aideAleatoire : tp.pasDeVert;
+      mettreAJour();
+      return;
+    }
+    if (evenement.target.closest('[data-enregistrer]') && etat.resultat) { enregistrerSemaine(); return; }
+    const ouvrir = evenement.target.closest('[data-ouvrir-semaine]');
+    if (ouvrir) { ouvrirSemaine(ouvrir.dataset.ouvrirSemaine); return; }
+    // Suppression en deux temps : le bouton demande une confirmation
+    const supprimer = evenement.target.closest('[data-supprimer-semaine]');
+    if (supprimer) {
+      if (supprimer.dataset.confirme !== 'oui') {
+        supprimer.dataset.confirme = 'oui';
+        supprimer.textContent = tp.confirmerSuppression;
+        return;
+      }
+      ecrireSemaines(lireSemaines().filter((s) => s.id !== supprimer.dataset.supprimerSemaine));
+      zone.querySelector('#menu-semaines-zone').innerHTML = htmlSemaines(tp);
+      return;
+    }
     if (evenement.target.closest('[data-vider]')) {
       etat.choisis.clear();
+      etat.aleatoires.clear();
       etat.resultat = null;
       zone.querySelector('#menu-resultat').innerHTML = '';
       mettreAJour();

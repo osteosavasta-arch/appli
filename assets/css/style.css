@@ -757,7 +757,18 @@ h3 { font-size: 1.15rem; margin: 0 0 8px; }
 .menu-aliment-conseil { border-color: var(--couleur-plante); border-width: 2px; }
 .menu-aliment small { display: block; margin-top: 2px; font-size: 0.8rem; font-weight: 400; color: var(--couleur-plante); }
 .menu-aliment[aria-pressed="true"] small { color: #fff; }
+.menu-aleatoire { margin: 0 0 4px; }
 .menu-vider { min-height: 48px; margin: 0 0 8px; }
+/* Semaines enregistrées sur le téléphone */
+.menu-semaines { margin: 16px 0; padding: 16px; background: var(--couleur-carte); border: 1px solid var(--couleur-bordure); border-radius: var(--rayon); }
+.menu-semaines h2 { margin: 0 0 4px; }
+.menu-semaines ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 12px; }
+.menu-semaines li { padding-top: 12px; border-top: 1px solid var(--couleur-bordure); }
+.menu-semaines li p { margin: 0 0 8px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; }
+.menu-semaines li p span { color: var(--couleur-texte-doux); font-variant-numeric: tabular-nums; }
+.menu-semaines-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.menu-semaines-actions .bouton { margin: 0; min-height: 44px; font-size: 0.95rem; }
+.menu-enregistrer .bouton { margin-bottom: 4px; }
 .menu-vider:disabled { opacity: 0.45; cursor: default; }
 .menu-toile-base { margin: 0; text-align: center; font-size: 0.85rem; font-weight: 700; color: var(--couleur-texte-doux); }
 /* Mini-toile collée en haut à droite quand la grande toile sort de l'écran */
