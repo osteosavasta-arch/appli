@@ -10,6 +10,7 @@ import { afficherAccueil } from './vues/accueil.js';
 import { afficherEtirements } from './vues/etirements.js';
 import { afficherDietetique, afficherAliment, afficherComplement } from './vues/dietetique.js';
 import { afficherInfos, afficherPageTexte } from './vues/pages.js';
+import { afficherMenu, activerMenu } from './vues/menu.js';
 import { activerRappel } from './rappel.js';
 import { icone } from './icones.js';
 import './renseignements.js';
@@ -83,6 +84,7 @@ const ecrans = {
   'dietetique': afficherDietetique,
   'aliment': afficherAliment,
   'complement': afficherComplement,
+  'menu': afficherMenu,
   'infos': afficherInfos,
   'confidentialite': () => afficherPageTexte('pages/confidentialite.md'),
   'mentions-legales': () => afficherPageTexte('pages/mentions-legales.md'),
@@ -91,6 +93,7 @@ const ecrans = {
 // Écrans qui ont des boutons à brancher après affichage
 const apresAffichage = {
   'accueil': activerRappel,
+  'menu': activerMenu,
 };
 
 const zone = document.getElementById('contenu');

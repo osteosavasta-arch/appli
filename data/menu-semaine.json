@@ -1,0 +1,2480 @@
+{
+  "_aide": "Réglages et recettes de « Préparer le menu de la semaine ». Rien ne s'affiche tant que « reglages », « textes » et au moins 6 recettes ne sont pas au statut \"validee\". Dans les recettes, {L1}, {L2}, {P}, {F}, {C}… sont remplacés par les aliments choisis ; chaque recette en utilise au moins 2. Un emplacement peut limiter les aliments acceptés : types (légume, fruit, viande, poisson, œuf), categories, exclureCategories ou ids (identifiants des fiches).",
+  "reglages": {
+    "statut": "validee",
+    "personnesMin": 1,
+    "personnesMax": 8,
+    "aChoisir": {
+      "légume": 6,
+      "fruit": 2,
+      "proteine": 2
+    },
+    "repasParSemaine": 14,
+    "_portions": "Grammes par personne et par repas. Les légumes sont répartis entre les 6 légumes, les fruits entre les 2 fruits, les protéines entre les 2 protéines.",
+    "portionsParRepas": {
+      "légume": 200,
+      "fruit": 80,
+      "proteine": 120,
+      "matiere": 10
+    },
+    "_portionsParCategorie": "Grammes par personne et par repas pour une catégorie précise, à la place de la part de son groupe.",
+    "portionsParCategorie": {
+      "Fruit à coque": 15
+    },
+    "poidsOeuf": 60,
+    "_seuil": "Seuil du bilan : sous cette part des apports de référence (0,75 = 75 %), l'appli propose un échange d'aliment.",
+    "seuil": 0.75,
+    "_toile": "Valeurs nutritionnelles de référence (VNR) pour un adulte, règlement (UE) n° 1169/2011, annexe XIII ; protéines : apport de référence de la partie B. cle = nom du nutriment dans les fiches.",
+    "toile": [
+      {
+        "cle": "proteines",
+        "libelle": "Protéines",
+        "reference": 50,
+        "unite": "g"
+      },
+      {
+        "cle": "vitamineA",
+        "libelle": "Vit. A",
+        "reference": 800,
+        "unite": "µg"
+      },
+      {
+        "cle": "vitamineB9",
+        "libelle": "Vit. B9",
+        "reference": 200,
+        "unite": "µg"
+      },
+      {
+        "cle": "vitamineB12",
+        "libelle": "Vit. B12",
+        "reference": 2.5,
+        "unite": "µg"
+      },
+      {
+        "cle": "vitamineC",
+        "libelle": "Vit. C",
+        "reference": 80,
+        "unite": "mg"
+      },
+      {
+        "cle": "fer",
+        "libelle": "Fer",
+        "reference": 14,
+        "unite": "mg"
+      },
+      {
+        "cle": "calcium",
+        "libelle": "Calcium",
+        "reference": 800,
+        "unite": "mg"
+      },
+      {
+        "cle": "magnesium",
+        "libelle": "Magnésium",
+        "reference": 375,
+        "unite": "mg"
+      },
+      {
+        "cle": "vitamineE",
+        "libelle": "Vit. E",
+        "reference": 12,
+        "unite": "mg"
+      },
+      {
+        "cle": "ala",
+        "libelle": "Oméga-3",
+        "reference": 2.2,
+        "unite": "g",
+        "source": "Anses : apport nutritionnel conseillé en acide alpha-linolénique, 1 % de l'énergie, pour 2 000 kcal (pas de VNR européenne)."
+      },
+      {
+        "cle": "iode",
+        "libelle": "Iode",
+        "reference": 150,
+        "unite": "µg"
+      }
+    ],
+    "_aChoisir": "Minimum à choisir dans chaque groupe ; on peut en choisir davantage, la portion du groupe est alors partagée.",
+    "densiteHuile": 0.92
+  },
+  "textes": {
+    "statut": "validee",
+    "titre": "Menu de la semaine",
+    "lienDietetique": "Préparer le menu de la semaine",
+    "aideLien": "Choisissez vos aliments : l'appli propose 6 recettes et la liste de courses.",
+    "intro": "Choisissez au moins 6 légumes, 2 fruits et 2 sources de protéines, et si vous le souhaitez vos produits laitiers et vos matières grasses. L'appli propose 6 recettes faciles pour les 14 repas de la semaine (midi et soir) et prépare votre liste de courses.",
+    "personnes": "Nombre de personnes",
+    "explicationToile": "Plus la toile est étendue, mieux la semaine couvre les apports de référence (AJR) d'un adulte. Le pointillé marque 75 %. Le pain et les féculents ne sont pas comptés.",
+    "boutonCreer": "Créer mon menu",
+    "manque": "Choisissez encore au moins :",
+    "titreSemaine": "Votre semaine",
+    "aideSemaine": "Chaque recette se cuisine en quantité pour plusieurs repas.",
+    "titreRecettes": "Les 6 recettes",
+    "titreCourses": "Liste de courses",
+    "aideCourses": "Quantités pour la semaine, à ajuster selon les appétits.",
+    "boutonNotesCourses": "Mettre la liste de courses dans mes notes",
+    "boutonNotesMenu": "Mettre le menu dans mes notes",
+    "copie": "Texte copié : collez-le dans votre application de notes.",
+    "fruitsAuQuotidien": "Fruits : à répartir sur la semaine, en dessert ou en collation.",
+    "autresIngredients": "À avoir aussi",
+    "boutonModifier": "Modifier mes choix",
+    "score": "Équilibre de la semaine :",
+    "titreBilan": "Bilan de la semaine",
+    "aideBilan": "Ces repères restent sous 75 % des apports de référence. Voici un échange possible parmi les aliments du mois :",
+    "aucunManque": "Tous les repères atteignent au moins 75 % des apports de référence.",
+    "solution": "Remplacer {ancien} par {nouveau} : {repere} passe à {apres}.",
+    "pasDeSolution": "Aucun échange parmi les aliments du mois ne fait progresser ce repère.",
+    "boutonRemplacer": "Faire cet échange",
+    "auMoins": "au moins",
+    "titreMatieres": "Matières grasses (facultatif)",
+    "aideMatieres": "Pour la cuisson, privilégiez l'huile de colza, ou l'huile d'olive à feu doux : une chaleur trop forte dégrade l'huile. Les huiles et le beurre comptent aussi dans la toile.",
+    "pourUnePersonne": "Apports d'une personne sur la semaine",
+    "voirToile": "Revoir la toile des apports",
+    "boutonToutDeselectionner": "Tout désélectionner",
+    "titreLaitiers": "Produits laitiers (facultatif)",
+    "aideLaitiers": "Un produit laitier par repas, à répartir entre ceux que vous choisissez. Ils comptent aussi dans la toile."
+  },
+  "crudites": [
+    "laitue",
+    "mache",
+    "cresson",
+    "endive",
+    "epinard",
+    "carotte",
+    "betterave",
+    "radis",
+    "celeri",
+    "chou",
+    "fenouil",
+    "concombre",
+    "tomate",
+    "poivron"
+  ],
+  "recettes": [
+    {
+      "id": "soupe",
+      "statut": "validee",
+      "titre": "Soupe de {L1} et de {L2}",
+      "temps": "40 min",
+      "aliments": [
+        {
+          "cle": "L1",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade"
+          ]
+        },
+        {
+          "cle": "L2",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade"
+          ]
+        }
+      ],
+      "autres": [
+        "Bouillon de légumes",
+        "Huile d'olive",
+        "Sel, poivre"
+      ],
+      "etapes": [
+        "Laver, éplucher et couper en morceaux {L1} et {L2}.",
+        "Les faire revenir 5 min dans un filet d'huile d'olive.",
+        "Couvrir de bouillon et laisser cuire 30 min à feu doux.",
+        "Mixer, saler, poivrer. Se garde 2 jours au réfrigérateur."
+      ]
+    },
+    {
+      "id": "poelee",
+      "statut": "validee",
+      "titre": "Poêlée de {L1} et de {L2}, avec {P}",
+      "temps": "30 min",
+      "aliments": [
+        {
+          "cle": "L1",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade"
+          ]
+        },
+        {
+          "cle": "L2",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade"
+          ]
+        },
+        {
+          "cle": "P",
+          "types": [
+            "viande",
+            "poisson",
+            "œuf"
+          ]
+        }
+      ],
+      "autres": [
+        "Huile d'olive",
+        "Herbes de Provence",
+        "Sel, poivre"
+      ],
+      "etapes": [
+        "Couper {L1} et {L2} en petits morceaux.",
+        "Les faire sauter 15 min à la poêle dans un filet d'huile d'olive, en remuant.",
+        "Cuire à part {P}, puis l'ajouter aux légumes.",
+        "Assaisonner avec les herbes, le sel et le poivre."
+      ]
+    },
+    {
+      "id": "four",
+      "statut": "validee",
+      "titre": "Plaque au four : {P}, {L1} et {L2}",
+      "temps": "50 min",
+      "aliments": [
+        {
+          "cle": "P",
+          "types": [
+            "viande",
+            "poisson"
+          ]
+        },
+        {
+          "cle": "L1",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade",
+            "Légume-feuille"
+          ]
+        },
+        {
+          "cle": "L2",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade",
+            "Légume-feuille"
+          ]
+        }
+      ],
+      "autres": [
+        "Huile d'olive",
+        "Thym",
+        "Sel, poivre"
+      ],
+      "etapes": [
+        "Préchauffer le four à 200 °C.",
+        "Couper {L1} et {L2} en morceaux, les étaler sur la plaque avec un filet d'huile et le thym.",
+        "Enfourner 20 min, puis ajouter {P} sur la plaque.",
+        "Poursuivre la cuisson 20 min environ, jusqu'à ce que tout soit bien cuit."
+      ]
+    },
+    {
+      "id": "gratin",
+      "statut": "validee",
+      "titre": "Gratin de {L1} et de {L2}",
+      "temps": "50 min",
+      "aliments": [
+        {
+          "cle": "L1",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade"
+          ]
+        },
+        {
+          "cle": "L2",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade"
+          ]
+        }
+      ],
+      "autres": [
+        "Crème fraîche",
+        "Fromage râpé",
+        "Sel, poivre"
+      ],
+      "etapes": [
+        "Préchauffer le four à 190 °C.",
+        "Couper {L1} et {L2} en tranches et les cuire 10 min à l'eau bouillante.",
+        "Les disposer dans un plat, napper de crème et parsemer de fromage râpé.",
+        "Enfourner 30 min, jusqu'à ce que le dessus soit doré."
+      ]
+    },
+    {
+      "id": "puree",
+      "statut": "validee",
+      "titre": "Purée de {L1} et de {L2}, avec {P}",
+      "temps": "35 min",
+      "aliments": [
+        {
+          "cle": "L1",
+          "types": [
+            "légume"
+          ],
+          "categories": [
+            "Légume-racine",
+            "Tubercule",
+            "Cucurbitacée",
+            "Chou",
+            "Légume-tige"
+          ]
+        },
+        {
+          "cle": "L2",
+          "types": [
+            "légume"
+          ],
+          "categories": [
+            "Légume-racine",
+            "Tubercule",
+            "Cucurbitacée",
+            "Chou",
+            "Légume-tige"
+          ]
+        },
+        {
+          "cle": "P",
+          "types": [
+            "viande",
+            "poisson",
+            "œuf"
+          ]
+        }
+      ],
+      "autres": [
+        "Beurre ou huile d'olive",
+        "Sel, poivre"
+      ],
+      "etapes": [
+        "Éplucher et couper {L1} et {L2}.",
+        "Les cuire 20 min à l'eau ou à la vapeur, puis les écraser avec un peu de beurre ou d'huile.",
+        "Cuire {P} à la poêle.",
+        "Servir ensemble, saler, poivrer."
+      ]
+    },
+    {
+      "id": "papillote",
+      "statut": "validee",
+      "titre": "Papillote de {P} et de {L1}",
+      "temps": "30 min",
+      "aliments": [
+        {
+          "cle": "P",
+          "types": [
+            "poisson"
+          ]
+        },
+        {
+          "cle": "L1",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade"
+          ]
+        }
+      ],
+      "autres": [
+        "Citron",
+        "Huile d'olive",
+        "Sel, poivre"
+      ],
+      "etapes": [
+        "Préchauffer le four à 200 °C.",
+        "Couper {L1} en fines lamelles et les déposer sur une feuille de papier cuisson.",
+        "Poser {P} par-dessus, avec un filet d'huile et une rondelle de citron.",
+        "Fermer la papillote et enfourner 20 min."
+      ]
+    },
+    {
+      "id": "omelette",
+      "statut": "validee",
+      "titre": "Omelette aux légumes : {L1} et {L2}",
+      "temps": "20 min",
+      "aliments": [
+        {
+          "cle": "O",
+          "types": [
+            "œuf"
+          ]
+        },
+        {
+          "cle": "L1",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade"
+          ]
+        },
+        {
+          "cle": "L2",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade"
+          ]
+        }
+      ],
+      "autres": [
+        "Huile d'olive",
+        "Sel, poivre"
+      ],
+      "etapes": [
+        "Couper {L1} et {L2} en petits dés et les faire revenir 10 min à la poêle.",
+        "Battre les œufs avec le sel et le poivre.",
+        "Verser les œufs sur les légumes et cuire 5 min à feu doux."
+      ]
+    },
+    {
+      "id": "saute",
+      "statut": "validee",
+      "titre": "Sauté de {P} et de {L1}",
+      "temps": "25 min",
+      "aliments": [
+        {
+          "cle": "P",
+          "types": [
+            "viande"
+          ]
+        },
+        {
+          "cle": "L1",
+          "types": [
+            "légume"
+          ],
+          "exclureCategories": [
+            "Salade"
+          ]
+        }
+      ],
+      "autres": [
+        "Huile",
+        "Sauce soja ou épices",
+        "Sel, poivre"
+      ],
+      "etapes": [
+        "Couper {P} en lanières et {L1} en fines tranches.",
+        "Saisir {P} 5 min à feu vif dans un peu d'huile, puis le réserver.",
+        "Faire sauter {L1} 10 min, remettre {P} et assaisonner."
+      ]
+    },
+    {
+      "id": "salade",
+      "statut": "validee",
+      "titre": "Salade de {C1} et de {C2}",
+      "temps": "15 min",
+      "aliments": [
+        {
+          "cle": "C1",
+          "listeCrudites": true
+        },
+        {
+          "cle": "C2",
+          "listeCrudites": true,
+          "types": [
+            "légume",
+            "fruit"
+          ],
+          "ids": [
+            "pomme",
+            "poire",
+            "kiwi",
+            "clementine",
+            "mandarine",
+            "orange",
+            "grenade",
+            "noix",
+            "noisette",
+            "raisin"
+          ]
+        }
+      ],
+      "autres": [
+        "Vinaigrette (huile, vinaigre, moutarde)"
+      ],
+      "etapes": [
+        "Laver et couper {C1} et {C2} en fines lamelles ou en petits dés.",
+        "Préparer la vinaigrette.",
+        "Mélanger au moment de servir."
+      ]
+    },
+    {
+      "id": "volaille-fruit",
+      "statut": "validee",
+      "titre": "{P} aux fruits : {F} et {L1}",
+      "temps": "40 min",
+      "aliments": [
+        {
+          "cle": "P",
+          "types": [
+            "viande"
+          ]
+        },
+        {
+          "cle": "F",
+          "types": [
+            "fruit"
+          ],
+          "ids": [
+            "pomme",
+            "poire",
+            "coing",
+            "prune",
+            "abricot",
+            "figue",
+            "raisin"
+          ]
+        },
+        {
+          "cle": "L1",
+          "types": [
+            "légume"
+          ],
+          "categories": [
+            "Bulbe",
+            "Légume-racine",
+            "Légume-tige"
+          ]
+        }
+      ],
+      "autres": [
+        "Beurre ou huile",
+        "Sel, poivre"
+      ],
+      "etapes": [
+        "Faire dorer {P} dans une cocotte avec un peu de matière grasse.",
+        "Ajouter {L1} émincé et {F} coupé en quartiers.",
+        "Couvrir et laisser mijoter 25 min à feu doux."
+      ]
+    }
+  ],
+  "produitsLaitiers": {
+    "statut": "validee",
+    "_aide": "Produits laitiers proposés au choix (facultatif). portionParRepas : grammes par personne et par repas pour ce produit seul ; si plusieurs sont choisis, ils se partagent les repas (un produit laitier par repas). Valeurs Ciqual 2025.",
+    "aliments": [
+      {
+        "id": "lait",
+        "nom": "Lait demi-écrémé",
+        "portionParRepas": 150,
+        "uniteCourses": "ml",
+        "densite": 1.03,
+        "ciqual": {
+          "code": "19033",
+          "nom": "Lait demi-écrémé (aliment moyen)"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "3,46",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "1,55",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "9,88",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,049",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,0065",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "0,85",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0,18",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0,99",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0,041",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "121",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "10,7",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "23,9",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "yaourt-nature",
+        "nom": "Yaourt nature",
+        "portionParRepas": 125,
+        "uniteCourses": "pot",
+        "poidsUnite": 125,
+        "ciqual": {
+          "code": "19593",
+          "nom": "Yaourt ou lait fermenté, nature"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "3,83",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "1,68",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "19",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "< 0,1",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,011",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "7,05",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0,15",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "< 2",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "< 0,25",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "137",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "12,4",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "38",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "fromage-frais",
+        "nom": "Fromage frais (fromage blanc nature)",
+        "portionParRepas": 100,
+        "ciqual": {
+          "code": "19646",
+          "nom": "Fromage blanc, nature, 2-3% MG"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "7,28",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "3,23",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "28,2",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,54",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,011",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "10,6",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0,25",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "< 2",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "< 0,25",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "131",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "11,9",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "27,7",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "fromage-pate-molle",
+        "nom": "Fromage à pâte molle (type camembert)",
+        "portionParRepas": 30,
+        "ciqual": {
+          "code": "12007",
+          "nom": "Camembert au lait pasteurisé"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "19,2",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "21,5",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "231",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,74",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,087",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "60,7",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0,91",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "-",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "< 0,25",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "476",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "20",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "15",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "fromage-pate-dure",
+        "nom": "Fromage à pâte dure (type comté)",
+        "portionParRepas": 30,
+        "ciqual": {
+          "code": "12110",
+          "nom": "Comté"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "27,8",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "33,8",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,8",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,21",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "5",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "2,59",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "-",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0,49",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "907",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "43,7",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "24,4",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "fromage-rape",
+        "nom": "Fromage râpé (type emmental)",
+        "portionParRepas": 15,
+        "ciqual": {
+          "code": "12118",
+          "nom": "Emmental ou emmenthal, râpé"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "27,6",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "28,2",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "284",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "1,1",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,13",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "8,38",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "1,9",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "< 0,5",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "< 0,25",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "977",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "36,3",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "19,8",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "creme-fraiche",
+        "nom": "Crème fraîche épaisse",
+        "portionParRepas": 15,
+        "ciqual": {
+          "code": "19410",
+          "nom": "Crème 30% MG, épaisse, rayon frais"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "2,32",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "29,9",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "297",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,66",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,11",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "3,25",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "< 0,1",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "< 0,5",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "< 0,25",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "78,2",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "7,65",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "< 13",
+            "unite": "µg"
+          }
+        }
+      }
+    ]
+  },
+  "matieresGrasses": {
+    "statut": "validee",
+    "_aide": "Matières grasses proposées au choix (facultatif), dans cet ordre. « conseil » s'affiche sous le nom. Portion : reglages.portionsParRepas.matiere, partagée entre celles choisies. Valeurs Ciqual 2025.",
+    "aliments": [
+      {
+        "id": "huile-colza",
+        "nom": "Huile de colza",
+        "uniteCourses": "ml",
+        "conseil": "Conseillée pour la cuisson",
+        "ciqual": {
+          "code": "17130",
+          "nom": "Huile de colza"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "100",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "27,7",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "7,83",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0,023",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "< 2,57",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "< 0,58",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "0,8",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-olive",
+        "nom": "Huile d'olive",
+        "uniteCourses": "ml",
+        "conseil": "Conseillée pour la cuisson à feu doux",
+        "ciqual": {
+          "code": "17270",
+          "nom": "Huile d'olive vierge extra"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0,25",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "99,9",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "17,5",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "22,3",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,65",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "< 0,05",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "< 0,2",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "< 0,05",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "< 20",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-noix",
+        "nom": "Huile de noix",
+        "uniteCourses": "ml",
+        "ciqual": {
+          "code": "17220",
+          "nom": "Huile de noix"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "100",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0,00033",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "1,81",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "11,9",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "0,8",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-lin",
+        "nom": "Huile de lin",
+        "uniteCourses": "ml",
+        "ciqual": {
+          "code": "17180",
+          "nom": "Huile de lin"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "100",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,47",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "53,4",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "1",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "-",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-cameline",
+        "nom": "Huile de cameline",
+        "uniteCourses": "ml",
+        "ciqual": {
+          "code": "17800",
+          "nom": "Huile de cameline"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "-",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "-",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "36,4",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "-",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "-",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "-",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "-",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "-",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-noisette",
+        "nom": "Huile de noisette",
+        "uniteCourses": "ml",
+        "ciqual": {
+          "code": "17210",
+          "nom": "Huile de noisette"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "100",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "28,6",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,36",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "0",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-soja",
+        "nom": "Huile de soja",
+        "uniteCourses": "ml",
+        "ciqual": {
+          "code": "17420",
+          "nom": "Huile de soja"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "100",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "13,1",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "6,79",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0,041",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "< 2,57",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "1,52",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "0,8",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-sesame",
+        "nom": "Huile de sésame",
+        "uniteCourses": "ml",
+        "ciqual": {
+          "code": "17400",
+          "nom": "Huile de sésame"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "100",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "1,1",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,38",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "-",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-arachide",
+        "nom": "Huile d'arachide",
+        "uniteCourses": "ml",
+        "ciqual": {
+          "code": "17040",
+          "nom": "Huile d'arachide"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0,25",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "99,9",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0,21",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "14,2",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,18",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "< 0,05",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "1,3",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "< 0,05",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "< 20",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-tournesol",
+        "nom": "Huile de tournesol",
+        "uniteCourses": "ml",
+        "ciqual": {
+          "code": "17440",
+          "nom": "Huile de tournesol"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0,25",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "100",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0,21",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "57,3",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,05",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "< 0,05",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "< 0,2",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "< 0,05",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "< 20",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-pepins-raisin",
+        "nom": "Huile de pépins de raisin",
+        "uniteCourses": "ml",
+        "ciqual": {
+          "code": "17350",
+          "nom": "Huile de pépins de raisin"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "100",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0,21",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "15,7",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,32",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "< 0,05",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "0,3",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "< 0,05",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "< 20",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-mais",
+        "nom": "Huile de maïs",
+        "uniteCourses": "ml",
+        "ciqual": {
+          "code": "17190",
+          "nom": "Huile de maïs"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "100",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "14,3",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "1,16",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "0,8",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "huile-avocat",
+        "nom": "Huile d'avocat",
+        "uniteCourses": "ml",
+        "ciqual": {
+          "code": "17100",
+          "nom": "Huile d'avocat"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "100",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "2,08",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "45,3",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,55",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "-",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "beurre",
+        "nom": "Beurre doux",
+        "uniteCourses": "g",
+        "ciqual": {
+          "code": "16400",
+          "nom": "Beurre à 80% MG minimum, doux"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "0,64",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "83",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "927",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "2,04",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,35",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0,1",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "< 0,5",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "19,8",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "2,63",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "< 13",
+            "unite": "µg"
+          }
+        }
+      }
+    ]
+  },
+  "apportsComplementaires": {
+    "_aide": "Valeurs Ciqual 2025 pour 100 g, reprises par le code de chaque fiche : vitamine E (mg), oméga-3 acide alpha-linolénique (g), et les repères de la toile absents de la fiche (vitamine B9 des fruits et légumes notamment). Servent seulement à la toile du menu.",
+    "valeurs": {
+      "ail": {
+        "vitamineE": "< 0,08",
+        "ala": "< 0,01",
+        "vitamineB9": "26,1"
+      },
+      "artichaut": {
+        "vitamineE": "0,19",
+        "ala": "-",
+        "vitamineB9": "68"
+      },
+      "asperge": {
+        "vitamineE": "-",
+        "ala": "0,013",
+        "vitamineB9": "150"
+      },
+      "aubergine": {
+        "vitamineE": "0,3",
+        "ala": "0,0091",
+        "vitamineB9": "22"
+      },
+      "betterave": {
+        "vitamineE": "0,04",
+        "ala": "0,01",
+        "vitamineB9": "109"
+      },
+      "blette": {
+        "vitamineE": "0,25",
+        "ala": "< 0,01",
+        "vitamineB9": "24,7"
+      },
+      "brocoli": {
+        "vitamineE": "0,78",
+        "ala": "-",
+        "vitamineB9": "67"
+      },
+      "carotte": {
+        "vitamineE": "0,21",
+        "ala": "< 0,15",
+        "vitamineB9": "11,2"
+      },
+      "celeri": {
+        "vitamineE": "0,12",
+        "ala": "< 0,01",
+        "vitamineB9": "39"
+      },
+      "chou": {
+        "vitamineE": "0,16",
+        "ala": "0,031",
+        "vitamineB9": "59,3"
+      },
+      "choudebruxelles": {
+        "vitamineE": "0,88",
+        "ala": "0,12",
+        "vitamineB9": "61"
+      },
+      "choufleur": {
+        "vitamineE": "< 0,08",
+        "ala": "0,17",
+        "vitamineB9": "56,2"
+      },
+      "concombre": {
+        "vitamineE": "0,03",
+        "ala": "0,015",
+        "vitamineB9": "7"
+      },
+      "courge": {
+        "vitamineE": "0,12",
+        "ala": "0,035",
+        "vitamineB9": "24"
+      },
+      "courgette": {
+        "vitamineE": "0,12",
+        "ala": "0,061",
+        "vitamineB9": "24"
+      },
+      "cresson": {
+        "vitamineE": "1",
+        "ala": "-",
+        "vitamineB9": "9"
+      },
+      "echalote": {
+        "vitamineE": "< 0,08",
+        "ala": "< 0,01",
+        "vitamineB9": "10,2"
+      },
+      "endive": {
+        "vitamineE": "< 0,08",
+        "ala": "< 0,01",
+        "vitamineB9": "25,6"
+      },
+      "epinard": {
+        "vitamineE": "2,03",
+        "ala": "0,14",
+        "vitamineB9": "194"
+      },
+      "fenouil": {
+        "vitamineE": "< 0,08",
+        "ala": "< 0,01",
+        "vitamineB9": "19,6"
+      },
+      "haricotvert": {
+        "vitamineE": "0,41",
+        "ala": "0,06",
+        "vitamineB9": "33"
+      },
+      "laitue": {
+        "vitamineE": "0,18",
+        "ala": "0,064",
+        "vitamineB9": "49"
+      },
+      "mache": {
+        "vitamineE": "0,22",
+        "ala": "< 0,01",
+        "vitamineB9": "45,5"
+      },
+      "mais": {
+        "vitamineE": "0,37",
+        "ala": "0,019",
+        "vitamineB9": "36,5"
+      },
+      "navet": {
+        "vitamineE": "0,03",
+        "ala": "-",
+        "vitamineB9": "15"
+      },
+      "oignon": {
+        "vitamineE": "0,02",
+        "ala": "0,00081",
+        "vitamineB9": "29,6"
+      },
+      "panais": {
+        "vitamineE": "1,49",
+        "ala": "0,0038",
+        "vitamineB9": "67"
+      },
+      "petitpois": {
+        "vitamineE": "0,13",
+        "ala": "0,031",
+        "vitamineB9": "65"
+      },
+      "poireau": {
+        "vitamineE": "0,92",
+        "ala": "0,035",
+        "vitamineB9": "64"
+      },
+      "poivron": {
+        "vitamineE": "1,44",
+        "ala": "0,026",
+        "vitamineB9": "40,7"
+      },
+      "potiron": {
+        "vitamineE": "1,06",
+        "ala": "-",
+        "vitamineB9": "12"
+      },
+      "radis": {
+        "vitamineE": "< 0,08",
+        "ala": "< 0,01",
+        "vitamineB9": "95,4"
+      },
+      "salsifis": {
+        "vitamineE": "0,8",
+        "ala": "0,036"
+      },
+      "tomate": {
+        "vitamineE": "0,52",
+        "ala": "< 0,01",
+        "vitamineB9": "14"
+      },
+      "topinambour": {
+        "vitamineE": "0,19",
+        "ala": "0,00021",
+        "vitamineB9": "13"
+      },
+      "abricot": {
+        "vitamineE": "0,7",
+        "ala": "< 0,01",
+        "vitamineB9": "7,6"
+      },
+      "cassis": {
+        "vitamineE": "1,37",
+        "ala": "0,06",
+        "vitamineB9": "12,1"
+      },
+      "cerise": {
+        "vitamineE": "< 0,08",
+        "ala": "< 0,01",
+        "vitamineB9": "6,75"
+      },
+      "chataigne": {
+        "vitamineE": "0,5",
+        "ala": "0,062",
+        "vitamineB9": "60"
+      },
+      "citron": {
+        "vitamineE": "< 0,08",
+        "ala": "< 0,01",
+        "vitamineB9": "28,4"
+      },
+      "clementine": {
+        "vitamineE": "0,21",
+        "ala": "< 0,01",
+        "vitamineB9": "27,6"
+      },
+      "coing": {
+        "vitamineE": "0,55",
+        "ala": "0",
+        "vitamineB9": "3"
+      },
+      "figue": {
+        "vitamineE": "< 0,08",
+        "ala": "< 0,01",
+        "vitamineB9": "24,5"
+      },
+      "fraise": {
+        "vitamineE": "0,3",
+        "ala": "< 0,01",
+        "vitamineB9": "98,9"
+      },
+      "framboise": {
+        "vitamineE": "0,88",
+        "ala": "0,16",
+        "vitamineB9": "38,1"
+      },
+      "grenade": {
+        "vitamineE": "< 0,08",
+        "ala": "< 0,01",
+        "vitamineB9": "8,77"
+      },
+      "groseille": {
+        "vitamineE": "1,19",
+        "ala": "0,14",
+        "vitamineB9": "11,8"
+      },
+      "kaki": {
+        "vitamineE": "0,12",
+        "ala": "< 0,01",
+        "vitamineB9": "22,1"
+      },
+      "kiwi": {
+        "vitamineE": "0,96",
+        "ala": "0,18",
+        "vitamineB9": "22,2"
+      },
+      "mandarine": {
+        "vitamineE": "0,21",
+        "ala": "< 0,01",
+        "vitamineB9": "27,6"
+      },
+      "melon": {
+        "vitamineE": "< 0,08",
+        "ala": "< 0,01",
+        "vitamineB9": "58,9"
+      },
+      "mure": {
+        "vitamineE": "1,28",
+        "ala": "0,08",
+        "vitamineB9": "17"
+      },
+      "myrtille": {
+        "vitamineE": "0,57",
+        "ala": "-",
+        "vitamineB9": "6"
+      },
+      "nectarine": {
+        "vitamineE": "0,42",
+        "ala": "< 0,01",
+        "vitamineB9": "9,74"
+      },
+      "noisette": {
+        "vitamineE": "16,3",
+        "ala": "0,05",
+        "vitamineB9": "65,2"
+      },
+      "noix": {
+        "vitamineE": "1,67",
+        "ala": "7,5",
+        "vitamineB9": "120"
+      },
+      "orange": {
+        "vitamineE": "0,19",
+        "ala": "< 0,01",
+        "vitamineB9": "25,9"
+      },
+      "pamplemousse": {
+        "vitamineE": "0,42",
+        "ala": "< 0,15",
+        "vitamineB9": "38,7"
+      },
+      "pasteque": {
+        "vitamineE": "< 0,08",
+        "ala": "< 0,01",
+        "vitamineB9": "36,9"
+      },
+      "peche": {
+        "vitamineE": "0,73",
+        "ala": "0,0022",
+        "vitamineB9": "4"
+      },
+      "poire": {
+        "vitamineE": "0,12",
+        "ala": "0,012",
+        "vitamineB9": "7"
+      },
+      "pomme": {
+        "vitamineE": "0,19",
+        "ala": "0,0049",
+        "vitamineB9": "3"
+      },
+      "prune": {
+        "vitamineE": "0,26",
+        "ala": "0,015",
+        "vitamineB9": "5"
+      },
+      "raisin": {
+        "vitamineE": "0,33",
+        "ala": "0,0082",
+        "vitamineB9": "14,9"
+      },
+      "reineclaude": {
+        "vitamineE": "1,2",
+        "ala": "< 0,01",
+        "vitamineB9": "18,4"
+      },
+      "rhubarbe": {
+        "vitamineE": "0,27",
+        "ala": "0,019",
+        "vitamineB9": "7,5"
+      },
+      "poulet": {
+        "vitamineE": "0,36",
+        "ala": "0,02"
+      },
+      "dinde": {
+        "vitamineE": "0,06",
+        "ala": "0,009"
+      },
+      "boeuf": {
+        "vitamineE": "0,31",
+        "ala": "0,028"
+      },
+      "veau": {
+        "vitamineE": "0,15",
+        "ala": "0,061"
+      },
+      "porc": {
+        "vitamineE": "0,22",
+        "ala": "0,018"
+      },
+      "agneau": {
+        "vitamineE": "0,22",
+        "ala": "0,038"
+      },
+      "saumon": {
+        "vitamineE": "2,3",
+        "ala": "0,32"
+      },
+      "sardine": {
+        "vitamineE": "0,28",
+        "ala": "0,38"
+      },
+      "maquereau": {
+        "vitamineE": "1,16",
+        "ala": "0,12"
+      },
+      "hareng": {
+        "vitamineE": "1,21",
+        "ala": "0,15"
+      },
+      "thon": {
+        "vitamineE": "1,2",
+        "ala": "0,0058"
+      },
+      "truite": {
+        "vitamineE": "0,65",
+        "ala": "0"
+      },
+      "cabillaud": {
+        "vitamineE": "0,44",
+        "ala": "0,001"
+      },
+      "lieu": {
+        "vitamineE": "0,88",
+        "ala": "0,002"
+      },
+      "merlu": {
+        "vitamineE": "0,25",
+        "ala": "0,0018"
+      },
+      "sole": {
+        "vitamineE": "0,47",
+        "ala": "0,00052"
+      },
+      "oeuf": {
+        "vitamineE": "1,03",
+        "ala": "0,052"
+      }
+    }
+  }
+}

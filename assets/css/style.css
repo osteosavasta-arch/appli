@@ -658,6 +658,21 @@ h3 { font-size: 1.15rem; margin: 0 0 8px; }
 .tableau-nutrition tr:last-child th, .tableau-nutrition tr:last-child td { border-bottom: 0; }
 .tableau-nutrition th { text-align: left; font-weight: 400; }
 .tableau-nutrition td { text-align: right; white-space: nowrap; }
+/* Bloc qui se déplie en touchant la flèche (composition des aliments) */
+.depliant summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+  list-style: none;
+  cursor: pointer;
+}
+.depliant summary::-webkit-details-marker { display: none; }
+.depliant summary h2 { margin: 0; }
+.depliant-fleche { color: var(--couleur-principale); transform: rotate(90deg); transition: transform 0.2s; }
+.depliant[open] .depliant-fleche { transform: rotate(-90deg); }
+.depliant[open] summary { margin-bottom: 8px; }
 .frise { margin: 0 0 16px; }
 .frise-barres, .frise-lettres {
   display: grid;
@@ -724,6 +739,90 @@ h3 { font-size: 1.15rem; margin: 0 0 8px; }
   border-radius: 10px;
 }
 .note-tiers { font-size: 0.875rem; color: var(--couleur-discret); }
+
+/* ---------- Menu de la semaine ---------- */
+.lien-menu { display: flex; align-items: center; gap: 12px; color: var(--couleur-texte); text-decoration: none; }
+.lien-menu > span { display: flex; flex-direction: column; flex-grow: 1; min-width: 0; }
+.lien-menu small { color: var(--couleur-texte-doux); font-size: 0.9rem; }
+.lien-menu .icone { color: var(--couleur-principale); }
+.menu-personnes { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0; font-weight: 700; }
+.menu-compteur { display: flex; align-items: center; gap: 8px; }
+.menu-compteur output { min-width: 2ch; text-align: center; font-size: 1.3rem; font-variant-numeric: tabular-nums; }
+.menu-plus-moins {
+  width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--couleur-principale);
+  background: var(--couleur-fond); color: var(--couleur-principale); font: inherit; font-size: 1.4rem; font-weight: 700; cursor: pointer;
+}
+.menu-toile { margin: 0 0 8px; padding: 4px 0 8px; border-bottom: 1px solid var(--couleur-bordure); }
+/* Huiles conseillées pour la cuisson : liseré vert et mention sous le nom */
+.menu-aliment-conseil { border-color: var(--couleur-plante); border-width: 2px; }
+.menu-aliment small { display: block; margin-top: 2px; font-size: 0.8rem; font-weight: 400; color: var(--couleur-plante); }
+.menu-aliment[aria-pressed="true"] small { color: #fff; }
+.menu-vider { min-height: 48px; margin: 0 0 8px; }
+.menu-vider:disabled { opacity: 0.45; cursor: default; }
+.menu-toile-base { margin: 0; text-align: center; font-size: 0.85rem; font-weight: 700; color: var(--couleur-texte-doux); }
+/* Mini-toile collée en haut à droite quand la grande toile sort de l'écran */
+.toile-mini {
+  position: fixed; z-index: 40;
+  top: calc(8px + env(safe-area-inset-top));
+  right: max(8px, env(safe-area-inset-right));
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  width: 84px; padding: 6px 6px 4px;
+  background: var(--couleur-fond); border: 1px solid var(--couleur-bordure-champ); border-radius: var(--rayon);
+  font: inherit; cursor: pointer;
+}
+.toile-mini svg { display: block; width: 70px; height: 70px; }
+.toile-mini .toile-surface { stroke-width: 6; }
+.toile-mini .toile-anneau, .toile-mini .toile-seuil { stroke-width: 3; }
+.toile-mini-score { font-size: 0.8rem; font-weight: 700; color: var(--couleur-texte); font-variant-numeric: tabular-nums; }
+.toile { display: block; width: min(100%, 270px); margin: 0 auto; overflow: visible; }
+.toile-anneau { fill: none; stroke: var(--couleur-bordure-champ); stroke-width: 1.5; }
+.toile-seuil { fill: none; stroke: var(--couleur-discret); stroke-width: 1.2; stroke-dasharray: 4 4; }
+.toile-rayon { stroke: var(--couleur-bordure); stroke-width: 1; }
+/* Couleur de la toile selon le score : rouge (sous 50 %), orangé (sous 75 %), vert */
+.toile-surface { stroke-width: 2.5; stroke-linejoin: round; transition: fill 0.3s, stroke 0.3s; }
+.toile-surface, .toile-surface[data-niveau="faible"] { fill: rgba(163, 58, 58, 0.26); stroke: var(--couleur-alerte); }
+.toile-surface[data-niveau="moyen"] { fill: rgba(213, 124, 78, 0.3); stroke: var(--couleur-torii); }
+.toile-surface[data-niveau="bon"] { fill: rgba(79, 107, 58, 0.32); stroke: var(--couleur-plante); }
+.toile-libelle { font-size: 18px; font-weight: 700; fill: var(--couleur-texte); }
+.menu-compte[data-atteint="true"] { color: var(--couleur-plante); }
+.menu-score { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+.menu-score-pastille { width: 14px; height: 14px; border-radius: 50%; background: var(--couleur-alerte); }
+.menu-score[data-niveau="moyen"] .menu-score-pastille { background: var(--couleur-torii); }
+.menu-score[data-niveau="bon"] .menu-score-pastille { background: var(--couleur-plante); }
+.menu-section .menu-score { justify-content: flex-start; margin-bottom: 8px; font-size: 1.1rem; }
+.menu-manques { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.menu-manque-repere { padding: 16px; background: var(--couleur-carte); border: 1px solid var(--couleur-bordure); border-radius: var(--rayon); }
+.menu-manque-repere p { margin: 0 0 8px; }
+.menu-manque-repere .bouton { margin: 0; min-height: 48px; }
+.menu-manque-titre { display: flex; justify-content: space-between; gap: 8px; font-variant-numeric: tabular-nums; }
+.menu-toile-aide { margin: 0 0 8px; font-size: 0.85rem; line-height: 1.4; color: var(--couleur-texte-doux); }
+.menu-groupe { margin: 16px 0 0; padding: 0; border: 0; }
+.menu-groupe legend { display: flex; justify-content: space-between; width: 100%; padding: 0; margin-bottom: 8px; font-family: var(--police-titres); font-weight: 600; font-size: 1.15rem; }
+.menu-compte { font-family: var(--police-texte); font-size: 0.95rem; font-weight: 700; color: var(--couleur-principale); font-variant-numeric: tabular-nums; }
+.menu-choix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.menu-aliment {
+  min-height: 48px; padding: 6px 10px; border-radius: var(--rayon-bouton);
+  border: 1px solid var(--couleur-bordure-champ); background: var(--couleur-carte); color: var(--couleur-texte);
+  font: inherit; font-size: 0.95rem; line-height: 1.2; text-align: left; cursor: pointer;
+}
+.menu-aliment[aria-pressed="true"] { background: var(--couleur-principale); border-color: var(--couleur-principale); color: #fff; font-weight: 700; }
+.menu-aliment:disabled { opacity: 0.45; cursor: default; }
+.menu-manque { min-height: 1.5em; margin: 16px 0 8px; color: var(--couleur-texte-doux); }
+#menu-creer:disabled { opacity: 0.5; cursor: default; }
+.menu-section { margin-top: 32px; }
+.menu-section:focus { outline: none; }
+.menu-section h2 { margin: 0 0 8px; }
+.menu-aide { color: var(--couleur-texte-doux); font-size: 0.95rem; }
+.menu-tableau { overflow-x: auto; margin: 0 0 12px; }
+.menu-tableau table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.menu-tableau th, .menu-tableau td { padding: 8px 6px; border-bottom: 1px solid var(--couleur-bordure); text-align: left; vertical-align: top; }
+.menu-tableau tbody th { font-weight: 700; white-space: nowrap; }
+.menu-courses { list-style: none; margin: 0 0 12px; padding: 0; }
+.menu-courses li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--couleur-bordure); }
+.menu-courses li span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.menu-copie { font-weight: 700; color: var(--couleur-principale); }
+.menu-texte { width: 100%; min-height: 160px; margin-bottom: 12px; font: inherit; font-size: 0.85rem; }
+.visuellement-cache { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* Réduit les animations si le téléphone le demande */
 @media (prefers-reduced-motion: reduce) {

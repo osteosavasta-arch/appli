@@ -8,6 +8,8 @@
    #aliment/poireau et #complement/vitamine-c */
 
 import { chargerJSON, estVisible, marqueRelecture, echapper, bandeau, adresseRetourDietetique } from '../app.js';
+import { icone } from '../icones.js';
+import { menuDisponible } from './menu.js';
 
 const NOMS_MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet',
   'août', 'septembre', 'octobre', 'novembre', 'décembre'];
@@ -135,9 +137,10 @@ function pageProduit(f) {
       ${f.impact ? `<p class="fiche-intro">${echapper(f.impact)}</p>` : ''}
       ${friseSaison(f)}
       ${pointsForts}
-      ${lignes ? `<div class="encadre encadre-carte"><h2>Composition pour 100 g</h2>
+      ${lignes ? `<details class="encadre encadre-carte depliant">
+        <summary><h2>Composition pour 100 g</h2>${icone('chevron', 'depliant-fleche')}</summary>
         <table class="tableau-nutrition"><tbody>${lignes}</tbody></table>
-        <p class="fiche-date">Aliment de référence Ciqual : ${echapper(f.ciqual.nom)}</p></div>` : ''}
+        <p class="fiche-date">Aliment de référence Ciqual : ${echapper(f.ciqual.nom)}</p></details>` : ''}
       ${recettes}
     </article>`;
 }
@@ -269,10 +272,17 @@ export async function afficherDietetique(parametre) {
       ${fiches.length ? listeFiches(fiches, 'complement') : '<p class="vide">Bientôt disponible.</p>'}`;
   }
 
-  const saison = await chargerJSON('data/fruits-legumes.json');
+  const [saison, menu, avecMenu] = await Promise.all([
+    chargerJSON('data/fruits-legumes.json'), chargerJSON('data/menu-semaine.json'), menuDisponible(),
+  ]);
+  const lienMenu = avecMenu
+    ? `<a class="carte lien-menu" href="#menu">${icone('agenda')}<span><strong>${echapper(menu.textes.lienDietetique)}</strong>
+         <small>${echapper(menu.textes.aideLien)}</small></span>${icone('chevron', 'icone-petite')}</a>`
+    : '';
   return `
     ${bandeau(ENTETE_DIETETIQUE)}
     ${onglets('apports')}
+    ${lienMenu}
     ${sectionApports(saison, parametre)}`;
 }
 
