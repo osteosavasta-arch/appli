@@ -4,7 +4,7 @@
 
 - Aucun compte à créer, aucun cookie, aucune publicité, aucune statistique de fréquentation.
 - L'application n'envoie aucune donnée au cabinet ni à un serveur.
-- Les seules informations que vous pouvez saisir (date de votre dernière consultation, menus de la semaine) restent dans votre téléphone, et seulement si vous le demandez.
+- Les seules informations que vous pouvez saisir (date de votre dernière consultation, menus de la semaine, recettes favorites) restent dans votre téléphone, et seulement si vous le demandez.
 
 ## Date de votre dernière consultation (facultatif)
 
@@ -20,6 +20,8 @@
 - Le choix des aliments, la toile des apports, les recettes et la liste de courses sont calculés entièrement dans votre téléphone. Rien n'est transmis.
 - Un menu n'est enregistré dans votre téléphone (stockage local du navigateur) que si vous touchez « Enregistrer ma semaine ». Sont gardés : la date, le nombre de personnes, les aliments choisis, les recettes et la liste de courses, pour 12 semaines au plus.
 - Vous pouvez supprimer une semaine à tout moment avec le bouton « Supprimer », ou toutes en effaçant les données du site dans votre navigateur.
+- Une recette n'est gardée dans « Mon carnet » que si vous touchez « Ajouter à mes favoris ». Vous pouvez la retirer à tout moment.
+- Les cases cochées de vos listes de courses sont gardées dans votre téléphone pour les retrouver au magasin. « Tout décocher » les efface.
 - « Mettre dans mes notes » ouvre la fenêtre de partage de votre téléphone : c'est vous qui choisissez l'application de destination.
 
 ## Ce qui est enregistré automatiquement sur votre téléphone

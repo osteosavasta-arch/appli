@@ -1,5 +1,5 @@
 {
-  "_aide": "Réglages et recettes de « Préparer le menu de la semaine ». Rien ne s'affiche tant que « reglages », « textes » et au moins 6 recettes ne sont pas au statut \"validee\". Dans les recettes, {L1}, {L2}, {P}, {F}, {C}… sont remplacés par les aliments choisis ; chaque recette en utilise au moins 2. Un emplacement peut limiter les aliments acceptés : types (légume, fruit, viande, poisson, œuf), categories, exclureCategories ou ids (identifiants des fiches).",
+  "_aide": "Réglages et recettes de « Préparer le menu de la semaine ». Rien ne s'affiche tant que « reglages », « textes » et au moins 6 recettes ne sont pas au statut \"validee\". Dans les recettes, {L1}, {L2}, {P}, {F}, {C}… sont remplacés par les aliments choisis ; chaque recette en utilise au moins 2. Un emplacement peut limiter les aliments acceptés : types (légume, fruit, viande, poisson, œuf), categories, exclureCategories ou ids (identifiants des fiches). Recettes : tempsPreparation, tempsCuisson (vide = sans cuisson), ustensiles, autres (quantite par personne et par repas, ou texte), etapes. Les quantités des aliments choisis sont calculées par l'appli à partir des portions.",
   "reglages": {
     "statut": "validee",
     "personnesMin": 1,
@@ -151,6 +151,36 @@
     "confirmerSuppression": "Confirmer la suppression",
     "horsSaison": "Certains aliments de cette semaine ne sont plus proposés ce mois-ci : ils ne sont pas cochés, mais restent dans les recettes et les courses."
   },
+  "textesRecettes": {
+    "statut": "validee",
+    "pour": "Quantités pour {personnes}, pour les {repas} repas de la semaine",
+    "preparation": "Préparation",
+    "cuisson": "Cuisson",
+    "sansCuisson": "Sans cuisson",
+    "ingredients": "Ingrédients",
+    "ustensiles": "Ustensiles",
+    "etapes": "Étapes"
+  },
+  "textesCarnet": {
+    "statut": "validee",
+    "titre": "Mon carnet",
+    "menuBas": "Carnet",
+    "intro": "Vos listes de courses et vos recettes favorites, gardées sur ce téléphone.",
+    "ongletCourses": "Listes de courses",
+    "ongletFavoris": "Recettes favorites",
+    "aucuneListe": "Aucune liste enregistrée. Créez votre menu de la semaine puis touchez « Enregistrer ma semaine ».",
+    "aucunFavori": "Aucune recette favorite. Dans votre menu, ouvrez une recette et touchez « Ajouter à mes favoris ».",
+    "creerMenu": "Créer mon menu de la semaine",
+    "semaineDu": "Semaine du {date}",
+    "toutDecocher": "Tout décocher",
+    "ouvrirMenu": "Voir le menu de cette semaine",
+    "envoyerNotes": "Mettre dans mes notes",
+    "ajouterFavori": "Ajouter à mes favoris",
+    "retirerFavori": "Retirer de mes favoris",
+    "confirmerRetrait": "Confirmer le retrait",
+    "ajoute": "Recette ajoutée à vos favoris, dans « Mon carnet ».",
+    "retire": "Recette retirée de vos favoris."
+  },
   "crudites": [
     "laitue",
     "mache",
@@ -172,7 +202,14 @@
       "id": "soupe",
       "statut": "validee",
       "titre": "Soupe de {L1} et de {L2}",
-      "temps": "40 min",
+      "tempsPreparation": "15 min",
+      "tempsCuisson": "30 min",
+      "ustensiles": [
+        "Faitout",
+        "Mixeur plongeant",
+        "Couteau",
+        "Planche à découper"
+      ],
       "aliments": [
         {
           "cle": "L1",
@@ -194,22 +231,42 @@
         }
       ],
       "autres": [
-        "Bouillon de légumes",
-        "Huile d'olive",
-        "Sel, poivre"
+        {
+          "nom": "Bouillon de légumes",
+          "quantite": 25,
+          "unite": "cl"
+        },
+        {
+          "nom": "Huile d'olive",
+          "quantite": 0.5,
+          "unite": "c. à soupe"
+        },
+        {
+          "nom": "Sel, poivre",
+          "texte": "selon le goût"
+        }
       ],
       "etapes": [
-        "Laver, éplucher et couper en morceaux {L1} et {L2}.",
-        "Les faire revenir 5 min dans un filet d'huile d'olive.",
-        "Couvrir de bouillon et laisser cuire 30 min à feu doux.",
-        "Mixer, saler, poivrer. Se garde 2 jours au réfrigérateur."
+        "Laver {L1} et {L2}, les éplucher si besoin et les couper en morceaux de 2 cm environ.",
+        "Faire chauffer l'huile dans le faitout à feu moyen.",
+        "Ajouter les légumes et les faire revenir 5 minutes en remuant, sans les laisser colorer.",
+        "Verser le bouillon chaud : il doit juste couvrir les légumes.",
+        "Porter à frémissement, couvrir et cuire 25 à 30 minutes, jusqu'à ce que les légumes s'écrasent facilement à la fourchette.",
+        "Mixer finement, saler, poivrer. La soupe se garde 2 jours au réfrigérateur dans une boîte fermée."
       ]
     },
     {
       "id": "poelee",
       "statut": "validee",
       "titre": "Poêlée de {L1} et de {L2}, avec {P}",
-      "temps": "30 min",
+      "tempsPreparation": "15 min",
+      "tempsCuisson": "20 min",
+      "ustensiles": [
+        "Sauteuse ou grande poêle",
+        "Poêle",
+        "Couteau",
+        "Planche à découper"
+      ],
       "aliments": [
         {
           "cle": "L1",
@@ -239,22 +296,41 @@
         }
       ],
       "autres": [
-        "Huile d'olive",
-        "Herbes de Provence",
-        "Sel, poivre"
+        {
+          "nom": "Huile d'olive",
+          "quantite": 1,
+          "unite": "c. à soupe"
+        },
+        {
+          "nom": "Herbes de Provence",
+          "texte": "selon le goût"
+        },
+        {
+          "nom": "Sel, poivre",
+          "texte": "selon le goût"
+        }
       ],
       "etapes": [
-        "Couper {L1} et {L2} en petits morceaux.",
-        "Les faire sauter 15 min à la poêle dans un filet d'huile d'olive, en remuant.",
-        "Cuire à part {P}, puis l'ajouter aux légumes.",
-        "Assaisonner avec les herbes, le sel et le poivre."
+        "Laver {L1} et {L2}, les éplucher si besoin et les couper en petits morceaux réguliers de 1 à 2 cm.",
+        "Chauffer la moitié de l'huile dans la sauteuse à feu moyen.",
+        "Faire sauter les légumes 15 à 20 minutes en remuant souvent ; ajouter un peu d'eau s'ils attachent.",
+        "Pendant ce temps, cuire {P} dans la poêle avec le reste d'huile, à feu moyen.",
+        "Vérifier que {P} est cuit à cœur.",
+        "Ajouter les herbes aux légumes, saler, poivrer et servir avec {P}."
       ]
     },
     {
       "id": "four",
       "statut": "validee",
       "titre": "Plaque au four : {P}, {L1} et {L2}",
-      "temps": "50 min",
+      "tempsPreparation": "15 min",
+      "tempsCuisson": "40 à 45 min",
+      "ustensiles": [
+        "Plaque ou plat allant au four",
+        "Papier cuisson",
+        "Couteau",
+        "Planche à découper"
+      ],
       "aliments": [
         {
           "cle": "P",
@@ -285,22 +361,41 @@
         }
       ],
       "autres": [
-        "Huile d'olive",
-        "Thym",
-        "Sel, poivre"
+        {
+          "nom": "Huile d'olive",
+          "quantite": 1,
+          "unite": "c. à soupe"
+        },
+        {
+          "nom": "Thym",
+          "texte": "selon le goût"
+        },
+        {
+          "nom": "Sel, poivre",
+          "texte": "selon le goût"
+        }
       ],
       "etapes": [
-        "Préchauffer le four à 200 °C.",
-        "Couper {L1} et {L2} en morceaux, les étaler sur la plaque avec un filet d'huile et le thym.",
-        "Enfourner 20 min, puis ajouter {P} sur la plaque.",
-        "Poursuivre la cuisson 20 min environ, jusqu'à ce que tout soit bien cuit."
+        "Préchauffer le four à 200 °C (thermostat 6-7).",
+        "Couper {L1} et {L2} en morceaux de même taille (2 à 3 cm) pour qu'ils cuisent en même temps.",
+        "Les étaler sur la plaque couverte de papier cuisson, arroser d'huile, parsemer de thym, saler et mélanger.",
+        "Enfourner 20 minutes.",
+        "Retourner les légumes, poser {P} au milieu de la plaque, saler et poivrer.",
+        "Poursuivre la cuisson 15 à 25 minutes selon l'épaisseur, jusqu'à ce que {P} soit cuit à cœur et les légumes dorés."
       ]
     },
     {
       "id": "gratin",
       "statut": "validee",
       "titre": "Gratin de {L1} et de {L2}",
-      "temps": "50 min",
+      "tempsPreparation": "20 min",
+      "tempsCuisson": "40 min",
+      "ustensiles": [
+        "Casserole",
+        "Passoire",
+        "Plat à gratin",
+        "Couteau"
+      ],
       "aliments": [
         {
           "cle": "L1",
@@ -322,22 +417,46 @@
         }
       ],
       "autres": [
-        "Crème fraîche",
-        "Fromage râpé",
-        "Sel, poivre"
+        {
+          "nom": "Crème fraîche",
+          "quantite": 30,
+          "unite": "g"
+        },
+        {
+          "nom": "Fromage râpé",
+          "quantite": 20,
+          "unite": "g"
+        },
+        {
+          "nom": "Beurre pour le plat",
+          "texte": "une noisette"
+        },
+        {
+          "nom": "Sel, poivre, muscade",
+          "texte": "selon le goût"
+        }
       ],
       "etapes": [
-        "Préchauffer le four à 190 °C.",
-        "Couper {L1} et {L2} en tranches et les cuire 10 min à l'eau bouillante.",
-        "Les disposer dans un plat, napper de crème et parsemer de fromage râpé.",
-        "Enfourner 30 min, jusqu'à ce que le dessus soit doré."
+        "Préchauffer le four à 190 °C (thermostat 6).",
+        "Laver {L1} et {L2}, les éplucher si besoin et les couper en tranches de 5 mm.",
+        "Les précuire 8 à 10 minutes dans une casserole d'eau bouillante salée, puis bien les égoutter.",
+        "Beurrer le plat et y ranger les légumes en couches.",
+        "Mélanger la crème avec le sel, le poivre et une pointe de muscade, puis en napper les légumes.",
+        "Parsemer de fromage râpé et enfourner 25 à 30 minutes, jusqu'à ce que le dessus soit doré."
       ]
     },
     {
       "id": "puree",
       "statut": "validee",
       "titre": "Purée de {L1} et de {L2}, avec {P}",
-      "temps": "35 min",
+      "tempsPreparation": "15 min",
+      "tempsCuisson": "25 min",
+      "ustensiles": [
+        "Casserole ou cuit-vapeur",
+        "Presse-purée ou fourchette",
+        "Poêle",
+        "Couteau"
+      ],
       "aliments": [
         {
           "cle": "L1",
@@ -375,21 +494,41 @@
         }
       ],
       "autres": [
-        "Beurre ou huile d'olive",
-        "Sel, poivre"
+        {
+          "nom": "Beurre",
+          "quantite": 10,
+          "unite": "g"
+        },
+        {
+          "nom": "Lait",
+          "quantite": 5,
+          "unite": "cl"
+        },
+        {
+          "nom": "Sel, poivre",
+          "texte": "selon le goût"
+        }
       ],
       "etapes": [
-        "Éplucher et couper {L1} et {L2}.",
-        "Les cuire 20 min à l'eau ou à la vapeur, puis les écraser avec un peu de beurre ou d'huile.",
-        "Cuire {P} à la poêle.",
-        "Servir ensemble, saler, poivrer."
+        "Éplucher {L1} et {L2} et les couper en cubes de 3 cm.",
+        "Les cuire 20 à 25 minutes à l'eau salée ou à la vapeur, jusqu'à ce qu'ils soient bien tendres.",
+        "Pendant ce temps, cuire {P} à la poêle à feu moyen, jusqu'à ce qu'il soit cuit à cœur.",
+        "Égoutter les légumes, puis les écraser avec le beurre et le lait chaud, jusqu'à la texture souhaitée.",
+        "Saler, poivrer et servir aussitôt avec {P}."
       ]
     },
     {
       "id": "papillote",
       "statut": "validee",
       "titre": "Papillote de {P} et de {L1}",
-      "temps": "30 min",
+      "tempsPreparation": "15 min",
+      "tempsCuisson": "20 min",
+      "ustensiles": [
+        "Papier cuisson",
+        "Plat allant au four",
+        "Couteau",
+        "Planche à découper"
+      ],
       "aliments": [
         {
           "cle": "P",
@@ -408,22 +547,42 @@
         }
       ],
       "autres": [
-        "Citron",
-        "Huile d'olive",
-        "Sel, poivre"
+        {
+          "nom": "Citron",
+          "quantite": 0.25,
+          "unite": "citron"
+        },
+        {
+          "nom": "Huile d'olive",
+          "quantite": 0.5,
+          "unite": "c. à soupe"
+        },
+        {
+          "nom": "Sel, poivre",
+          "texte": "selon le goût"
+        }
       ],
       "etapes": [
-        "Préchauffer le four à 200 °C.",
-        "Couper {L1} en fines lamelles et les déposer sur une feuille de papier cuisson.",
-        "Poser {P} par-dessus, avec un filet d'huile et une rondelle de citron.",
-        "Fermer la papillote et enfourner 20 min."
+        "Préchauffer le four à 200 °C (thermostat 6-7).",
+        "Couper {L1} en fines lamelles.",
+        "Pour chaque personne, poser une feuille de papier cuisson de 30 cm, y déposer une part des légumes puis {P}.",
+        "Ajouter un filet d'huile et une rondelle de citron, saler et poivrer.",
+        "Refermer en plis serrés pour garder la vapeur à l'intérieur et déposer les papillotes sur le plat.",
+        "Enfourner 15 à 20 minutes : le poisson est cuit quand il devient opaque et se détache en lamelles."
       ]
     },
     {
       "id": "omelette",
       "statut": "validee",
       "titre": "Omelette aux légumes : {L1} et {L2}",
-      "temps": "20 min",
+      "tempsPreparation": "10 min",
+      "tempsCuisson": "15 min",
+      "ustensiles": [
+        "Poêle antiadhésive",
+        "Saladier",
+        "Fourchette ou fouet",
+        "Couteau"
+      ],
       "aliments": [
         {
           "cle": "O",
@@ -451,20 +610,35 @@
         }
       ],
       "autres": [
-        "Huile d'olive",
-        "Sel, poivre"
+        {
+          "nom": "Huile d'olive",
+          "quantite": 0.5,
+          "unite": "c. à soupe"
+        },
+        {
+          "nom": "Sel, poivre",
+          "texte": "selon le goût"
+        }
       ],
       "etapes": [
-        "Couper {L1} et {L2} en petits dés et les faire revenir 10 min à la poêle.",
-        "Battre les œufs avec le sel et le poivre.",
-        "Verser les œufs sur les légumes et cuire 5 min à feu doux."
+        "Couper {L1} et {L2} en petits dés.",
+        "Les faire revenir 8 à 10 minutes dans la poêle avec l'huile, à feu moyen, jusqu'à ce qu'ils soient tendres.",
+        "Battre les œufs dans le saladier avec le sel et le poivre.",
+        "Verser les œufs sur les légumes et baisser le feu.",
+        "Cuire 4 à 6 minutes en ramenant les bords vers le centre, jusqu'à ce que le dessus soit pris."
       ]
     },
     {
       "id": "saute",
       "statut": "validee",
       "titre": "Sauté de {P} et de {L1}",
-      "temps": "25 min",
+      "tempsPreparation": "15 min",
+      "tempsCuisson": "15 min",
+      "ustensiles": [
+        "Wok ou grande poêle",
+        "Couteau",
+        "Planche à découper"
+      ],
       "aliments": [
         {
           "cle": "P",
@@ -483,21 +657,41 @@
         }
       ],
       "autres": [
-        "Huile",
-        "Sauce soja ou épices",
-        "Sel, poivre"
+        {
+          "nom": "Huile",
+          "quantite": 1,
+          "unite": "c. à soupe"
+        },
+        {
+          "nom": "Sauce soja",
+          "quantite": 1,
+          "unite": "c. à soupe"
+        },
+        {
+          "nom": "Poivre",
+          "texte": "selon le goût"
+        }
       ],
       "etapes": [
-        "Couper {P} en lanières et {L1} en fines tranches.",
-        "Saisir {P} 5 min à feu vif dans un peu d'huile, puis le réserver.",
-        "Faire sauter {L1} 10 min, remettre {P} et assaisonner."
+        "Couper {P} en fines lanières et {L1} en tranches fines.",
+        "Chauffer la moitié de l'huile dans le wok à feu vif.",
+        "Saisir {P} 4 à 5 minutes en remuant, jusqu'à ce qu'il soit cuit à cœur, puis le réserver dans une assiette.",
+        "Mettre le reste d'huile et faire sauter {L1} 6 à 8 minutes : il doit rester un peu croquant.",
+        "Remettre {P}, ajouter la sauce soja, mélanger 1 minute et servir."
       ]
     },
     {
       "id": "salade",
       "statut": "validee",
       "titre": "Salade de {C1} et de {C2}",
-      "temps": "15 min",
+      "tempsPreparation": "15 min",
+      "tempsCuisson": "",
+      "ustensiles": [
+        "Saladier",
+        "Couteau",
+        "Planche à découper",
+        "Râpe (pour les légumes-racines)"
+      ],
       "aliments": [
         {
           "cle": "C1",
@@ -525,19 +719,45 @@
         }
       ],
       "autres": [
-        "Vinaigrette (huile, vinaigre, moutarde)"
+        {
+          "nom": "Huile (colza ou olive)",
+          "quantite": 1,
+          "unite": "c. à soupe"
+        },
+        {
+          "nom": "Vinaigre",
+          "quantite": 0.5,
+          "unite": "c. à soupe"
+        },
+        {
+          "nom": "Moutarde",
+          "quantite": 0.25,
+          "unite": "c. à café"
+        },
+        {
+          "nom": "Sel, poivre",
+          "texte": "selon le goût"
+        }
       ],
       "etapes": [
-        "Laver et couper {C1} et {C2} en fines lamelles ou en petits dés.",
-        "Préparer la vinaigrette.",
-        "Mélanger au moment de servir."
+        "Laver soigneusement {C1} et {C2}, puis les sécher.",
+        "Couper {C1} en fines lamelles, ou le râper s'il s'agit d'un légume-racine.",
+        "Couper {C2} en petits dés ou en quartiers fins.",
+        "Préparer la vinaigrette : mélanger la moutarde et le vinaigre, saler, poivrer, puis ajouter l'huile en fouettant.",
+        "Mélanger au dernier moment pour que la salade reste croquante."
       ]
     },
     {
       "id": "volaille-fruit",
       "statut": "validee",
       "titre": "{P} aux fruits : {F} et {L1}",
-      "temps": "40 min",
+      "tempsPreparation": "15 min",
+      "tempsCuisson": "35 min",
+      "ustensiles": [
+        "Cocotte avec couvercle",
+        "Couteau",
+        "Planche à découper"
+      ],
       "aliments": [
         {
           "cle": "P",
@@ -573,13 +793,28 @@
         }
       ],
       "autres": [
-        "Beurre ou huile",
-        "Sel, poivre"
+        {
+          "nom": "Beurre ou huile",
+          "quantite": 10,
+          "unite": "g"
+        },
+        {
+          "nom": "Bouillon",
+          "quantite": 10,
+          "unite": "cl"
+        },
+        {
+          "nom": "Sel, poivre",
+          "texte": "selon le goût"
+        }
       ],
       "etapes": [
-        "Faire dorer {P} dans une cocotte avec un peu de matière grasse.",
-        "Ajouter {L1} émincé et {F} coupé en quartiers.",
-        "Couvrir et laisser mijoter 25 min à feu doux."
+        "Couper {P} en morceaux, éplucher et émincer {L1}, couper {F} en quartiers sans le cœur ni les pépins.",
+        "Faire dorer {P} 5 minutes dans la cocotte avec la matière grasse, à feu moyen-vif.",
+        "Ajouter {L1} et le faire fondre 3 minutes.",
+        "Ajouter {F} et le bouillon, saler et poivrer.",
+        "Couvrir et laisser mijoter 25 minutes à feu doux, en remuant de temps en temps.",
+        "Vérifier que {P} est cuit à cœur avant de servir."
       ]
     }
   ],

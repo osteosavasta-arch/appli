@@ -10,7 +10,8 @@ import { afficherAccueil } from './vues/accueil.js';
 import { afficherEtirements } from './vues/etirements.js';
 import { afficherDietetique, afficherAliment, afficherComplement } from './vues/dietetique.js';
 import { afficherInfos, afficherPageTexte } from './vues/pages.js';
-import { afficherMenu, activerMenu } from './vues/menu.js';
+import { afficherMenu, activerMenu, carnetDisponible } from './vues/menu.js';
+import { afficherCarnet, activerCarnet } from './vues/carnet.js';
 import { activerRappel } from './rappel.js';
 import { icone } from './icones.js';
 import './renseignements.js';
@@ -85,6 +86,7 @@ const ecrans = {
   'aliment': afficherAliment,
   'complement': afficherComplement,
   'menu': afficherMenu,
+  'carnet': afficherCarnet,
   'infos': afficherInfos,
   'confidentialite': () => afficherPageTexte('pages/confidentialite.md'),
   'mentions-legales': () => afficherPageTexte('pages/mentions-legales.md'),
@@ -94,6 +96,7 @@ const ecrans = {
 const apresAffichage = {
   'accueil': activerRappel,
   'menu': activerMenu,
+  'carnet': activerCarnet,
 };
 
 const zone = document.getElementById('contenu');
@@ -151,6 +154,18 @@ async function preparerMenu() {
     document.querySelectorAll('.js-lien-rdv').forEach((a) => { a.href = liens.rendezVous.url; });
   } catch (erreur) {
     console.error(erreur); // le lien écrit dans index.html reste utilisable
+  }
+  // « Mon carnet » n'apparaît dans la barre du bas qu'une fois ses textes validés
+  try {
+    if (await carnetDisponible()) {
+      const menu = await chargerJSON('data/menu-semaine.json');
+      document.querySelectorAll('.js-carnet').forEach((lien) => {
+        lien.querySelector('.js-carnet-libelle').textContent = menu.textesCarnet.menuBas;
+        lien.hidden = false;
+      });
+    }
+  } catch (erreur) {
+    console.error(erreur);
   }
 }
 

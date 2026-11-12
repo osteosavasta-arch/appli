@@ -9,7 +9,7 @@
    rechargés depuis Internet quand il y a du réseau.
    ========================================================= */
 
-const VERSION = 'v25';
+const VERSION = 'v26';
 const CACHE = `osteo-savasta-${VERSION}`;
 
 // Fichiers enregistrés dès l'installation
@@ -30,6 +30,7 @@ const FICHIERS_DE_BASE = [
   'assets/js/vues/etirements.js',
   'assets/js/vues/pages.js',
   'assets/js/vues/menu.js',
+  'assets/js/vues/carnet.js',
   'assets/icones/icone-192.png',
   'assets/icones/icone-512.png',
   'assets/icones/logo-entete.png',
