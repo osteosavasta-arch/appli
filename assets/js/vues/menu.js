@@ -16,13 +16,18 @@ const GROUPES = [
   { cle: 'légume', titre: 'Légumes', types: ['légume'] },
   { cle: 'fruit', titre: 'Fruits', types: ['fruit'] },
   { cle: 'proteine', titre: 'Viandes, poissons, œufs', types: ['viande', 'poisson', 'œuf'] },
+  { cle: 'feculent', titre: 'Féculents', types: ['féculent'], texteTitre: 'titreFeculents', texteAide: 'aideFeculents' },
   { cle: 'laitier', titre: 'Produits laitiers', types: ['produit laitier'], texteTitre: 'titreLaitiers', texteAide: 'aideLaitiers' },
   { cle: 'matiere', titre: 'Matières grasses', types: ['matière grasse'], texteTitre: 'titreMatieres', texteAide: 'aideMatieres' },
 ];
 const minimum = (reglages, groupe) => reglages.aChoisir[groupe] || 0;
 
 // aleatoires : aliments ajoutés par « Sélection aléatoire » (remplacés au clic suivant)
-let etat = { personnes: 2, choisis: new Set(), aleatoires: new Set(), derniereAleatoire: '', resultat: null };
+// mode : « aliments » (on choisit ses aliments) ou « recettes » (on choisit ses recettes)
+let etat = {
+  personnes: 2, mode: 'aliments', choisis: new Set(), aleatoires: new Set(), derniereAleatoire: '', resultat: null,
+  recettes: new Set(), recettesAleatoires: new Set(), tendances: new Set(),
+};
 let valeursAffichees = null; // pour l'animation de la toile
 let complementsCiqual = {}; // vitamine E et oméga-3 des fiches, servent seulement à la toile
 
@@ -34,6 +39,15 @@ async function chargerDonnees() {
   ]);
   complementsCiqual = menu.apportsComplementaires?.valeurs || {};
   const moisCourant = new Date().getMonth() + 1;
+  // v26.1 : choix par recettes, tendances et féculents, seulement une fois leurs textes validés
+  const tm = estVisible(menu.textesModes) ? menu.textesModes : null;
+  const t = tm ? { ...menu.textes, ...tm } : menu.textes;
+  const avecFeculents = Boolean(tm) && estVisible(menu.feculents);
+  const feculents = avecFeculents ? menu.feculents.aliments.map((m) => ({ ...m, type: 'féculent' })) : [];
+  const reglages = avecFeculents
+    ? { ...menu.reglages, aChoisir: { ...menu.reglages.aChoisir, feculent: menu.feculents.aChoisir } }
+    : menu.reglages;
+  const tendances = tm && estVisible(menu.tendances) ? menu.tendances.liste : [];
   // Fruits et légumes de saison ce mois-ci, viandes, poissons et œufs toute l'année
   const proposes = aliments.produits
     .filter((f) => estVisible(f) && (f.toutLAnnee || f.moisSaison.includes(moisCourant)))
@@ -42,8 +56,38 @@ async function chargerDonnees() {
   const enPlus = (bloc, type) => (estVisible(bloc) ? bloc.aliments.map((m) => ({ ...m, type, categorie: type })) : []);
   const laitiers = enPlus(menu.produitsLaitiers, 'produit laitier');
   const gras = enPlus(menu.matieresGrasses, 'matière grasse');
-  return { menu, proposes: proposes.concat(laitiers, gras), recettes: menu.recettes.filter(estVisible) };
+  return {
+    menu, t, tm, reglages, tendances,
+    proposes: proposes.concat(feculents, laitiers, gras),
+    recettes: menu.recettes.filter(estVisible),
+    populaires: tm ? recettesPopulaires(menu, aliments, moisCourant) : [],
+  };
 }
+
+/** Recettes du mode « Choisir des recettes », avec leurs aliments retrouvés dans toutes les listes.
+    En tête : celles qui associent le plus de familles d'aliments, puis celles de saison. */
+function recettesPopulaires(menu, aliments, mois) {
+  const bloc = menu.recettesPopulaires;
+  if (!estVisible(bloc)) return [];
+  const index = new Map();
+  const ajouter = (liste, type) => (liste || []).forEach((f) => index.set(f.id, type ? { ...f, type, categorie: f.categorie || type } : f));
+  ajouter(aliments.produits);
+  ajouter(menu.feculents?.aliments, 'féculent');
+  ajouter(menu.produitsLaitiers?.aliments, 'produit laitier');
+  ajouter(menu.matieresGrasses?.aliments, 'matière grasse');
+  ajouter(menu.alimentsRecettes?.aliments);
+  return bloc.recettes.filter(estVisible).map((rc) => {
+    const items = rc.ingredients.filter((x) => index.has(x.id)).map((x) => ({
+      f: index.get(x.id), nom: x.nom || index.get(x.id).nom, quantite: x.quantite,
+      horsSaison: !x.toutLAnnee && Array.isArray(index.get(x.id).moisSaison) && !index.get(x.id).toutLAnnee
+        && !index.get(x.id).moisSaison.includes(mois),
+    }));
+    const familles = GROUPES.filter((g) => items.some((x) => g.types.includes(x.f.type)));
+    return { ...rc, items, familles, horsSaison: items.some((x) => x.horsSaison) };
+  }).sort((a, b) => b.familles.length - a.familles.length || a.horsSaison - b.horsSaison
+    || a.titre.localeCompare(b.titre, 'fr'));
+}
+const minimumRecettes = (menu) => menu.recettesPopulaires?.recettesMin || 4;
 
 /** Le menu ne s'ouvre que si ses réglages, ses textes et au moins 6 recettes sont validés. */
 export async function menuDisponible() {
@@ -87,13 +131,87 @@ function grammesSemaine(reglages, f, nombres) {
   return parRepas * reglages.repasParSemaine;
 }
 
-/** Part des AJR couverte (0 à 1, et plus) pour chaque axe de la toile. */
-function couvertures(reglages, choisis) {
-  const nombres = comptes(choisis);
+/** Part des AJR couverte (0 à 1, et plus) pour chaque axe de la toile ;
+    apports : [{ f, g }] avec g = grammes par personne sur la semaine. */
+function couverturesApports(reglages, apports) {
   return reglages.toile.map((axe) => {
-    const apport = choisis.reduce((total, f) => total + (grammesSemaine(reglages, f, nombres) / 100) * quantite(f, axe.cle), 0);
+    const apport = apports.reduce((total, { f, g }) => total + (g / 100) * quantite(f, axe.cle), 0);
     return apport / (axe.reference * 7);
   });
+}
+
+function couvertures(reglages, choisis) {
+  const nombres = comptes(choisis);
+  return couverturesApports(reglages, choisis.map((f) => ({ f, g: grammesSemaine(reglages, f, nombres) })));
+}
+
+/* ---------- Mode « Choisir des recettes » ----------
+   Les recettes choisies se partagent les repas de la semaine à tour de rôle
+   (jamais deux fois la même le même jour dès qu'il y en a deux). */
+const ordreRepas = (reglages, k) => Array.from({ length: reglages.repasParSemaine }, (_, i) => i % k);
+function repasParRecette(reglages, k) {
+  const repas = Array(k).fill(0);
+  ordreRepas(reglages, k).forEach((i) => { repas[i] += 1; });
+  return repas;
+}
+
+/** Apports d'une personne sur la semaine pour ces recettes. */
+function apportsRecettes(reglages, choisies) {
+  if (!choisies.length) return [];
+  const repas = repasParRecette(reglages, choisies.length);
+  return choisies.flatMap((rc, i) => rc.items.map((x) => ({ f: x.f, g: x.quantite * repas[i] })));
+}
+const couverturesRecettes = (reglages, choisies) => couverturesApports(reglages, apportsRecettes(reglages, choisies));
+
+function recettesDetailleesPopulaires(reglages, choisies, personnes) {
+  const repas = repasParRecette(reglages, choisies.length);
+  return choisies.map((rc, i) => {
+    const autres = (rc.autres || []).map((a) => (typeof a === 'string' ? { nom: a } : a));
+    return {
+      titre: rc.titre, tempsPreparation: rc.tempsPreparation, tempsCuisson: rc.tempsCuisson, ustensiles: rc.ustensiles || [],
+      aliments: rc.items.map((x) => ({ ...x.f, nom: x.nom })), autres, etapes: rc.etapes, repas: repas[i], personnes,
+      ingredients: rc.items.map((x) => `${x.nom} : ${quantiteAliment(reglages, x.f, x.quantite * personnes * repas[i])}`)
+        .concat(autres.map((a) => (a.quantite
+          ? `${a.nom} : ${mesure(a.quantite * personnes * repas[i], a.unite)}`
+          : `${a.nom}${a.texte ? ` (${a.texte})` : ''}`))),
+    };
+  });
+}
+
+function coursesRecettes(reglages, choisies, personnes, detaillees) {
+  const repas = repasParRecette(reglages, choisies.length);
+  const totaux = new Map();
+  choisies.forEach((rc, i) => rc.items.forEach((x) => {
+    const cle = `${x.f.id}|${x.nom}`;
+    const total = totaux.get(cle) || { f: { ...x.f, nom: x.nom }, grammes: 0 };
+    total.grammes += x.quantite * personnes * repas[i];
+    totaux.set(cle, total);
+  }));
+  return coursesDepuis(reglages, [...totaux.values()], personnes, detaillees);
+}
+
+/** Échange de recette proposé pour chaque repère sous le seuil. */
+function bilanRecettes(reglages, populaires, choisies) {
+  const actuelles = couverturesRecettes(reglages, choisies);
+  const scoreActuel = scoreGlobal(actuelles);
+  const manques = reglages.toile
+    .map((axe, i) => ({ axe, i, valeur: actuelles[i] }))
+    .filter((x) => x.valeur < reglages.seuil)
+    .map(({ axe, i, valeur }) => {
+      let solution = null;
+      for (const ancien of choisies) {
+        for (const nouveau of populaires) {
+          if (choisies.includes(nouveau)) continue;
+          const valeurs = couverturesRecettes(reglages, choisies.map((rc) => (rc === ancien ? nouveau : rc)));
+          if (valeurs[i] <= valeur || scoreGlobal(valeurs) < scoreActuel) continue;
+          if (!solution || valeurs[i] > solution.apres) {
+            solution = { texteAncien: ancien.titre, texteNouveau: nouveau.titre, cle: `${ancien.id}|${nouveau.id}`, apres: valeurs[i] };
+          }
+        }
+      }
+      return { axe, valeur, solution };
+    });
+  return { score: scoreActuel, manques, mode: 'recettes' };
 }
 
 /* ---------- Toile d'araignée ---------- */
@@ -238,6 +356,15 @@ function choisirRecettes(recettes, choisis, crudites) {
   return retenues.map(({ recette, pris }) => recetteRemplie(recette, pris));
 }
 
+/** Chaque recette reçoit un des féculents choisis, à tour de rôle, avec l'étape de cuisson. */
+function ajouterFeculents(recettes, feculents) {
+  if (!feculents.length) return recettes;
+  return recettes.map((rc, i) => {
+    const s = feculents[i % feculents.length];
+    return { ...rc, aliments: [...rc.aliments, s], etapes: s.etape ? [...rc.etapes, s.etape] : rc.etapes };
+  });
+}
+
 function remplacer(texte, pris) {
   return texte
     .replace(/\{(\w+)\}/g, (_, cle) => (pris[cle] ? nomCourt(pris[cle]) : ''))
@@ -269,6 +396,7 @@ const arrondir = (n, pas) => Math.max(pas, Math.round(n / pas) * pas);
 
 function quantiteAliment(reglages, f, grammes) {
   if (f.type === 'œuf') return `${Math.max(1, Math.round(grammes / reglages.poidsOeuf))} œufs`;
+  if (f.uniteCourses === 'ml') return mesure(grammes / (f.densite || reglages.densiteHuile || 0.92) / 10, 'cl');
   const g = arrondir(grammes, 10);
   return g >= 1000 ? `${nombreFr(Math.round(g / 100) / 10)} kg` : `${g} g`;
 }
@@ -286,21 +414,27 @@ function mesure(quantite, unite) {
 
 const majuscule = (texte) => texte.replace(/^./, (c) => c.toUpperCase());
 
+/** Portion d'un aliment pour un repas d'une personne : celle de sa catégorie (fruits à coque),
+    sinon la sienne (féculents, produits laitiers), sinon celle de son groupe. */
+function portionRepas(reglages, f) {
+  return reglages.portionsParCategorie?.[f.categorie] ?? f.portionParRepas ?? reglages.portionsParRepas[groupeDe(f)] ?? 0;
+}
+
+/** Quantités de chaque recette : la portion d'un repas (partagée entre les aliments du même groupe
+    dans la recette), multipliée par les personnes et les repas servis par la recette. */
 function detaillerRecettes(reglages, recettes, choisis, personnes) {
-  const nombres = comptes(choisis);
-  const repasUtilisant = new Map();
-  recettes.forEach((rc, i) => rc.aliments.forEach((f) => {
-    repasUtilisant.set(f.id, (repasUtilisant.get(f.id) || 0) + REPAS_PAR_RECETTE[i]);
-  }));
   return recettes.map((rc, i) => {
     const repas = REPAS_PAR_RECETTE[i];
+    const grammesAliments = {};
     const ingredients = rc.aliments.map((f) => {
-      const grammes = (grammesSemaine(reglages, f, nombres) * personnes * repas) / repasUtilisant.get(f.id);
+      const memeGroupe = rc.aliments.filter((x) => groupeDe(x) === groupeDe(f)).length;
+      const grammes = (portionRepas(reglages, f) / memeGroupe) * personnes * repas;
+      grammesAliments[f.id] = (grammesAliments[f.id] || 0) + grammes;
       return `${majuscule(nomCourt(f))} : ${quantiteAliment(reglages, f, grammes)}`;
     }).concat(rc.autres.map((a) => (a.quantite
       ? `${a.nom} : ${mesure(a.quantite * personnes * repas, a.unite)}`
       : `${a.nom}${a.texte ? ` (${a.texte})` : ''}`)));
-    return { ...rc, repas, personnes, ingredients };
+    return { ...rc, repas, personnes, ingredients, grammesAliments };
   });
 }
 
@@ -367,29 +501,32 @@ function bilanSemaine(reglages, proposes, choisis) {
           if (choisis.includes(nouveau) || groupeDe(nouveau) !== groupeDe(ancien)) continue;
           const valeurs = couvertures(reglages, choisis.map((f) => (f === ancien ? nouveau : f)));
           if (valeurs[i] <= valeur || scoreGlobal(valeurs) < scoreActuel) continue;
-          if (!solution || valeurs[i] > solution.apres) solution = { ancien, nouveau, apres: valeurs[i] };
+          if (!solution || valeurs[i] > solution.apres) {
+            solution = { texteAncien: nomCourt(ancien), texteNouveau: nomCourt(nouveau), cle: `${ancien.id}|${nouveau.id}`, apres: valeurs[i] };
+          }
         }
       }
       return { axe, valeur, solution };
     });
-  return { score: scoreActuel, manques };
+  return { score: scoreActuel, manques, mode: 'aliments' };
 }
 
-function phraseSolution(t, manque) {
+function phraseSolution(t, manque, parRecettes) {
   const s = manque.solution;
-  return t.solution
-    .replace('{ancien}', nomCourt(s.ancien))
-    .replace('{nouveau}', nomCourt(s.nouveau))
+  return (parRecettes ? t.solutionRecette : t.solution)
+    .replace('{ancien}', s.texteAncien)
+    .replace('{nouveau}', s.texteNouveau)
     .replace('{repere}', manque.axe.libelle)
     .replace('{apres}', pourcent(Math.min(s.apres, 1)));
 }
 
 function htmlBilan(t, reglages, bilan) {
+  const parRecettes = bilan.mode === 'recettes';
   const lignes = bilan.manques.map((m) => `
     <li class="menu-manque-repere">
       <p class="menu-manque-titre"><strong>${echapper(m.axe.libelle)}</strong><span>${pourcent(m.valeur)}</span></p>
-      <p>${echapper(m.solution ? phraseSolution(t, m) : t.pasDeSolution)}</p>
-      ${m.solution ? `<button type="button" class="bouton bouton-contour" data-remplacer="${echapper(m.solution.ancien.id)}|${echapper(m.solution.nouveau.id)}">${echapper(t.boutonRemplacer)}</button>` : ''}
+      <p>${echapper(m.solution ? phraseSolution(t, m, parRecettes) : (parRecettes ? t.pasDeSolutionRecette : t.pasDeSolution))}</p>
+      ${m.solution ? `<button type="button" class="bouton bouton-contour" ${parRecettes ? 'data-remplacer-recette' : 'data-remplacer'}="${echapper(m.solution.cle)}">${echapper(t.boutonRemplacer)}</button>` : ''}
     </li>`).join('');
   return `
     <section class="menu-section" id="menu-bilan" tabindex="-1">
@@ -397,7 +534,7 @@ function htmlBilan(t, reglages, bilan) {
       <div class="filet-torii"></div>
       <p class="menu-score" data-niveau="${niveau(bilan.score, reglages.seuil)}"><span class="menu-score-pastille"></span><span>${echapper(t.score)} ${pourcent(bilan.score)}</span></p>
       ${bilan.manques.length
-        ? `<p class="menu-aide">${echapper(t.aideBilan)}</p><ul class="menu-manques">${lignes}</ul>`
+        ? `<p class="menu-aide">${echapper(parRecettes ? t.aideBilanRecettes : t.aideBilan)}</p><ul class="menu-manques">${lignes}</ul>`
         : `<p class="menu-aide">${echapper(t.aucunManque)}</p>`}
     </section>`;
 }
@@ -416,10 +553,22 @@ function enCentilitres(grammes, densite) {
 
 function courses(reglages, choisis, personnes, recettes) {
   const nombres = comptes(choisis);
+  // Aliments des recettes : la somme des recettes ; les autres (fruits, laitages…) : la quantité de la semaine
+  const dansRecettes = {};
+  recettes.forEach((rc) => Object.entries(rc.grammesAliments || {}).forEach(([id, g]) => {
+    dansRecettes[id] = (dansRecettes[id] || 0) + g;
+  }));
+  return coursesDepuis(reglages, choisis.map((f) => ({
+    f, grammes: dansRecettes[f.id] ?? grammesSemaine(reglages, f, nombres) * personnes,
+  })), personnes, recettes);
+}
+
+/** elements : [{ f, grammes }] pour tout le foyer sur la semaine. */
+function coursesDepuis(reglages, elements, personnes, recettes) {
+  const choisis = elements.map((e) => e.f);
   const lignes = GROUPES.map((g) => ({
     titre: g.titre,
-    elements: choisis.filter((f) => groupeDe(f) === g.cle).map((f) => {
-      const grammes = grammesSemaine(reglages, f, nombres) * personnes;
+    elements: elements.filter(({ f }) => groupeDe(f) === g.cle).map(({ f, grammes }) => {
       let texte = enKilos(grammes);
       if (f.type === 'œuf') texte = `${Math.ceil(grammes / reglages.poidsOeuf)} œufs`;
       else if (f.uniteCourses === 'ml') texte = enCentilitres(grammes, f.densite || reglages.densiteHuile || 0.92);
@@ -490,7 +639,41 @@ function tirer(liste, n, deja) {
   return pris;
 }
 
-function selectionAleatoire(reglages, proposes, fixes, precedente) {
+/** Nutriments choisis pour la tendance, ou « équilibre général ». */
+function resumeTendance(tm, tendances) {
+  const noms = tendances.filter((x) => etat.tendances.has(x.cle)).map((x) => x.libelle);
+  return noms.length ? noms.join(', ') : tm.tendanceAucune;
+}
+
+/** Note d'une proposition : l'équilibre global, et les repères de la tendance en priorité. */
+function noteTendance(reglages, valeurs, axes) {
+  const global = scoreGlobal(valeurs);
+  const indices = axes.map((cle) => reglages.toile.findIndex((a) => a.cle === cle)).filter((i) => i >= 0);
+  if (!indices.length) return global;
+  return global * 0.5 + indices.reduce((s, i) => s + Math.min(valeurs[i], 1.5), 0) / indices.length;
+}
+
+const RECETTES_ALEATOIRES = 6;
+
+/** Complète les recettes choisies jusqu'à 6, au hasard, en visant la tendance. */
+function selectionRecettesAleatoire(reglages, populaires, fixes, precedente, axes) {
+  const libres = populaires.filter((rc) => !fixes.includes(rc));
+  const besoin = Math.max(0, RECETTES_ALEATOIRES - fixes.length);
+  let meilleure = null;
+  for (let essai = 0; essai < 300; essai += 1) {
+    const tirage = melanger(libres).slice(0, besoin);
+    const cle = tirage.map((rc) => rc.id).sort().join('|');
+    if (cle === precedente && essai < 299 && libres.length > besoin) continue;
+    const valeurs = couverturesRecettes(reglages, fixes.concat(tirage));
+    // Les recettes de saison passent devant, à équilibre comparable
+    const note = noteTendance(reglages, valeurs, axes) - 0.03 * tirage.filter((rc) => rc.horsSaison).length;
+    if (!meilleure || note > meilleure.note) meilleure = { tirage, note, score: scoreGlobal(valeurs), cle };
+    if (!axes.length && meilleure.score >= reglages.seuil) break;
+  }
+  return meilleure;
+}
+
+function selectionAleatoire(reglages, proposes, fixes, precedente, axes = []) {
   const libres = proposes.filter((f) => !fixes.includes(f));
   const dejaDans = (cle) => fixes.filter((f) => groupeDe(f) === cle);
   let meilleure = null;
@@ -499,6 +682,7 @@ function selectionAleatoire(reglages, proposes, fixes, precedente) {
       'légume': Math.max(0, minimum(reglages, 'légume') - dejaDans('légume').length),
       fruit: Math.max(0, minimum(reglages, 'fruit') - dejaDans('fruit').length),
       proteine: Math.max(0, minimum(reglages, 'proteine') - dejaDans('proteine').length),
+      feculent: Math.max(0, minimum(reglages, 'feculent') - dejaDans('feculent').length),
       laitier: dejaDans('laitier').length ? 0 : 1 + Math.floor(Math.random() * 2),
       matiere: dejaDans('matiere').length ? 0 : 1,
     };
@@ -511,12 +695,13 @@ function selectionAleatoire(reglages, proposes, fixes, precedente) {
     });
     const cle = tirage.map((f) => f.id).sort().join('|');
     if (cle === precedente && essai < 299) continue; // toujours une nouvelle proposition
-    let score = scoreGlobal(couvertures(reglages, fixes.concat(tirage)));
+    const valeurs = couvertures(reglages, fixes.concat(tirage));
+    let note = noteTendance(reglages, valeurs, axes);
     // Variété : deux protéines du même type (deux viandes…) passent après
     const types = new Set(fixes.concat(tirage).filter((f) => groupeDe(f) === 'proteine').map((f) => f.type));
-    if (types.size < 2) score -= 0.05;
-    if (!meilleure || score > meilleure.score) meilleure = { tirage, score, cle };
-    if (score >= reglages.seuil) break;
+    if (types.size < 2) note -= 0.05;
+    if (!meilleure || note > meilleure.note) meilleure = { tirage, note, score: scoreGlobal(valeurs), cle };
+    if (!axes.length && meilleure.score >= reglages.seuil) break;
   }
   return meilleure;
 }
@@ -564,14 +749,16 @@ function htmlSemaines(tp) {
 
 /* ---------- Affichage ---------- */
 export async function afficherMenu() {
-  const { menu, proposes, recettes } = await chargerDonnees();
-  const t = menu.textes;
+  const { menu, t, tm, reglages, tendances, proposes, populaires } = await chargerDonnees();
   const retour = { adresse: '#dietetique', libelle: 'Diététique' };
   if (!(await menuDisponible())) {
     return `${bandeau({ titre: 'Menu de la semaine', retour })}<p class="vide">Bientôt disponible.</p>`;
   }
   valeursAffichees = null;
-  const r = menu.reglages;
+  const r = reglages;
+  const minRecettes = minimumRecettes(menu);
+  const avecRecettes = populaires.length >= minRecettes;
+  if (!avecRecettes) etat.mode = 'aliments';
   // Sélection aléatoire et semaines enregistrées : seulement si leurs textes sont validés
   const tp = estVisible(menu.textesPlus) ? menu.textesPlus : null;
   const tr = menu.textesRecettes;
@@ -584,12 +771,40 @@ export async function afficherMenu() {
     return `
       <fieldset class="menu-groupe" data-groupe="${g.cle}">
         <legend><span>${echapper(t[g.texteTitre] || g.titre)}</span> <span class="menu-compte" data-compte="${g.cle}"></span></legend>
-        ${facultatif && t[g.texteAide] ? `<p class="menu-aide">${echapper(t[g.texteAide])}</p>` : ''}
+        ${(facultatif || g.cle === 'feculent') && t[g.texteAide] ? `<p class="menu-aide">${echapper(t[g.texteAide])}</p>` : ''}
         <div class="menu-choix">
           ${liste.map((f) => `<button type="button" class="menu-aliment${f.conseil ? ' menu-aliment-conseil' : ''}" data-aliment="${echapper(f.id)}" aria-pressed="${etat.choisis.has(f.id)}">${echapper(f.nom)}${f.conseil ? `<small>${echapper(f.conseil)}</small>` : ''}</button>`).join('')}
         </div>
       </fieldset>`;
   }).join('');
+
+  const parRecettes = etat.mode === 'recettes';
+  const modes = avecRecettes ? `
+    <div class="onglets-diet menu-modes" role="group" aria-label="${echapper(t.titre)}">
+      <button type="button" class="onglet-diet" data-mode="aliments" aria-pressed="${!parRecettes}">${echapper(tm.boutonAliments)}</button>
+      <button type="button" class="onglet-diet" data-mode="recettes" aria-pressed="${parRecettes}">${echapper(tm.boutonRecettes)}</button>
+    </div>
+    <p class="menu-aide" id="menu-mode-aide">${echapper(parRecettes ? tm.aideRecettes.replace('{min}', minRecettes) : tm.aideAliments)}</p>` : '';
+  const listeRecettes = avecRecettes ? `
+    <fieldset class="menu-groupe" data-groupe="recettes">
+      <legend><span>${echapper(tm.titreRecettesPopulaires)}</span> <span class="menu-compte" data-compte="recettes"></span></legend>
+      <div class="menu-recettes">
+        ${populaires.map((rc) => `<button type="button" class="menu-recette" data-recette="${echapper(rc.id)}" aria-pressed="${etat.recettes.has(rc.id)}">
+          <span class="menu-recette-titre">${echapper(rc.titre)}</span>
+          <small>${echapper(rc.familles.map((g) => g.titre).join(' · '))}</small>
+          <small class="menu-recette-infos"><span>${echapper(tm.familles.replace('{n}', rc.familles.length))}</span>${rc.horsSaison ? `<span class="menu-recette-saison">${echapper(tm.horsSaison)}</span>` : ''}</small>
+        </button>`).join('')}
+      </div>
+    </fieldset>` : '';
+  // Tendance : liste dépliable de nutriments à toucher (un ou plusieurs, ou aucun = équilibre général)
+  const choixTendance = tp && tendances.length ? `
+    <details class="menu-tendance">
+      <summary><span>${echapper(tm.tendance)}</span><small id="menu-tendance-resume">${echapper(resumeTendance(tm, tendances))}</small></summary>
+      <p class="menu-aide">${echapper(tm.aideTendance)}</p>
+      <div class="menu-tendance-choix">
+        ${tendances.map((x) => `<button type="button" class="menu-aliment" data-tendance="${echapper(x.cle)}" aria-pressed="${etat.tendances.has(x.cle)}">${echapper(x.libelle)}</button>`).join('')}
+      </div>
+    </details>` : '';
 
   return `<div class="menu-ecran">
     ${bandeau({ surtitre: 'Votre alimentation', titre: t.titre, retour })}
@@ -608,11 +823,14 @@ export async function afficherMenu() {
       ${htmlToile(r)}
     </div>
     ${htmlMiniToile(r, t)}
+    ${modes}
+    ${choixTendance}
     ${tp ? `<button type="button" class="bouton bouton-secondaire menu-aleatoire" data-aleatoire>${echapper(tp.boutonAleatoire)}</button>
       <p class="menu-aide" id="menu-aleatoire-aide" aria-live="polite">${echapper(tp.aideAleatoire)}</p>` : ''}
     <button type="button" class="bouton bouton-contour menu-vider" data-vider>${echapper(t.boutonToutDeselectionner)}</button>
     <p class="menu-toile-aide">${echapper(t.explicationToile)}</p>
-    ${groupes}
+    <div id="menu-zone-aliments" ${parRecettes ? 'hidden' : ''}>${groupes}</div>
+    <div id="menu-zone-recettes" ${parRecettes ? '' : 'hidden'}>${listeRecettes}</div>
     <p class="menu-manque" id="menu-manque" aria-live="polite"></p>
     <button type="button" class="bouton bouton-secondaire" id="menu-creer">${echapper(t.boutonCreer)}</button>
     <div id="menu-resultat">${etat.resultat ? htmlResultat(t, r, etat.resultat, tp, tr, tc) : ''}</div>
@@ -649,7 +867,7 @@ function htmlResultat(t, reglages, res, tp, tr, tc) {
         <thead><tr><th scope="col"><span class="visuellement-cache">Jour</span></th><th scope="col">Midi</th><th scope="col">Soir</th></tr></thead>
         <tbody>${semaine}</tbody>
       </table></div>
-      <p class="menu-aide">${echapper(t.fruitsAuQuotidien)}</p>
+      ${res.bilan.mode === 'recettes' ? '' : `<p class="menu-aide">${echapper(t.fruitsAuQuotidien)}</p>`}
       <button type="button" class="bouton bouton-contour" data-notes="menu">${echapper(t.boutonNotesMenu)}</button>
     </section>
     <section class="menu-section">
@@ -697,19 +915,51 @@ export async function activerMenu(contenu) {
   // Écouteurs posés sur l'écran lui-même : ils disparaissent avec lui
   const zone = contenu.querySelector('.menu-ecran');
   if (!zone) return;
-  const { menu, proposes, recettes } = await chargerDonnees();
-  const r = menu.reglages;
-  const t = menu.textes;
+  const { menu, t, tm, reglages, tendances, proposes, recettes, populaires } = await chargerDonnees();
+  const r = reglages;
   const tp = estVisible(menu.textesPlus) ? menu.textesPlus : null;
   const tr = menu.textesRecettes;
   const tc = estVisible(menu.textesCarnet) ? menu.textesCarnet : null;
+  const minRecettes = minimumRecettes(menu);
 
   const choisis = () => proposes.filter((f) => etat.choisis.has(f.id));
+  const choisies = () => populaires.filter((rc) => etat.recettes.has(rc.id));
+  const parRecettes = () => etat.mode === 'recettes';
   const nombre = (cle) => choisis().filter((f) => groupeDe(f) === cle).length;
-  // Aucun maximum : il faut seulement atteindre le minimum de chaque groupe
-  const complet = () => GROUPES.every((g) => nombre(g.cle) >= minimum(r, g.cle));
+  // Aucun maximum : il faut seulement atteindre le minimum de chaque groupe (ou de recettes)
+  const complet = () => (parRecettes()
+    ? choisies().length >= minRecettes
+    : GROUPES.every((g) => nombre(g.cle) >= minimum(r, g.cle)));
+  const axesTendance = () => [...etat.tendances];
+
+  function effacerResultat() {
+    etat.resultat = null;
+    zone.querySelector('#menu-resultat').innerHTML = '';
+  }
+
+  function afficherMode() {
+    zone.querySelectorAll('[data-mode]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === etat.mode)));
+    zone.querySelector('#menu-zone-aliments').hidden = parRecettes();
+    zone.querySelector('#menu-zone-recettes').hidden = !parRecettes();
+    const aide = zone.querySelector('#menu-mode-aide');
+    if (aide) aide.textContent = parRecettes() ? tm.aideRecettes.replace('{min}', minRecettes) : tm.aideAliments;
+  }
 
   function mettreAJour() {
+    if (parRecettes()) {
+      const n = choisies().length;
+      const compteur = zone.querySelector('[data-compte="recettes"]');
+      compteur.textContent = `${n} · ${t.auMoins} ${minRecettes}`;
+      compteur.dataset.atteint = String(n >= minRecettes);
+      zone.querySelectorAll('.menu-recette').forEach((b) => {
+        b.setAttribute('aria-pressed', String(etat.recettes.has(b.dataset.recette)));
+      });
+      zone.querySelector('#menu-manque').textContent = n < minRecettes ? tm.manqueRecettes.replace('{n}', minRecettes - n) : '';
+      zone.querySelector('#menu-creer').disabled = !complet();
+      zone.querySelector('[data-vider]').disabled = n === 0;
+      dessinerToile(zone, r, couverturesRecettes(r, choisies()), t);
+      return;
+    }
     GROUPES.forEach((g) => {
       const compteur = zone.querySelector(`[data-compte="${g.cle}"]`);
       if (!compteur) return;
@@ -731,9 +981,11 @@ export async function activerMenu(contenu) {
 
   /** Crée le menu ; avec une semaine enregistrée, reprend ses recettes, sa répartition et ses courses. */
   function creer(allerAuBilan = true, enregistree = null) {
+    if (parRecettes()) { creerParRecettes(allerAuBilan, enregistree); return; }
     const liste = choisis();
+    const feculents = liste.filter((f) => groupeDe(f) === 'feculent');
     const retenues = enregistree ? enregistree.recettes
-      : detaillerRecettes(r, choisirRecettes(recettes, liste, menu.crudites || []), liste, etat.personnes);
+      : detaillerRecettes(r, ajouterFeculents(choisirRecettes(recettes, liste, menu.crudites || []), feculents), liste, etat.personnes);
     const semaine = enregistree ? enregistree.semaine : JOURS.map((jour, i) => ({
       jour,
       midi: retenues[REPARTITION[i * 2]]?.titre || '',
@@ -750,6 +1002,26 @@ export async function activerMenu(contenu) {
     if (allerAuBilan) zone.querySelector('#menu-bilan').focus();
   }
 
+  function creerParRecettes(allerAuBilan, enregistree) {
+    const liste = choisies();
+    const ordre = ordreRepas(r, liste.length);
+    const retenues = enregistree ? enregistree.recettes : recettesDetailleesPopulaires(r, liste, etat.personnes);
+    const semaine = enregistree ? enregistree.semaine : JOURS.map((jour, i) => ({
+      jour,
+      midi: retenues[ordre[i * 2]]?.titre || '',
+      soir: retenues[ordre[i * 2 + 1]]?.titre || '',
+    }));
+    etat.resultat = {
+      semaine,
+      recettes: retenues,
+      courses: enregistree ? enregistree.courses : coursesRecettes(r, liste, etat.personnes, retenues),
+      bilan: bilanRecettes(r, populaires, liste),
+      horsSaison: false,
+    };
+    zone.querySelector('#menu-resultat').innerHTML = htmlResultat(t, r, etat.resultat, tp, tr, tc);
+    if (allerAuBilan) zone.querySelector('#menu-bilan').focus();
+  }
+
   function enregistrerSemaine() {
     const res = etat.resultat;
     const aujourdhui = new Date();
@@ -758,7 +1030,9 @@ export async function activerMenu(contenu) {
       date: `${aujourdhui.getFullYear()}-${String(aujourdhui.getMonth() + 1).padStart(2, '0')}-${String(aujourdhui.getDate()).padStart(2, '0')}`,
       personnes: etat.personnes,
       score: res.bilan.score,
-      choisis: [...etat.choisis],
+      mode: etat.mode,
+      choisis: parRecettes() ? [] : [...etat.choisis],
+      recettesChoisies: parRecettes() ? [...etat.recettes] : [],
       semaine: res.semaine,
       // Recettes sans les fiches complètes : seuls les noms des aliments sont gardés
       recettes: res.recettes.map(recetteAGarder),
@@ -776,13 +1050,57 @@ export async function activerMenu(contenu) {
     if (!s) return;
     etat.personnes = s.personnes;
     zone.querySelector('#menu-personnes').textContent = etat.personnes;
-    etat.choisis = new Set(s.choisis);
-    etat.aleatoires = new Set();
+    const parRecettesEnregistree = s.mode === 'recettes' && zone.querySelector('[data-mode]');
+    etat.mode = parRecettesEnregistree ? 'recettes' : 'aliments';
+    if (parRecettesEnregistree) {
+      etat.recettes = new Set(s.recettesChoisies);
+      etat.recettesAleatoires = new Set();
+    } else {
+      etat.choisis = new Set(s.choisis);
+      etat.aleatoires = new Set();
+    }
+    afficherMode();
     mettreAJour();
     creer(true, s);
   }
 
+
   zone.addEventListener('click', (evenement) => {
+    const nutriment = evenement.target.closest('[data-tendance]');
+    if (nutriment) {
+      const cle = nutriment.dataset.tendance;
+      if (etat.tendances.has(cle)) etat.tendances.delete(cle); else etat.tendances.add(cle);
+      nutriment.setAttribute('aria-pressed', String(etat.tendances.has(cle)));
+      zone.querySelector('#menu-tendance-resume').textContent = resumeTendance(tm, tendances);
+      return;
+    }
+    const mode = evenement.target.closest('[data-mode]');
+    if (mode) {
+      if (mode.dataset.mode === etat.mode) return;
+      etat.mode = mode.dataset.mode;
+      effacerResultat();
+      afficherMode();
+      mettreAJour();
+      return;
+    }
+    const recette = evenement.target.closest('[data-recette]');
+    if (recette) {
+      const id = recette.dataset.recette;
+      if (etat.recettes.has(id)) etat.recettes.delete(id); else etat.recettes.add(id);
+      etat.recettesAleatoires.delete(id);
+      effacerResultat();
+      mettreAJour();
+      return;
+    }
+    const echangeRecette = evenement.target.closest('[data-remplacer-recette]');
+    if (echangeRecette) {
+      const [ancien, nouveau] = echangeRecette.dataset.remplacerRecette.split('|');
+      etat.recettes.delete(ancien);
+      etat.recettes.add(nouveau);
+      mettreAJour();
+      creer();
+      return;
+    }
     const aliment = evenement.target.closest('[data-aliment]');
     if (aliment) {
       const id = aliment.dataset.aliment;
@@ -801,11 +1119,23 @@ export async function activerMenu(contenu) {
       return;
     }
     if (evenement.target.closest('#menu-creer') && complet()) { creer(); return; }
+    if (evenement.target.closest('[data-aleatoire]') && parRecettes()) {
+      etat.recettesAleatoires.forEach((id) => etat.recettes.delete(id));
+      const proposition = selectionRecettesAleatoire(r, populaires, choisies(), etat.derniereAleatoire, axesTendance());
+      etat.recettesAleatoires = new Set(proposition.tirage.map((rc) => rc.id));
+      etat.recettesAleatoires.forEach((id) => etat.recettes.add(id));
+      etat.derniereAleatoire = proposition.cle;
+      effacerResultat();
+      zone.querySelector('#menu-aleatoire-aide').textContent =
+        proposition.score >= r.seuil ? tp.aideAleatoire : tp.pasDeVert;
+      mettreAJour();
+      return;
+    }
     if (evenement.target.closest('[data-aleatoire]')) {
       // Garde les choix faits à la main, remplace la partie tirée au hasard au clic précédent
       etat.aleatoires.forEach((id) => etat.choisis.delete(id));
       const fixes = choisis();
-      const proposition = selectionAleatoire(r, proposes, fixes, etat.derniereAleatoire);
+      const proposition = selectionAleatoire(r, proposes, fixes, etat.derniereAleatoire, axesTendance());
       etat.aleatoires = new Set(proposition.tirage.map((f) => f.id));
       etat.aleatoires.forEach((id) => etat.choisis.add(id));
       etat.derniereAleatoire = proposition.cle;
@@ -850,8 +1180,13 @@ export async function activerMenu(contenu) {
       return;
     }
     if (evenement.target.closest('[data-vider]')) {
-      etat.choisis.clear();
-      etat.aleatoires.clear();
+      if (parRecettes()) {
+        etat.recettes.clear();
+        etat.recettesAleatoires.clear();
+      } else {
+        etat.choisis.clear();
+        etat.aleatoires.clear();
+      }
       etat.resultat = null;
       zone.querySelector('#menu-resultat').innerHTML = '';
       mettreAJour();

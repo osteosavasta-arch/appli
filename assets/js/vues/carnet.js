@@ -7,7 +7,7 @@
 
 import { bandeau, chargerJSON, echapper, estVisible } from '../app.js';
 import {
-  carnetDisponible, lireSemaines, dateLongue, texteCourses, versNotes,
+  carnetDisponible, lireSemaines, ecrireSemaines, dateLongue, texteCourses, versNotes,
   lireFavoris, ecrireFavoris, htmlRecette, demanderOuvertureSemaine,
 } from './menu.js';
 
@@ -26,6 +26,11 @@ function ecrireCoches(coches) {
 
 const ENTETE = { surtitre: 'Votre alimentation' };
 
+// Quantités modifiables (v26.1) : seulement une fois les textes de textesModes validés
+const textesCarnet = (menu) => (estVisible(menu.textesModes)
+  ? { ...menu.textesCarnet, aideQuantites: menu.textesModes.aideQuantites, quantiteDe: menu.textesModes.quantiteDe }
+  : menu.textesCarnet);
+
 function onglets(actif, tc) {
   const onglet = (cle, adresse, libelle) =>
     `<a href="#${adresse}" class="onglet-diet" ${actif === cle ? 'aria-current="page"' : ''}>${echapper(libelle)}</a>`;
@@ -36,26 +41,41 @@ function onglets(actif, tc) {
     </nav>`;
 }
 
+// « 1,7 kg » → { nombre: '1,7', unite: 'kg' } ; null si la quantité ne commence pas par un nombre
+function decouper(quantite) {
+  const m = /^(\d+(?:[.,]\d+)?)\s*(.*)$/.exec(String(quantite || '').trim());
+  return m ? { nombre: m[1], unite: m[2] } : null;
+}
+
 function htmlListe(s, t, tc, coches, ouverte) {
   const faits = new Set(coches[s.id] || []);
-  const caseACocher = (nom, quantite) => `
-    <li><label class="carnet-case">
+  // Quantité modifiable : un champ pour le nombre, l'unité à côté
+  const caseACocher = (ligne, nom, quantite) => {
+    const q = decouper(quantite);
+    const champ = q && tc.aideQuantites
+      ? `<span class="carnet-quantite"><input type="text" inputmode="decimal" class="carnet-champ" data-ligne="${ligne}"
+           value="${echapper(q.nombre)}" aria-label="${echapper(`${tc.quantiteDe || 'Quantité :'} ${nom}`)}"><span>${echapper(q.unite)}</span></span>`
+      : (quantite ? `<span class="carnet-quantite">${echapper(quantite)}</span>` : '');
+    return `
+    <li class="carnet-ligne"><label class="carnet-case">
       <input type="checkbox" data-coche="${echapper(nom)}" ${faits.has(nom) ? 'checked' : ''}>
-      <span class="carnet-nom">${echapper(nom)}</span>${quantite ? `<span class="carnet-quantite">${echapper(quantite)}</span>` : ''}
-    </label></li>`;
-  const groupes = s.courses.lignes.map((g) => `
+      <span class="carnet-nom">${echapper(nom)}</span>
+    </label>${champ}</li>`;
+  };
+  const groupes = s.courses.lignes.map((g, gi) => `
     <h4 class="surtitre sous-groupe">${echapper(g.titre)}</h4>
-    <ul class="carnet-courses">${g.elements.map((e) => caseACocher(e.nom, e.quantite)).join('')}</ul>`).join('');
+    <ul class="carnet-courses">${g.elements.map((e, ei) => caseACocher(`g${gi}-${ei}`, e.nom, e.quantite)).join('')}</ul>`).join('');
   const autres = s.courses.autres.length ? `
     <h4 class="surtitre sous-groupe">${echapper(t.autresIngredients)}</h4>
-    <ul class="carnet-courses">${s.courses.autres.map((a) => {
+    <ul class="carnet-courses">${s.courses.autres.map((a, ai) => {
       const [nom, quantite] = a.split(' : ');
-      return caseACocher(nom, quantite);
+      return caseACocher(`a${ai}`, nom, quantite);
     }).join('')}</ul>` : '';
   const personnes = `${s.personnes} ${s.personnes > 1 ? 'personnes' : 'personne'}`;
   return `
     <details class="carnet-semaine" data-semaine="${echapper(s.id)}" ${ouverte ? 'open' : ''}>
       <summary><span>${echapper(tc.semaineDu.replace('{date}', dateLongue(s.date)))}</span> <small>${echapper(personnes)}</small></summary>
+      ${tc.aideQuantites ? `<p class="menu-aide">${echapper(tc.aideQuantites)}</p>` : ''}
       ${groupes}${autres}
       <div class="carnet-actions">
         <button type="button" class="bouton bouton-contour" data-decocher>${echapper(tc.toutDecocher)}</button>
@@ -67,7 +87,7 @@ function htmlListe(s, t, tc, coches, ouverte) {
 
 export async function afficherCarnet(parametre) {
   const menu = await chargerJSON('data/menu-semaine.json');
-  const tc = menu.textesCarnet;
+  const tc = textesCarnet(menu);
   if (!(await carnetDisponible())) {
     return `${bandeau({ ...ENTETE, titre: 'Mon carnet' })}<p class="vide">Bientôt disponible.</p>`;
   }
@@ -109,6 +129,33 @@ export async function activerCarnet(contenu) {
   const ids = new Set(lireSemaines().map((s) => s.id));
   Object.keys(coches).forEach((id) => { if (!ids.has(id)) delete coches[id]; });
   ecrireCoches(coches);
+
+  // Quantité modifiée : enregistrée dans la semaine (liste, notes et menu la reprennent)
+  zone.addEventListener('change', (evenement) => {
+    const champ = evenement.target.closest('[data-ligne]');
+    if (!champ) return;
+    const id = champ.closest('[data-semaine]').dataset.semaine;
+    const semaines = lireSemaines();
+    const s = semaines.find((x) => x.id === id);
+    if (!s) return;
+    const ligne = champ.dataset.ligne;
+    const unite = champ.nextElementSibling.textContent;
+    const valeur = champ.value.trim().replace('.', ',');
+    const ancienne = ligne.startsWith('a')
+      ? s.courses.autres[Number(ligne.slice(1))].split(' : ')[1]
+      : (() => { const [gi, ei] = ligne.slice(1).split('-').map(Number); return s.courses.lignes[gi].elements[ei].quantite; })();
+    if (!/^\d+(,\d+)?$/.test(valeur)) { champ.value = decouper(ancienne)?.nombre || ''; return; }
+    const quantite = `${valeur}${unite ? ` ${unite}` : ''}`;
+    if (ligne.startsWith('a')) {
+      const ai = Number(ligne.slice(1));
+      s.courses.autres[ai] = `${s.courses.autres[ai].split(' : ')[0]} : ${quantite}`;
+    } else {
+      const [gi, ei] = ligne.slice(1).split('-').map(Number);
+      s.courses.lignes[gi].elements[ei].quantite = quantite;
+    }
+    champ.value = valeur;
+    ecrireSemaines(semaines);
+  });
 
   zone.addEventListener('change', (evenement) => {
     const caseCochee = evenement.target.closest('[data-coche]');

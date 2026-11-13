@@ -8,7 +8,7 @@
 
 import { afficherAccueil } from './vues/accueil.js';
 import { afficherEtirements } from './vues/etirements.js';
-import { afficherDietetique, afficherAliment, afficherComplement } from './vues/dietetique.js';
+import { afficherDietetique, afficherSaison, afficherAliment, afficherComplement } from './vues/dietetique.js';
 import { afficherInfos, afficherPageTexte } from './vues/pages.js';
 import { afficherMenu, activerMenu, carnetDisponible } from './vues/menu.js';
 import { afficherCarnet, activerCarnet } from './vues/carnet.js';
@@ -83,6 +83,7 @@ const ecrans = {
   // réimporter afficherCalendrier et ajouter : 'calendrier': afficherCalendrier,
   'etirements': afficherEtirements,
   'dietetique': afficherDietetique,
+  'saison': afficherSaison,
   'aliment': afficherAliment,
   'complement': afficherComplement,
   'menu': afficherMenu,
@@ -119,8 +120,10 @@ async function afficherEcran() {
   const [nom, parametre] = location.hash.replace('#', '').split('/');
   const route = ecrans[nom] ? nom : 'accueil';
   const versFiche = ECRANS_FICHE.includes(route);
-  const retourDeFiche = route === 'dietetique' && ECRANS_FICHE.includes(routePrecedente);
-  if (versFiche && routePrecedente === 'dietetique') {
+  // Listes d'où l'on ouvre une fiche : on y revient au même endroit
+  const LISTES = ['dietetique', 'saison'];
+  const retourDeFiche = LISTES.includes(route) && ECRANS_FICHE.includes(routePrecedente);
+  if (versFiche && LISTES.includes(routePrecedente)) {
     adresseListe = adresseCourante;
     positionListe = window.scrollY;
   }

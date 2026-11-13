@@ -585,6 +585,10 @@ h3 { font-size: 1.15rem; margin: 0 0 8px; }
   line-height: 1.2;
 }
 .onglet-diet[aria-current="page"] { background: var(--couleur-principale); color: #fff; }
+/* Boutons à deux états (choix par aliments ou par recettes) */
+button.onglet-diet { border: 0; background: none; font-family: inherit; cursor: pointer; }
+.onglet-diet[aria-pressed="true"] { background: var(--couleur-principale); color: #fff; }
+.menu-modes { margin: 16px 0 4px; }
 .choix-nutriment { display: grid; gap: 4px; margin: 0 0 16px; font-weight: 700; }
 .choix-nutriment select {
   min-height: 48px;
@@ -867,3 +871,46 @@ h3 { font-size: 1.15rem; margin: 0 0 8px; }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; }
 }
+
+/* ---------- v26.1 : tendance, recettes au choix, quantités modifiables ---------- */
+.menu-tendance { margin: 12px 0 8px; padding: 0 12px; border: 1px solid var(--couleur-bordure-champ); border-radius: var(--rayon-bouton); background: var(--couleur-carte); }
+.menu-tendance summary { display: flex; flex-direction: column; justify-content: center; min-height: 52px; padding: 6px 0; font-weight: 700; cursor: pointer; }
+.menu-tendance summary small { font-weight: 400; color: var(--couleur-texte-doux); }
+.menu-tendance[open] summary { border-bottom: 1px solid var(--couleur-bordure); }
+.menu-tendance-choix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0 0 12px; }
+.menu-recettes { display: grid; gap: 8px; }
+.menu-recette {
+  display: grid;
+  gap: 2px;
+  min-height: 56px;
+  padding: 10px 12px;
+  border: 1px solid var(--couleur-bordure-champ);
+  border-radius: var(--rayon-bouton);
+  background: var(--couleur-fond);
+  color: var(--couleur-texte);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.menu-recette-titre { font-weight: 700; }
+.menu-recette small { font-size: 0.82rem; color: var(--couleur-texte-doux); }
+.menu-recette-infos { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.menu-recette-saison { color: var(--couleur-torii); font-weight: 700; }
+.menu-recette[aria-pressed="true"] { background: var(--couleur-principale); border-color: var(--couleur-principale); color: #fff; }
+.menu-recette[aria-pressed="true"] small, .menu-recette[aria-pressed="true"] .menu-recette-saison { color: #fff; }
+.carnet-ligne { display: flex; align-items: center; gap: 8px; }
+.carnet-ligne .carnet-case { flex: 1; min-width: 0; }
+.carnet-quantite { display: flex; align-items: center; gap: 4px; }
+.carnet-champ {
+  width: 4.5em;
+  min-height: 40px;
+  padding: 0 6px;
+  border: 1px solid var(--couleur-bordure-champ);
+  border-radius: 4px;
+  background: var(--couleur-fond);
+  color: var(--couleur-texte);
+  font: inherit;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.carnet-ligne:has(input[type="checkbox"]:checked) .carnet-quantite { text-decoration: line-through; color: var(--couleur-discret); }

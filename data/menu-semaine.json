@@ -181,6 +181,1183 @@
     "ajoute": "Recette ajoutée à vos favoris, dans « Mon carnet ».",
     "retire": "Recette retirée de vos favoris."
   },
+  "textesModes": {
+    "statut": "validee",
+    "_aide": "Textes de v26.1 : choix par aliments ou par recettes, tendance de la sélection aléatoire, féculents. Tant que ce bloc n'est pas validé, l'écran reste comme avant. intro et explicationToile remplacent ceux du bloc textes.",
+    "intro": "Préparez vos menus de la semaine en choisissant soit vos aliments, soit vos recettes. La toile montre en direct les apports de la semaine ; l'appli répartit les recettes sur les 14 repas (midi et soir) et prépare votre liste de courses.",
+    "explicationToile": "Plus la toile est étendue, mieux la semaine couvre les apports de référence (AJR) d'un adulte. Le pointillé marque 75 %.",
+    "boutonAliments": "Choisir des aliments",
+    "boutonRecettes": "Choisir des recettes",
+    "aideAliments": "Au moins 6 légumes, 2 fruits, 2 sources de protéines et 2 féculents ; l'appli trouve les recettes.",
+    "aideRecettes": "Choisissez au moins {min} recettes : elles se partagent les 14 repas. Les recettes qui associent le plus de familles d'aliments sont en tête.",
+    "titreFeculents": "Féculents",
+    "aideFeculents": "Servis en accompagnement des recettes. Ils comptent aussi dans la toile.",
+    "tendance": "Tendance de la sélection aléatoire",
+    "titreRecettesPopulaires": "Recettes",
+    "familles": "{n} familles d’aliments",
+    "horsSaison": "Hors saison ce mois-ci",
+    "recettesChoisies": "recettes choisies",
+    "manqueRecettes": "Choisissez encore au moins {n} recette(s).",
+    "solutionRecette": "Remplacer « {ancien} » par « {nouveau} » : {repere} passe à {apres}.",
+    "pasDeSolutionRecette": "Aucun échange de recette ne fait progresser ce repère.",
+    "aideBilanRecettes": "Ces repères restent sous 75 % des apports de référence. Voici un échange de recette possible :",
+    "aideQuantites": "Touchez une quantité pour la modifier : elle est gardée sur ce téléphone.",
+    "quantiteDe": "Quantité :",
+    "aideTendance": "Touchez un ou plusieurs nutriments : la sélection aléatoire les fera progresser en priorité. Sans choix, elle vise l'équilibre général.",
+    "tendanceAucune": "Équilibre général"
+  },
+  "tendances": {
+    "statut": "validee",
+    "_aide": "Nutriments proposés dans la liste dépliable « Tendance » de la sélection aléatoire, dans cet ordre. La personne en touche un ou plusieurs ; la sélection les fait progresser en priorité, sans oublier l'équilibre général. cle = repère de la toile (reglages.toile).",
+    "liste": [
+      {
+        "cle": "fer",
+        "libelle": "Fer"
+      },
+      {
+        "cle": "magnesium",
+        "libelle": "Magnésium"
+      },
+      {
+        "cle": "iode",
+        "libelle": "Iode"
+      },
+      {
+        "cle": "calcium",
+        "libelle": "Calcium"
+      },
+      {
+        "cle": "ala",
+        "libelle": "Oméga-3"
+      },
+      {
+        "cle": "vitamineC",
+        "libelle": "Vitamine C"
+      },
+      {
+        "cle": "vitamineB9",
+        "libelle": "Vitamine B9"
+      },
+      {
+        "cle": "vitamineB12",
+        "libelle": "Vitamine B12"
+      },
+      {
+        "cle": "vitamineA",
+        "libelle": "Vitamine A"
+      },
+      {
+        "cle": "vitamineE",
+        "libelle": "Vitamine E"
+      },
+      {
+        "cle": "proteines",
+        "libelle": "Protéines"
+      }
+    ]
+  },
+  "feculents": {
+    "statut": "validee",
+    "_aide": "Féculents proposés au choix (groupe à part, aChoisir = minimum). portionParRepas : grammes crus ou secs par personne et par repas pour ce féculent seul ; s'il y en a plusieurs, ils se partagent les repas. etape : phrase ajoutée à la fin de la recette qu'il accompagne. Valeurs Ciqual 2025 (aliment cru ou sec).",
+    "aChoisir": 2,
+    "aliments": [
+      {
+        "id": "pates-completes",
+        "nom": "Pâtes complètes",
+        "categorie": "Céréale complète",
+        "portionParRepas": 70,
+        "etape": "Cuire les pâtes complètes 10 à 12 minutes dans une grande casserole d'eau bouillante salée, puis les égoutter.",
+        "ciqual": {
+          "code": "9870",
+          "nom": "Pâtes sèches, au blé complet, crues"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "11,8",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "2,2",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "< 0,1",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,037",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "22,4",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "3,2",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "32,1",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "82,2",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "10",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "pates",
+        "nom": "Pâtes",
+        "categorie": "Céréale",
+        "portionParRepas": 70,
+        "etape": "Cuire les pâtes 8 à 10 minutes dans une grande casserole d'eau bouillante salée, puis les égoutter.",
+        "ciqual": {
+          "code": "9810",
+          "nom": "Pâtes sèches, standard, crues"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "12",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "1,6",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,067",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,018",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "18",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "1,3",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "21",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "53",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "1,2",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "riz-complet",
+        "nom": "Riz complet",
+        "categorie": "Céréale complète",
+        "portionParRepas": 60,
+        "etape": "Rincer le riz complet, puis le cuire 30 à 35 minutes dans 2 fois son volume d'eau salée, à couvert et à feu doux.",
+        "ciqual": {
+          "code": "9102",
+          "nom": "Riz complet, cru"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "7,02",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "2,8",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "2,08",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,2",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,026",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "48",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "< 1",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "11,1",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "118",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "< 10",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "riz-blanc",
+        "nom": "Riz blanc",
+        "categorie": "Céréale",
+        "portionParRepas": 60,
+        "etape": "Rincer le riz, puis le cuire 12 minutes dans 1,5 fois son volume d'eau salée, à couvert et à feu doux.",
+        "ciqual": {
+          "code": "9100",
+          "nom": "Riz blanc, cru"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "7,02",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "0,79",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,11",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,0045",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "7,67",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "1,94",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "13,3",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "27,7",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "6,54",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "quinoa",
+        "nom": "Quinoa",
+        "categorie": "Pseudo-céréale",
+        "portionParRepas": 60,
+        "etape": "Rincer le quinoa, puis le cuire 12 à 15 minutes dans 2 fois son volume d'eau salée.",
+        "ciqual": {
+          "code": "9340",
+          "nom": "Quinoa, cru"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "13,2",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "6,07",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0,67",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "2,44",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,13",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "184",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "-",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "4,57",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "47",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "197",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "-",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "sarrasin",
+        "nom": "Sarrasin (kasha)",
+        "categorie": "Pseudo-céréale",
+        "portionParRepas": 60,
+        "etape": "Rincer le sarrasin, puis le cuire 12 à 15 minutes dans 2 fois son volume d'eau salée.",
+        "ciqual": {
+          "code": "9380",
+          "nom": "Sarrasin complet, cru"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "13,3",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "3,4",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "-",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,078",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "30",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "2,2",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "18",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "231",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "2,5",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "semoule",
+        "nom": "Semoule de blé",
+        "categorie": "Céréale",
+        "portionParRepas": 60,
+        "etape": "Verser sur la semoule le même volume d'eau bouillante salée, couvrir 5 minutes puis l'égrener à la fourchette avec un filet d'huile.",
+        "ciqual": {
+          "code": "9610",
+          "nom": "Semoule de blé dur, crue"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "11,8",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "1,28",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,1",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,028",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "72",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "1,23",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "17",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "47",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "3,5",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "boulgour",
+        "nom": "Boulgour",
+        "categorie": "Céréale",
+        "portionParRepas": 60,
+        "etape": "Cuire le boulgour 10 à 12 minutes dans 2 fois son volume d'eau salée, à couvert.",
+        "ciqual": {
+          "code": "9690",
+          "nom": "Boulgour de blé, cru"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "11,7",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "1,42",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0,42",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,06",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,035",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "27",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "2,46",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "35",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "164",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "2,7",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "lentilles-vertes",
+        "nom": "Lentilles vertes",
+        "categorie": "Légumineuse",
+        "portionParRepas": 50,
+        "etape": "Rincer les lentilles, puis les cuire 20 à 25 minutes dans 3 fois leur volume d'eau froide, en ne salant qu'en fin de cuisson.",
+        "ciqual": {
+          "code": "20585",
+          "nom": "Lentille verte, sèche"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "25,1",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "1,8",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "3,06",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "-",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,21",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "117",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "1,63",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "6,3",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "64",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "97",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "< 20",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "pois-chiches",
+        "nom": "Pois chiches",
+        "categorie": "Légumineuse",
+        "portionParRepas": 50,
+        "etape": "La veille, faire tremper les pois chiches dans de l'eau froide ; les cuire ensuite 1 h 30 dans de l'eau non salée (ou utiliser des pois chiches en bocal, déjà cuits).",
+        "ciqual": {
+          "code": "20516",
+          "nom": "Pois chiche, sec"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "20,5",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "6,04",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "3,33",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "3,1",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,1",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "557",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "4",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "4,31",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "57",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "79",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "0,6",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "haricots-rouges",
+        "nom": "Haricots rouges",
+        "categorie": "Légumineuse",
+        "portionParRepas": 50,
+        "etape": "La veille, faire tremper les haricots rouges dans de l'eau froide ; les cuire ensuite 1 h 30 dans de l'eau non salée (ou utiliser des haricots en boîte, déjà cuits).",
+        "ciqual": {
+          "code": "20525",
+          "nom": "Haricot rouge, sec"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "22,5",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "1,06",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,21",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "-",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "394",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "4,5",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "6,69",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "83",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "138",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "1,9",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "pomme-de-terre",
+        "nom": "Pommes de terre",
+        "categorie": "Tubercule",
+        "portionParRepas": 200,
+        "etape": "Éplucher les pommes de terre, les couper en morceaux et les cuire 20 minutes à l'eau salée ou à la vapeur.",
+        "ciqual": {
+          "code": "4008",
+          "nom": "Pomme de terre, sans peau, crue"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "2,02",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "0,09",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0,083",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,01",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,018",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "16",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "19,7",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0,78",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "14,3",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "22",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "1,74",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "patate-douce",
+        "nom": "Patate douce",
+        "categorie": "Tubercule",
+        "portionParRepas": 200,
+        "etape": "Éplucher la patate douce, la couper en cubes et la cuire 15 minutes à la vapeur, ou 30 minutes au four à 200 °C.",
+        "ciqual": {
+          "code": "4101",
+          "nom": "Patate douce, crue"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "1,57",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "0,05",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "709",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,26",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,001",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "11",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "2,4",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0,61",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "30",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "25",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "0,2",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "pain-complet",
+        "nom": "Pain complet",
+        "categorie": "Pain",
+        "portionParRepas": 50,
+        "etape": "Servir avec du pain complet, en tranches.",
+        "ciqual": {
+          "code": "7110",
+          "nom": "Pain complet ou intégral (à la farine T150)"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "8,66",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "1,7",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "1,25",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,34",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,052",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "35,6",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "< 2",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "2",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "83,2",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "54,2",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "< 2,5",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "flocons-avoine",
+        "nom": "Flocons d'avoine",
+        "categorie": "Céréale complète",
+        "portionParRepas": 40,
+        "etape": "Saupoudrer les flocons d'avoine, légèrement grillés à sec à la poêle, sur le plat ; ou les servir en bouillie, cuits 5 minutes dans le lait.",
+        "ciqual": {
+          "code": "32140",
+          "nom": "Flocons d'avoine"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "10,6",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "7,82",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,42",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,065",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "32",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "3,8",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "52",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "101",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "0,5",
+            "unite": "µg"
+          }
+        }
+      }
+    ]
+  },
   "crudites": [
     "laitue",
     "mache",
@@ -818,6 +1995,1318 @@
       ]
     }
   ],
+  "recettesPopulaires": {
+    "statut": "validee",
+    "_aide": "Recettes du mode « Choisir des recettes ». ingredients : id d'un aliment (fiches, féculents, produits laitiers, matières grasses ou alimentsRecettes), quantite en grammes par personne et par repas (crus, ou secs pour les féculents), nom pour l'afficher autrement, toutLAnnee pour ne pas tenir compte de la saison (conserves). recettesMin : nombre minimum de recettes à choisir. Chaque recette a son propre statut.",
+    "recettesMin": 4,
+    "recettes": [
+      {
+        "id": "hachis-parmentier",
+        "statut": "validee",
+        "titre": "Hachis parmentier",
+        "tempsPreparation": "25 min",
+        "tempsCuisson": "30 min",
+        "ustensiles": [
+          "Faitout",
+          "Poêle",
+          "Presse-purée",
+          "Plat à gratin",
+          "Couteau"
+        ],
+        "ingredients": [
+          {
+            "id": "boeuf-hache",
+            "quantite": 100
+          },
+          {
+            "id": "pomme-de-terre",
+            "quantite": 220
+          },
+          {
+            "id": "oignon",
+            "quantite": 30
+          },
+          {
+            "id": "carotte",
+            "quantite": 60
+          },
+          {
+            "id": "lait",
+            "quantite": 60
+          },
+          {
+            "id": "beurre",
+            "quantite": 8
+          },
+          {
+            "id": "fromage-rape",
+            "quantite": 15
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Sel, poivre, muscade",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Préchauffer le four à 200 °C (thermostat 6-7).",
+          "Éplucher les pommes de terre, les couper en morceaux et les cuire 20 minutes dans l'eau salée.",
+          "Pendant ce temps, éplucher et hacher finement l'oignon et la carotte, puis les faire revenir 5 minutes à la poêle avec un peu de beurre.",
+          "Ajouter la viande hachée et la cuire 5 minutes en l’émiettant ; saler et poivrer.",
+          "Égoutter les pommes de terre et les écraser avec le lait chaud et le reste du beurre ; saler, poivrer, ajouter une pointe de muscade.",
+          "Étaler la viande dans le plat, la recouvrir de purée et parsemer de fromage râpé.",
+          "Enfourner 20 minutes, jusqu'à ce que le dessus soit doré."
+        ]
+      },
+      {
+        "id": "blanquette",
+        "statut": "validee",
+        "titre": "Blanquette de veau et riz",
+        "tempsPreparation": "20 min",
+        "tempsCuisson": "1 h 30",
+        "ustensiles": [
+          "Cocotte avec couvercle",
+          "Petite poêle",
+          "Casserole",
+          "Couteau",
+          "Fouet"
+        ],
+        "ingredients": [
+          {
+            "id": "veau",
+            "quantite": 130,
+            "nom": "Veau (épaule ou tendron)"
+          },
+          {
+            "id": "carotte",
+            "quantite": 80
+          },
+          {
+            "id": "champignon",
+            "quantite": 60
+          },
+          {
+            "id": "oignon",
+            "quantite": 25
+          },
+          {
+            "id": "riz-blanc",
+            "quantite": 60
+          },
+          {
+            "id": "creme-fraiche",
+            "quantite": 20
+          },
+          {
+            "id": "beurre",
+            "quantite": 5
+          },
+          {
+            "id": "citron",
+            "quantite": 10,
+            "nom": "Citron (jus)"
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Bouillon de volaille",
+            "quantite": 20,
+            "unite": "cl"
+          },
+          {
+            "nom": "Farine",
+            "quantite": 0.5,
+            "unite": "c. à soupe"
+          },
+          {
+            "nom": "Bouquet garni",
+            "texte": "un"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Couper la viande en cubes de 4 cm.",
+          "Les mettre dans la cocotte, couvrir de bouillon froid, porter à frémissement et retirer l’écume avec une cuillère.",
+          "Ajouter les carottes en rondelles, l'oignon coupé en quatre et le bouquet garni ; couvrir et cuire 1 h 15 à feu doux.",
+          "Faire revenir les champignons émincés 5 minutes dans le beurre et les ajouter 15 minutes avant la fin.",
+          "Cuire le riz selon les indications du paquet.",
+          "Prélever 25 cl du bouillon de cuisson, y délayer la farine puis la crème, et faire épaissir 3 minutes à feu doux en fouettant.",
+          "Verser la sauce sur la viande, ajouter le jus de citron et servir avec le riz."
+        ]
+      },
+      {
+        "id": "poulet-basquaise",
+        "statut": "validee",
+        "titre": "Poulet basquaise et riz complet",
+        "tempsPreparation": "20 min",
+        "tempsCuisson": "40 min",
+        "ustensiles": [
+          "Cocotte ou sauteuse",
+          "Casserole",
+          "Couteau",
+          "Planche à découper"
+        ],
+        "ingredients": [
+          {
+            "id": "poulet",
+            "quantite": 130
+          },
+          {
+            "id": "poivron",
+            "quantite": 120
+          },
+          {
+            "id": "tomate",
+            "quantite": 120
+          },
+          {
+            "id": "oignon",
+            "quantite": 30
+          },
+          {
+            "id": "ail",
+            "quantite": 3
+          },
+          {
+            "id": "riz-complet",
+            "quantite": 60
+          },
+          {
+            "id": "huile-olive",
+            "quantite": 10
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Piment d'Espelette",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Couper le poulet en morceaux, les poivrons en lanières, les tomates en dés ; émincer l’oignon et l’ail.",
+          "Faire dorer le poulet 5 minutes dans la cocotte avec la moitié de l’huile, à feu moyen, puis le réserver.",
+          "Mettre le reste d'huile, puis faire fondre l'oignon, l'ail et les poivrons 10 minutes à feu doux.",
+          "Ajouter les tomates, le poulet, le piment, le sel et le poivre ; couvrir et laisser mijoter 25 minutes.",
+          "Pendant ce temps, cuire le riz complet selon les indications du paquet.",
+          "Vérifier que le poulet est cuit à cœur et servir avec le riz."
+        ]
+      },
+      {
+        "id": "boeuf-carottes",
+        "statut": "validee",
+        "titre": "Bœuf aux carottes et pommes de terre",
+        "tempsPreparation": "20 min",
+        "tempsCuisson": "2 h 30",
+        "ustensiles": [
+          "Cocotte avec couvercle",
+          "Couteau",
+          "Planche à découper"
+        ],
+        "ingredients": [
+          {
+            "id": "boeuf",
+            "quantite": 130,
+            "nom": "Bœuf à braiser (paleron, macreuse)"
+          },
+          {
+            "id": "carotte",
+            "quantite": 150
+          },
+          {
+            "id": "oignon",
+            "quantite": 30
+          },
+          {
+            "id": "pomme-de-terre",
+            "quantite": 180
+          },
+          {
+            "id": "huile-colza",
+            "quantite": 5
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Bouillon de bœuf",
+            "quantite": 20,
+            "unite": "cl"
+          },
+          {
+            "nom": "Thym, laurier",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Couper la viande en cubes de 5 cm et émincer l’oignon.",
+          "Faire dorer la viande 5 minutes dans la cocotte avec l'huile, à feu moyen-vif, puis ajouter l'oignon 2 minutes.",
+          "Verser le bouillon, ajouter le thym et le laurier, saler et poivrer.",
+          "Couvrir et laisser mijoter 1 h 30 à feu très doux.",
+          "Ajouter les carottes en rondelles épaisses et les pommes de terre en gros morceaux.",
+          "Poursuivre la cuisson 45 minutes à 1 heure, jusqu'à ce que la viande soit fondante."
+        ]
+      },
+      {
+        "id": "quiche-poireaux",
+        "statut": "validee",
+        "titre": "Quiche aux poireaux et salade verte",
+        "tempsPreparation": "20 min",
+        "tempsCuisson": "35 min",
+        "ustensiles": [
+          "Moule à tarte",
+          "Poêle",
+          "Saladier",
+          "Fouet",
+          "Couteau"
+        ],
+        "ingredients": [
+          {
+            "id": "pate-brisee",
+            "quantite": 50
+          },
+          {
+            "id": "poireau",
+            "quantite": 120
+          },
+          {
+            "id": "oeuf",
+            "quantite": 60
+          },
+          {
+            "id": "creme-fraiche",
+            "quantite": 30
+          },
+          {
+            "id": "lait",
+            "quantite": 50
+          },
+          {
+            "id": "fromage-rape",
+            "quantite": 15
+          },
+          {
+            "id": "laitue",
+            "quantite": 40
+          },
+          {
+            "id": "huile-colza",
+            "quantite": 5
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Vinaigre",
+            "quantite": 0.5,
+            "unite": "c. à soupe"
+          },
+          {
+            "nom": "Moutarde",
+            "quantite": 0.25,
+            "unite": "c. à café"
+          },
+          {
+            "nom": "Sel, poivre, muscade",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Préchauffer le four à 180 °C (thermostat 6).",
+          "Laver les poireaux, les émincer finement et les faire fondre 10 minutes à la poêle à feu doux, avec un fond d’eau.",
+          "Étaler la pâte dans le moule et la piquer à la fourchette.",
+          "Battre les œufs avec la crème et le lait ; saler, poivrer, ajouter une pointe de muscade.",
+          "Répartir les poireaux sur la pâte, verser la préparation et parsemer de fromage râpé.",
+          "Enfourner 30 à 35 minutes, jusqu'à ce que la quiche soit dorée et prise au centre.",
+          "Servir avec la salade, assaisonnée d'une vinaigrette : moutarde, vinaigre, sel, poivre, puis huile."
+        ]
+      },
+      {
+        "id": "saumon-papillote",
+        "statut": "validee",
+        "titre": "Saumon en papillote, brocolis et riz",
+        "tempsPreparation": "15 min",
+        "tempsCuisson": "20 min",
+        "ustensiles": [
+          "Papier cuisson",
+          "Plat allant au four",
+          "Cuit-vapeur ou casserole",
+          "Couteau"
+        ],
+        "ingredients": [
+          {
+            "id": "saumon",
+            "quantite": 120,
+            "nom": "Saumon (pavés)"
+          },
+          {
+            "id": "brocoli",
+            "quantite": 150
+          },
+          {
+            "id": "riz-blanc",
+            "quantite": 60
+          },
+          {
+            "id": "citron",
+            "quantite": 15
+          },
+          {
+            "id": "huile-colza",
+            "quantite": 5
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Aneth ou persil",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Préchauffer le four à 200 °C (thermostat 6-7).",
+          "Pour chaque personne, poser un pavé de saumon sur une feuille de papier cuisson, avec une rondelle de citron, un peu d’aneth, sel et poivre.",
+          "Refermer les papillotes en plis serrés et les enfourner 15 à 18 minutes : le saumon est cuit quand il devient opaque.",
+          "Pendant ce temps, cuire le riz selon les indications du paquet.",
+          "Détailler le brocoli en petits bouquets et le cuire 8 minutes à la vapeur : il doit rester un peu croquant.",
+          "Arroser les brocolis d'un filet d'huile et servir avec le saumon et le riz."
+        ]
+      },
+      {
+        "id": "lasagnes",
+        "statut": "validee",
+        "titre": "Lasagnes à la bolognaise",
+        "tempsPreparation": "30 min",
+        "tempsCuisson": "45 min",
+        "ustensiles": [
+          "Sauteuse",
+          "Casserole",
+          "Fouet",
+          "Plat à gratin",
+          "Couteau"
+        ],
+        "ingredients": [
+          {
+            "id": "pates",
+            "quantite": 70,
+            "nom": "Feuilles de lasagne"
+          },
+          {
+            "id": "boeuf-hache",
+            "quantite": 80
+          },
+          {
+            "id": "tomate",
+            "quantite": 150,
+            "nom": "Tomates concassées (en boîte)",
+            "toutLAnnee": true
+          },
+          {
+            "id": "oignon",
+            "quantite": 25
+          },
+          {
+            "id": "carotte",
+            "quantite": 40
+          },
+          {
+            "id": "lait",
+            "quantite": 100
+          },
+          {
+            "id": "beurre",
+            "quantite": 8
+          },
+          {
+            "id": "fromage-rape",
+            "quantite": 20
+          },
+          {
+            "id": "huile-olive",
+            "quantite": 5
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Farine",
+            "quantite": 0.5,
+            "unite": "c. à soupe"
+          },
+          {
+            "nom": "Origan",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Sel, poivre, muscade",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Hacher l’oignon et la carotte, puis les faire revenir 5 minutes dans la sauteuse avec l’huile.",
+          "Ajouter la viande, la faire dorer 5 minutes en l’émiettant, puis les tomates et l’origan ; saler, poivrer et laisser mijoter 20 minutes.",
+          "Préchauffer le four à 180 °C (thermostat 6).",
+          "Béchamel : faire fondre le beurre dans la casserole, ajouter la farine, puis le lait froid petit à petit en fouettant ; cuire 5 minutes jusqu’à épaississement, saler et ajouter la muscade.",
+          "Dans le plat, alterner une couche de sauce tomate, des feuilles de lasagne et de la béchamel ; recommencer 3 fois.",
+          "Finir par la béchamel, parsemer de fromage râpé et enfourner 35 à 40 minutes."
+        ]
+      },
+      {
+        "id": "chili",
+        "statut": "validee",
+        "titre": "Chili con carne et riz complet",
+        "tempsPreparation": "15 min (+ trempage la veille)",
+        "tempsCuisson": "1 h 30",
+        "ustensiles": [
+          "Faitout",
+          "Cocotte",
+          "Casserole",
+          "Couteau"
+        ],
+        "ingredients": [
+          {
+            "id": "boeuf-hache",
+            "quantite": 80
+          },
+          {
+            "id": "haricots-rouges",
+            "quantite": 40
+          },
+          {
+            "id": "tomate",
+            "quantite": 150,
+            "nom": "Tomates concassées (en boîte)",
+            "toutLAnnee": true
+          },
+          {
+            "id": "poivron",
+            "quantite": 60
+          },
+          {
+            "id": "oignon",
+            "quantite": 30
+          },
+          {
+            "id": "riz-complet",
+            "quantite": 50
+          },
+          {
+            "id": "huile-olive",
+            "quantite": 5
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Cumin, paprika",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Piment",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "La veille, mettre les haricots rouges à tremper dans un grand volume d'eau froide.",
+          "Le jour même, les égoutter et les cuire 1 heure dans de l'eau non salée.",
+          "Émincer l'oignon et couper le poivron en dés ; les faire revenir 5 minutes dans la cocotte avec l'huile.",
+          "Ajouter la viande et la faire dorer 5 minutes en l’émiettant, puis les épices.",
+          "Ajouter les tomates et les haricots égouttés ; saler, poivrer et laisser mijoter 30 minutes à feu doux.",
+          "Cuire le riz complet selon les indications du paquet et servir avec le chili."
+        ]
+      },
+      {
+        "id": "tajine-poulet",
+        "statut": "validee",
+        "titre": "Tajine de poulet aux abricots et semoule",
+        "tempsPreparation": "20 min",
+        "tempsCuisson": "45 min",
+        "ustensiles": [
+          "Cocotte ou tajine",
+          "Saladier",
+          "Couteau",
+          "Planche à découper"
+        ],
+        "ingredients": [
+          {
+            "id": "poulet",
+            "quantite": 120,
+            "nom": "Poulet (cuisses ou hauts de cuisse)"
+          },
+          {
+            "id": "carotte",
+            "quantite": 80
+          },
+          {
+            "id": "courgette",
+            "quantite": 80
+          },
+          {
+            "id": "oignon",
+            "quantite": 30
+          },
+          {
+            "id": "abricot",
+            "quantite": 50
+          },
+          {
+            "id": "semoule",
+            "quantite": 60
+          },
+          {
+            "id": "huile-olive",
+            "quantite": 10
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Bouillon de volaille",
+            "quantite": 15,
+            "unite": "cl"
+          },
+          {
+            "nom": "Ras-el-hanout, cannelle",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Coriandre fraîche",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Émincer l’oignon, couper les carottes en rondelles et les courgettes en gros dés ; couper les abricots en deux.",
+          "Faire dorer le poulet 5 minutes dans la cocotte avec la moitié de l'huile, puis ajouter l'oignon et les épices.",
+          "Ajouter les carottes et le bouillon ; couvrir et laisser mijoter 25 minutes à feu doux.",
+          "Ajouter les courgettes et les abricots, et poursuivre 15 minutes.",
+          "Préparer la semoule : la couvrir du même volume d'eau bouillante salée, attendre 5 minutes et l'égrener avec le reste d'huile.",
+          "Parsemer de coriandre et servir avec la semoule."
+        ]
+      },
+      {
+        "id": "porc-pommes",
+        "statut": "validee",
+        "titre": "Filet mignon aux pommes, purée et haricots verts",
+        "tempsPreparation": "20 min",
+        "tempsCuisson": "35 min",
+        "ustensiles": [
+          "Cocotte",
+          "Casserole",
+          "Cuit-vapeur ou casserole",
+          "Presse-purée",
+          "Couteau"
+        ],
+        "ingredients": [
+          {
+            "id": "porc",
+            "quantite": 130
+          },
+          {
+            "id": "pomme",
+            "quantite": 120
+          },
+          {
+            "id": "pomme-de-terre",
+            "quantite": 200
+          },
+          {
+            "id": "haricotvert",
+            "quantite": 100
+          },
+          {
+            "id": "lait",
+            "quantite": 50
+          },
+          {
+            "id": "beurre",
+            "quantite": 10
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Thym",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Éplucher les pommes de terre, les couper en morceaux et les cuire 20 minutes dans l’eau salée.",
+          "Faire dorer le filet mignon sur toutes ses faces dans la cocotte avec la moitié du beurre, à feu moyen.",
+          "Ajouter les pommes en quartiers, le thym et un fond d’eau ; couvrir et cuire 25 minutes à feu doux.",
+          "Cuire les haricots verts 10 minutes à la vapeur.",
+          "Écraser les pommes de terre avec le lait chaud et le reste du beurre ; saler et poivrer.",
+          "Couper le filet mignon en tranches et servir avec les pommes, la purée et les haricots verts."
+        ]
+      },
+      {
+        "id": "salade-lentilles",
+        "statut": "validee",
+        "titre": "Salade de lentilles, œuf mollet et carottes",
+        "tempsPreparation": "15 min",
+        "tempsCuisson": "25 min",
+        "ustensiles": [
+          "Casserole",
+          "Petite casserole",
+          "Saladier",
+          "Râpe",
+          "Couteau"
+        ],
+        "ingredients": [
+          {
+            "id": "lentilles-vertes",
+            "quantite": 60
+          },
+          {
+            "id": "oeuf",
+            "quantite": 60
+          },
+          {
+            "id": "carotte",
+            "quantite": 80
+          },
+          {
+            "id": "echalote",
+            "quantite": 15
+          },
+          {
+            "id": "noix",
+            "quantite": 10
+          },
+          {
+            "id": "huile-colza",
+            "quantite": 10
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Vinaigre",
+            "quantite": 0.5,
+            "unite": "c. à soupe"
+          },
+          {
+            "nom": "Moutarde",
+            "quantite": 0.25,
+            "unite": "c. à café"
+          },
+          {
+            "nom": "Persil",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Rincer les lentilles et les cuire 20 à 25 minutes dans 3 fois leur volume d'eau froide ; saler en fin de cuisson et égoutter.",
+          "Cuire les œufs 6 minutes dans l'eau bouillante, les refroidir sous l'eau froide et les écaler.",
+          "Râper les carottes, hacher l’échalote et concasser les noix.",
+          "Préparer la vinaigrette : moutarde, vinaigre, sel, poivre, puis l'huile en fouettant.",
+          "Mélanger les lentilles tièdes avec les carottes, l’échalote et la vinaigrette.",
+          "Servir avec un œuf mollet par personne, parsemer de noix et de persil."
+        ]
+      },
+      {
+        "id": "endives-jambon",
+        "statut": "validee",
+        "titre": "Endives au jambon et pommes de terre vapeur",
+        "tempsPreparation": "20 min",
+        "tempsCuisson": "45 min",
+        "ustensiles": [
+          "Casserole",
+          "Cuit-vapeur",
+          "Fouet",
+          "Plat à gratin",
+          "Couteau"
+        ],
+        "ingredients": [
+          {
+            "id": "endive",
+            "quantite": 200
+          },
+          {
+            "id": "jambon",
+            "quantite": 50
+          },
+          {
+            "id": "lait",
+            "quantite": 120
+          },
+          {
+            "id": "beurre",
+            "quantite": 10
+          },
+          {
+            "id": "fromage-rape",
+            "quantite": 20
+          },
+          {
+            "id": "pomme-de-terre",
+            "quantite": 150
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Farine",
+            "quantite": 0.5,
+            "unite": "c. à soupe"
+          },
+          {
+            "nom": "Sel, poivre, muscade",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Retirer la base dure des endives et les cuire 15 minutes à la vapeur ; bien les presser pour retirer l’eau.",
+          "Préchauffer le four à 200 °C (thermostat 6-7).",
+          "Béchamel : faire fondre le beurre, ajouter la farine, puis le lait froid petit à petit en fouettant ; cuire 5 minutes, saler, poivrer, ajouter la muscade.",
+          "Rouler chaque endive dans une tranche de jambon et les ranger dans le plat.",
+          "Napper de béchamel, parsemer de fromage râpé et enfourner 25 minutes.",
+          "Pendant ce temps, cuire les pommes de terre 20 minutes à la vapeur et les servir avec les endives."
+        ]
+      },
+      {
+        "id": "pot-au-feu",
+        "statut": "validee",
+        "titre": "Pot-au-feu",
+        "tempsPreparation": "25 min",
+        "tempsCuisson": "3 h",
+        "ustensiles": [
+          "Grand faitout",
+          "Écumoire",
+          "Couteau",
+          "Éplucheur"
+        ],
+        "ingredients": [
+          {
+            "id": "boeuf",
+            "quantite": 150,
+            "nom": "Bœuf à pot-au-feu (paleron, gîte)"
+          },
+          {
+            "id": "carotte",
+            "quantite": 100
+          },
+          {
+            "id": "poireau",
+            "quantite": 80
+          },
+          {
+            "id": "navet",
+            "quantite": 80
+          },
+          {
+            "id": "celeri",
+            "quantite": 40
+          },
+          {
+            "id": "pomme-de-terre",
+            "quantite": 150
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Oignon piqué de clous de girofle",
+            "texte": "un"
+          },
+          {
+            "nom": "Bouquet garni",
+            "texte": "un"
+          },
+          {
+            "nom": "Gros sel, poivre en grains",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Mettre la viande dans le faitout, couvrir largement d'eau froide et porter à ébullition.",
+          "Retirer l'écume à l'écumoire pendant 10 minutes, puis ajouter l'oignon, le bouquet garni, le gros sel et le poivre.",
+          "Laisser frémir 2 heures à feu doux, à couvert.",
+          "Éplucher les carottes, les navets et le céleri, les couper en gros morceaux ; ficeler les poireaux.",
+          "Ajouter ces légumes et poursuivre 45 minutes.",
+          "Cuire les pommes de terre à part, 25 minutes dans un peu de bouillon.",
+          "Servir la viande et les légumes ; le bouillon dégraissé se garde 2 jours au réfrigérateur pour une soupe."
+        ]
+      },
+      {
+        "id": "couscous",
+        "statut": "validee",
+        "titre": "Couscous au poulet et aux légumes",
+        "tempsPreparation": "25 min (+ trempage la veille)",
+        "tempsCuisson": "1 h",
+        "ustensiles": [
+          "Faitout",
+          "Saladier",
+          "Couteau",
+          "Éplucheur"
+        ],
+        "ingredients": [
+          {
+            "id": "poulet",
+            "quantite": 110,
+            "nom": "Poulet (cuisses)"
+          },
+          {
+            "id": "pois-chiches",
+            "quantite": 30
+          },
+          {
+            "id": "carotte",
+            "quantite": 80
+          },
+          {
+            "id": "courgette",
+            "quantite": 80
+          },
+          {
+            "id": "navet",
+            "quantite": 60
+          },
+          {
+            "id": "oignon",
+            "quantite": 25
+          },
+          {
+            "id": "semoule",
+            "quantite": 60
+          },
+          {
+            "id": "huile-olive",
+            "quantite": 10
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Bouillon de volaille",
+            "quantite": 25,
+            "unite": "cl"
+          },
+          {
+            "nom": "Épices à couscous",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "La veille, faire tremper les pois chiches dans de l'eau froide (ou utiliser des pois chiches en bocal, déjà cuits).",
+          "Faire dorer le poulet 5 minutes dans le faitout avec la moitié de l'huile, puis ajouter l'oignon émincé et les épices.",
+          "Ajouter les pois chiches égouttés et le bouillon ; couvrir et cuire 30 minutes à feu doux.",
+          "Ajouter les carottes et les navets en gros morceaux, puis 15 minutes plus tard les courgettes ; poursuivre 15 minutes.",
+          "Préparer la semoule : la couvrir du même volume d'eau bouillante salée, attendre 5 minutes et l'égrener avec le reste d'huile.",
+          "Servir la semoule avec le poulet, les légumes et le bouillon."
+        ]
+      },
+      {
+        "id": "pates-saumon",
+        "statut": "validee",
+        "titre": "Pâtes complètes au saumon et aux épinards",
+        "tempsPreparation": "10 min",
+        "tempsCuisson": "15 min",
+        "ustensiles": [
+          "Grande casserole",
+          "Poêle",
+          "Couteau"
+        ],
+        "ingredients": [
+          {
+            "id": "pates-completes",
+            "quantite": 70
+          },
+          {
+            "id": "saumon",
+            "quantite": 90
+          },
+          {
+            "id": "epinard",
+            "quantite": 100
+          },
+          {
+            "id": "creme-fraiche",
+            "quantite": 20
+          },
+          {
+            "id": "citron",
+            "quantite": 10,
+            "nom": "Citron (zeste et jus)"
+          },
+          {
+            "id": "huile-olive",
+            "quantite": 5
+          },
+          {
+            "id": "ail",
+            "quantite": 3
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Cuire les pâtes 10 à 12 minutes dans une grande casserole d'eau bouillante salée.",
+          "Pendant ce temps, couper le saumon en cubes de 2 cm et hacher l’ail.",
+          "Faire revenir l'ail 1 minute dans la poêle avec l'huile, ajouter les épinards et les laisser tomber 3 minutes.",
+          "Ajouter le saumon et le cuire 3 à 4 minutes à feu doux, sans trop remuer.",
+          "Ajouter la crème, le zeste et le jus du citron ; saler et poivrer.",
+          "Égoutter les pâtes et les mélanger à la sauce."
+        ]
+      },
+      {
+        "id": "poulet-roti",
+        "statut": "validee",
+        "titre": "Poulet rôti, haricots verts et pommes de terre",
+        "tempsPreparation": "15 min",
+        "tempsCuisson": "1 h",
+        "ustensiles": [
+          "Plat allant au four",
+          "Cuit-vapeur ou casserole",
+          "Couteau"
+        ],
+        "ingredients": [
+          {
+            "id": "poulet",
+            "quantite": 150,
+            "nom": "Poulet entier (ou cuisses)"
+          },
+          {
+            "id": "haricotvert",
+            "quantite": 150
+          },
+          {
+            "id": "pomme-de-terre",
+            "quantite": 200
+          },
+          {
+            "id": "huile-olive",
+            "quantite": 10
+          },
+          {
+            "id": "ail",
+            "quantite": 5
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Thym",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Préchauffer le four à 200 °C (thermostat 6-7).",
+          "Badigeonner le poulet d'un peu d'huile, saler, poivrer et le poser dans le plat avec les gousses d'ail et le thym.",
+          "Ajouter autour les pommes de terre coupées en quartiers, mélangées au reste de l'huile.",
+          "Enfourner 1 heure environ, en arrosant le poulet de son jus deux ou trois fois ; il est cuit quand le jus qui s'écoule est clair.",
+          "Cuire les haricots verts 10 minutes à la vapeur.",
+          "Découper le poulet et servir avec les pommes de terre et les haricots verts."
+        ]
+      },
+      {
+        "id": "salade-nicoise",
+        "statut": "validee",
+        "titre": "Salade niçoise",
+        "tempsPreparation": "20 min",
+        "tempsCuisson": "20 min",
+        "ustensiles": [
+          "Casserole",
+          "Saladier",
+          "Couteau",
+          "Planche à découper"
+        ],
+        "ingredients": [
+          {
+            "id": "thon",
+            "quantite": 80,
+            "nom": "Thon au naturel (en boîte)"
+          },
+          {
+            "id": "oeuf",
+            "quantite": 60
+          },
+          {
+            "id": "tomate",
+            "quantite": 120
+          },
+          {
+            "id": "haricotvert",
+            "quantite": 80
+          },
+          {
+            "id": "poivron",
+            "quantite": 40
+          },
+          {
+            "id": "laitue",
+            "quantite": 40
+          },
+          {
+            "id": "pomme-de-terre",
+            "quantite": 100
+          },
+          {
+            "id": "huile-olive",
+            "quantite": 10
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Olives noires",
+            "texte": "une poignée"
+          },
+          {
+            "nom": "Vinaigre",
+            "quantite": 0.5,
+            "unite": "c. à soupe"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Cuire les pommes de terre 20 minutes et les haricots verts 10 minutes à la vapeur, puis les laisser refroidir.",
+          "Cuire les œufs 9 minutes dans l'eau bouillante, les refroidir et les écaler.",
+          "Couper les tomates en quartiers, le poivron en fines lanières et les pommes de terre en rondelles.",
+          "Disposer la salade, les légumes, le thon émietté, les œufs coupés en quatre et les olives.",
+          "Arroser d'une vinaigrette : vinaigre, sel, poivre, puis huile d'olive."
+        ]
+      },
+      {
+        "id": "maquereau-endives",
+        "statut": "validee",
+        "titre": "Maquereau rôti, pommes de terre et salade d'endives aux noix et à la pomme",
+        "tempsPreparation": "20 min",
+        "tempsCuisson": "25 min",
+        "ustensiles": [
+          "Plat allant au four",
+          "Casserole ou cuit-vapeur",
+          "Saladier",
+          "Couteau"
+        ],
+        "ingredients": [
+          {
+            "id": "maquereau",
+            "quantite": 120,
+            "nom": "Maquereau (filets)"
+          },
+          {
+            "id": "pomme-de-terre",
+            "quantite": 200
+          },
+          {
+            "id": "endive",
+            "quantite": 100
+          },
+          {
+            "id": "pomme",
+            "quantite": 60
+          },
+          {
+            "id": "noix",
+            "quantite": 10
+          },
+          {
+            "id": "huile-colza",
+            "quantite": 10
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Citron",
+            "quantite": 0.25,
+            "unite": "citron"
+          },
+          {
+            "nom": "Vinaigre",
+            "quantite": 0.5,
+            "unite": "c. à soupe"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Cuire les pommes de terre 20 minutes à la vapeur.",
+          "Préchauffer le four à 200 °C (thermostat 6-7).",
+          "Poser les filets de maquereau dans le plat, côté peau dessous, avec un filet de citron, sel et poivre ; enfourner 10 à 12 minutes.",
+          "Émincer les endives, couper la pomme en dés et concasser les noix.",
+          "Assaisonner la salade d'une vinaigrette : vinaigre, sel, poivre, puis l'huile.",
+          "Servir le maquereau avec les pommes de terre et la salade."
+        ]
+      },
+      {
+        "id": "galettes-sarrasin",
+        "statut": "validee",
+        "titre": "Galettes complètes de sarrasin et salade",
+        "tempsPreparation": "15 min (+ repos 1 h)",
+        "tempsCuisson": "15 min",
+        "ustensiles": [
+          "Saladier",
+          "Fouet",
+          "Poêle large ou crêpière",
+          "Spatule"
+        ],
+        "ingredients": [
+          {
+            "id": "farine-sarrasin",
+            "quantite": 50
+          },
+          {
+            "id": "oeuf",
+            "quantite": 60
+          },
+          {
+            "id": "jambon",
+            "quantite": 40
+          },
+          {
+            "id": "fromage-rape",
+            "quantite": 25,
+            "nom": "Emmental râpé"
+          },
+          {
+            "id": "champignon",
+            "quantite": 40
+          },
+          {
+            "id": "beurre",
+            "quantite": 8
+          },
+          {
+            "id": "laitue",
+            "quantite": 40
+          },
+          {
+            "id": "huile-colza",
+            "quantite": 5
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Eau",
+            "quantite": 12,
+            "unite": "cl"
+          },
+          {
+            "nom": "Vinaigre",
+            "quantite": 0.5,
+            "unite": "c. à soupe"
+          },
+          {
+            "nom": "Sel",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Mélanger la farine, le sel et l'eau froide petit à petit au fouet, jusqu'à obtenir une pâte lisse ; laisser reposer 1 heure.",
+          "Faire revenir les champignons émincés 5 minutes à la poêle avec un peu de beurre, puis les réserver.",
+          "Beurrer légèrement la poêle bien chaude, verser une louche de pâte et l'étaler en tournant la poêle.",
+          "Quand le bord se décolle, casser un œuf au centre, ajouter le jambon, les champignons et le fromage.",
+          "Replier les bords, couvrir 2 minutes jusqu'à ce que le blanc soit pris, et servir.",
+          "Accompagner de salade assaisonnée d'une vinaigrette : vinaigre, sel, puis huile."
+        ]
+      },
+      {
+        "id": "ratatouille-oeufs",
+        "statut": "validee",
+        "titre": "Ratatouille, œufs au plat et quinoa",
+        "tempsPreparation": "25 min",
+        "tempsCuisson": "50 min",
+        "ustensiles": [
+          "Cocotte",
+          "Casserole",
+          "Poêle",
+          "Couteau",
+          "Planche à découper"
+        ],
+        "ingredients": [
+          {
+            "id": "courgette",
+            "quantite": 100
+          },
+          {
+            "id": "aubergine",
+            "quantite": 100
+          },
+          {
+            "id": "poivron",
+            "quantite": 80
+          },
+          {
+            "id": "tomate",
+            "quantite": 120
+          },
+          {
+            "id": "oignon",
+            "quantite": 30
+          },
+          {
+            "id": "ail",
+            "quantite": 3
+          },
+          {
+            "id": "oeuf",
+            "quantite": 120
+          },
+          {
+            "id": "quinoa",
+            "quantite": 50
+          },
+          {
+            "id": "huile-olive",
+            "quantite": 10
+          }
+        ],
+        "autres": [
+          {
+            "nom": "Herbes de Provence",
+            "texte": "selon le goût"
+          },
+          {
+            "nom": "Sel, poivre",
+            "texte": "selon le goût"
+          }
+        ],
+        "etapes": [
+          "Couper l'aubergine, les courgettes, le poivron et les tomates en dés de 2 cm ; émincer l'oignon et l'ail.",
+          "Faire revenir l'oignon, l'ail et le poivron 5 minutes dans la cocotte avec la moitié de l'huile.",
+          "Ajouter l'aubergine et les courgettes, puis 5 minutes plus tard les tomates et les herbes ; saler et poivrer.",
+          "Couvrir et laisser mijoter 40 minutes à feu doux, en remuant de temps en temps.",
+          "Cuire le quinoa selon les indications du paquet.",
+          "Cuire les œufs au plat dans la poêle avec le reste d'huile et les servir sur la ratatouille, avec le quinoa."
+        ]
+      }
+    ]
+  },
   "produitsLaitiers": {
     "statut": "validee",
     "_aide": "Produits laitiers proposés au choix (facultatif). portionParRepas : grammes par personne et par repas pour ce produit seul ; si plusieurs sont choisis, ils se partagent les repas (un produit laitier par repas). Valeurs Ciqual 2025.",
@@ -2728,5 +5217,370 @@
         "ala": "0,052"
       }
     }
+  },
+  "alimentsRecettes": {
+    "_aide": "Aliments utilisés par les recettes populaires et absents des autres listes (valeurs Ciqual 2025). Ils ne sont pas proposés au choix ; ils servent au calcul de la toile et des courses.",
+    "aliments": [
+      {
+        "id": "champignon",
+        "nom": "Champignons de Paris",
+        "type": "légume",
+        "categorie": "Champignon",
+        "ciqual": {
+          "code": "20056",
+          "nom": "Champignon de Paris ou champignon de couche, cru"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "2,11",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "0,36",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,02",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,00021",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "28",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "3,18",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0,31",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "3",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "10,4",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "4,81",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "jambon",
+        "nom": "Jambon blanc",
+        "type": "viande",
+        "categorie": "Charcuterie",
+        "ciqual": {
+          "code": "28900",
+          "nom": "Jambon cuit, supérieur"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "21",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "2,83",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,25",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,012",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "16",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0,31",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "18,1",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0,54",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "< 20",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "22,5",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "< 5",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "boeuf-hache",
+        "nom": "Bœuf haché (10 % MG)",
+        "type": "viande",
+        "categorie": "Viande rouge",
+        "ciqual": {
+          "code": "6252",
+          "nom": "Boeuf, steak haché 10% MG cru"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "20",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "10",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "4",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,17",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,036",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "6",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "2,21",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "0",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "2,24",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "12",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "20",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "6,8",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "pate-brisee",
+        "nom": "Pâte brisée",
+        "type": "féculent",
+        "categorie": "Pâte",
+        "ciqual": {
+          "code": "23416",
+          "nom": "Pâte brisée, pur beurre, préemballée, cuite"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "7,58",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "23,9",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,27",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,11",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "17,9",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "-",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "< 0,5",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "0,68",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "17",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "12",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "< 20",
+            "unite": "µg"
+          }
+        }
+      },
+      {
+        "id": "farine-sarrasin",
+        "nom": "Farine de sarrasin",
+        "type": "féculent",
+        "categorie": "Farine",
+        "ciqual": {
+          "code": "9540",
+          "nom": "Farine de sarrasin"
+        },
+        "nutritionPour100g": {
+          "proteines": {
+            "libelle": "Protéines",
+            "valeur": "11,5",
+            "unite": "g"
+          },
+          "lipides": {
+            "libelle": "Lipides",
+            "valeur": "2,19",
+            "unite": "g"
+          },
+          "vitamineA": {
+            "libelle": "Vitamine A (équivalents rétinol)",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineE": {
+            "libelle": "Vitamine E",
+            "valeur": "0,32",
+            "unite": "mg"
+          },
+          "ala": {
+            "libelle": "Oméga-3 (acide alpha-linolénique)",
+            "valeur": "0,03",
+            "unite": "g"
+          },
+          "vitamineB9": {
+            "libelle": "Vitamine B9 (folates)",
+            "valeur": "66,8",
+            "unite": "µg"
+          },
+          "vitamineB12": {
+            "libelle": "Vitamine B12",
+            "valeur": "0",
+            "unite": "µg"
+          },
+          "vitamineC": {
+            "libelle": "Vitamine C",
+            "valeur": "< 0,5",
+            "unite": "mg"
+          },
+          "fer": {
+            "libelle": "Fer",
+            "valeur": "2,5",
+            "unite": "mg"
+          },
+          "calcium": {
+            "libelle": "Calcium",
+            "valeur": "23,8",
+            "unite": "mg"
+          },
+          "magnesium": {
+            "libelle": "Magnésium",
+            "valeur": "157",
+            "unite": "mg"
+          },
+          "iode": {
+            "libelle": "Iode",
+            "valeur": "-",
+            "unite": "µg"
+          }
+        }
+      }
+    ]
   }
 }

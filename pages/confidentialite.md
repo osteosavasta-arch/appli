@@ -22,6 +22,7 @@
 - Vous pouvez supprimer une semaine à tout moment avec le bouton « Supprimer », ou toutes en effaçant les données du site dans votre navigateur.
 - Une recette n'est gardée dans « Mon carnet » que si vous touchez « Ajouter à mes favoris ». Vous pouvez la retirer à tout moment.
 - Les cases cochées de vos listes de courses sont gardées dans votre téléphone pour les retrouver au magasin. « Tout décocher » les efface.
+- Les quantités que vous modifiez dans vos listes de courses sont gardées dans votre téléphone, avec la semaine concernée.
 - « Mettre dans mes notes » ouvre la fenêtre de partage de votre téléphone : c'est vous qui choisissez l'application de destination.
 
 ## Ce qui est enregistré automatiquement sur votre téléphone
@@ -49,4 +50,4 @@ L'application est hébergée par GitHub Pages (GitHub, Inc.). Selon la documenta
 Pour toute question sur vos données : osteo.savasta@gmail.com.
 Vous pouvez aussi adresser une réclamation à la CNIL : [https://www.cnil.fr](https://www.cnil.fr).
 
-Dernière mise à jour : 12 novembre 2026
+Dernière mise à jour : 13 novembre 2026

@@ -4,7 +4,8 @@
    Seules les fiches au statut "validee" s'affichent ; chaque fiche
    porte la mention « Demandez conseil… ». Aucun dosage n'est affiché.
    Chaque fiche est une page à part.
-   Adresses : #dietetique (apports, #dietetique/fer pour un nutriment), #dietetique/complements,
+   Adresses : #dietetique (accueil des apports : répertoire de saison et menus de la semaine),
+   #saison (répertoire des aliments de saison, #saison/fer pour un nutriment), #dietetique/complements,
    #aliment/poireau et #complement/vitamine-c */
 
 import { chargerJSON, estVisible, marqueRelecture, echapper, bandeau, adresseRetourDietetique } from '../app.js';
@@ -245,7 +246,7 @@ function sectionApports(donnees, cleNutriment) {
 document.addEventListener('change', (evenement) => {
   if (!evenement.target.matches('[data-choix-nutriment]')) return;
   const cle = evenement.target.value;
-  location.hash = cle ? `dietetique/${cle}` : 'dietetique';
+  location.hash = cle ? `saison/${cle}` : 'saison';
 });
 
 /* Deux onglets, chacun avec son adresse :
@@ -272,24 +273,32 @@ export async function afficherDietetique(parametre) {
       ${fiches.length ? listeFiches(fiches, 'complement') : '<p class="vide">Bientôt disponible.</p>'}`;
   }
 
-  const [saison, menu, avecMenu] = await Promise.all([
-    chargerJSON('data/fruits-legumes.json'), chargerJSON('data/menu-semaine.json'), menuDisponible(),
-  ]);
-  const lienMenu = avecMenu
-    ? `<a class="carte lien-menu" href="#menu">${icone('agenda')}<span><strong>${echapper(menu.textes.lienDietetique)}</strong>
-         <small>${echapper(menu.textes.aideLien)}</small></span>${icone('chevron', 'icone-petite')}</a>`
-    : '';
+  // Anciennes adresses #dietetique/fer : le répertoire de saison, filtré sur le nutriment
+  if (parametre) return afficherSaison(parametre);
+
+  const avecMenu = await menuDisponible();
+  const carte = (adresse, nomIcone, titre, aide) => `
+    <a class="carte lien-menu" href="${adresse}">${icone(nomIcone)}<span><strong>${echapper(titre)}</strong>
+      <small>${echapper(aide)}</small></span>${icone('chevron', 'icone-petite')}</a>`;
   return `
     ${bandeau(ENTETE_DIETETIQUE)}
     ${onglets('apports')}
-    ${lienMenu}
+    ${carte('#saison', 'feuille', 'Répertoire des aliments de saison', 'Fruits et légumes du mois, viandes, poissons et œufs, avec leurs apports.')}
+    ${avecMenu ? carte('#menu', 'agenda', 'Préparer les menus de la semaine', 'Choisissez vos aliments ou vos recettes : menus de la semaine et liste de courses.') : ''}`;
+}
+
+/** Répertoire des aliments de saison (#saison, #saison/fer). */
+export async function afficherSaison(parametre) {
+  const saison = await chargerJSON('data/fruits-legumes.json');
+  return `
+    ${bandeau({ surtitre: 'Diététique', titre: 'Aliments de saison', retour: { adresse: '#dietetique', libelle: 'Diététique' } })}
     ${sectionApports(saison, parametre)}`;
 }
 
 export async function afficherAliment(id) {
   const donnees = await chargerJSON('data/fruits-legumes.json');
   const fiche = donnees.produits.find((f) => f.id === id);
-  const retour = { adresse: adresseRetourDietetique('#dietetique'), libelle: 'Diététique' };
+  const retour = { adresse: adresseRetourDietetique('#saison'), libelle: 'Aliments de saison' };
   if (!estVisible(fiche)) return introuvable(retour);
   return `${bandeau({ titre: fiche.nom, sousTitre: fiche.categorie, retour })}${pageProduit(fiche)}`;
 }
