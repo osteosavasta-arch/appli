@@ -9,7 +9,7 @@
 import { afficherAccueil } from './vues/accueil.js';
 import { afficherEtirements } from './vues/etirements.js';
 import { afficherDietetique, afficherSaison, afficherAliment, afficherComplement } from './vues/dietetique.js';
-import { afficherInfos, afficherPageTexte } from './vues/pages.js';
+import { afficherInfos, afficherPageTexte, afficherJournal, activerJournal } from './vues/pages.js';
 import { afficherMenu, activerMenu, carnetDisponible } from './vues/menu.js';
 import { afficherCarnet, activerCarnet } from './vues/carnet.js';
 import { activerRappel } from './rappel.js';
@@ -91,6 +91,7 @@ const ecrans = {
   'infos': afficherInfos,
   'confidentialite': () => afficherPageTexte('pages/confidentialite.md'),
   'mentions-legales': () => afficherPageTexte('pages/mentions-legales.md'),
+  'journal': afficherJournal,
 };
 
 // Écrans qui ont des boutons à brancher après affichage
@@ -98,6 +99,7 @@ const apresAffichage = {
   'accueil': activerRappel,
   'menu': activerMenu,
   'carnet': activerCarnet,
+  'journal': activerJournal,
 };
 
 const zone = document.getElementById('contenu');
@@ -145,7 +147,10 @@ async function afficherEcran() {
     if (apresAffichage[route]) await apresAffichage[route](zone);
   } catch (erreur) {
     console.error(erreur);
-    zone.innerHTML = '<p class="vide">Ce contenu n\'a pas pu être chargé. Vérifiez votre connexion puis réessayez.</p>';
+    // Noté dans le journal technique (#journal), seulement sur ce téléphone
+    const lieu = /([\w.-]+\.js):(\d+)/.exec(String(erreur?.stack || ''));
+    window.JournalOsteo?.noter('ecran', `${route} : ${erreur?.message || erreur}`, lieu?.[1], lieu?.[2]);
+    zone.innerHTML ='<p class="vide">Ce contenu n\'a pas pu être chargé. Vérifiez votre connexion puis réessayez.</p>';
   }
   window.scrollTo(0, retourDeFiche ? positionListe : 0);
 }
@@ -183,6 +188,9 @@ afficherEcran();
 /* ---------- Mode hors ligne ---------- */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch((erreur) => console.error(erreur));
+    navigator.serviceWorker.register('sw.js').catch((erreur) => {
+      console.error(erreur);
+      window.JournalOsteo?.noter('hors-ligne', `Service worker non installé : ${erreur?.message || erreur}`, 'sw.js');
+    });
   });
 }

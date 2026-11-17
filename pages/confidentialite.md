@@ -29,6 +29,12 @@
 
 Pour fonctionner sans connexion, l'application garde sur votre téléphone une copie de ses propres pages (textes, images). Cette copie ne contient aucune information sur vous. Elle disparaît quand vous désinstallez l'application ou effacez les données du site.
 
+## Journal technique
+
+- Si l'application rencontre une erreur technique, elle la note dans votre téléphone (stockage local du navigateur) : date, version de l'application, écran concerné, message d'erreur technique et type de téléphone et de navigateur. Aucune information que vous avez saisie n'y figure.
+- 30 erreurs au plus sont gardées, les plus anciennes sont effacées. Rien n'est envoyé : le journal ne quitte votre téléphone que si vous le copiez vous-même pour le transmettre au cabinet.
+- Vous pouvez le consulter, le copier ou l'effacer à tout moment depuis Infos → [Journal technique](#journal), ou en effaçant les données du site dans votre navigateur.
+
 ## Services tiers
 
 L'application ne charge aucun service tiers tant que vous ne le demandez pas. Ces services ne s'ouvrent que lorsque vous touchez le bouton correspondant :
@@ -50,4 +56,4 @@ L'application est hébergée par GitHub Pages (GitHub, Inc.). Selon la documenta
 Pour toute question sur vos données : osteo.savasta@gmail.com.
 Vous pouvez aussi adresser une réclamation à la CNIL : [https://www.cnil.fr](https://www.cnil.fr).
 
-Dernière mise à jour : 13 novembre 2026
+Dernière mise à jour : 17 novembre 2026

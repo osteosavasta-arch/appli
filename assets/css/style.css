@@ -914,3 +914,11 @@ button.onglet-diet { border: 0; background: none; font-family: inherit; cursor: 
   font-variant-numeric: tabular-nums;
 }
 .carnet-ligne:has(input[type="checkbox"]:checked) .carnet-quantite { text-decoration: line-through; color: var(--couleur-discret); }
+
+/* ---------- Journal technique (#journal) ---------- */
+.journal-liste { list-style: none; margin: 16px 0; padding: 0; }
+.journal-liste li { padding: 10px 0; border-bottom: 1px solid var(--couleur-bordure); }
+.journal-entete { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; margin: 0 0 4px; font-variant-numeric: tabular-nums; }
+.journal-entete span { color: var(--couleur-texte-doux); font-size: 0.9rem; }
+.journal-message { margin: 0; overflow-wrap: anywhere; }
+.journal-message small { color: var(--couleur-discret); }

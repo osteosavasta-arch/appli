@@ -43,6 +43,7 @@ export async function afficherInfos() {
     <div class="carte">
       <h2 class="carte-titre">Vos données</h2>
       <p>Aucun compte, aucun cookie, aucune statistique : l'application ne recueille aucune donnée personnelle.</p>
+      <p><a href="#journal">Journal technique</a> : les erreurs éventuelles de l'application, à transmettre au cabinet en cas de souci.</p>
     </div>`;
 }
 
@@ -76,4 +77,78 @@ function markdownVersHtml(texte) {
     }
     return `<p>${lignes.map(enLigne).join('<br>')}</p>`;
   }).join('\n');
+}
+
+/* ---------- Journal technique (#journal) ----------
+   Erreurs notées par assets/js/journal.js, seulement sur ce téléphone.
+   La personne peut copier le journal pour l'envoyer elle-même au cabinet, ou l'effacer. */
+const DATE_JOURNAL = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'short', timeStyle: 'medium' });
+
+function texteJournal(entrees) {
+  const lignes = entrees.map((e) => `${DATE_JOURNAL.format(new Date(e.date))} | ${e.version || '?'} | ${e.ecran} | ${e.type}`
+    + ` | ${e.message}${e.source ? ` (${e.source})` : ''}${e.fois ? ` ×${e.fois}` : ''} | ${e.navigateur}`);
+  return `Journal technique Ostéo Savasta, copié le ${DATE_JOURNAL.format(new Date())}\n${lignes.join('\n') || 'Aucune erreur notée.'}\n`;
+}
+
+export async function afficherJournal() {
+  const entrees = (window.JournalOsteo?.lire() || []).slice().reverse();
+  const liste = entrees.length
+    ? `<ul class="journal-liste">${entrees.map((e) => `
+        <li>
+          <p class="journal-entete"><strong>${echapper(DATE_JOURNAL.format(new Date(e.date)))}</strong>
+            <span>${echapper([e.version, e.ecran, e.type].filter(Boolean).join(' · '))}${e.fois ? ` · ${e.fois} fois` : ''}</span></p>
+          <p class="journal-message">${echapper(e.message)}${e.source ? ` <small>(${echapper(e.source)})</small>` : ''}</p>
+        </li>`).join('')}</ul>`
+    : '<p class="vide">Aucune erreur notée sur ce téléphone.</p>';
+  return `<div class="journal-ecran">
+    ${bandeau({ surtitre: 'Assistance', titre: 'Journal technique', retour: { adresse: '#infos', libelle: 'Infos' } })}
+    <p>Si l'application rencontre une erreur technique, elle la note ici, seulement sur ce téléphone. Aucune donnée personnelle, rien n'est envoyé.</p>
+    <p>En cas de souci, vous pouvez copier ce journal et le transmettre au cabinet.</p>
+    ${liste}
+    <div class="carnet-actions">
+      <button type="button" class="bouton bouton-secondaire" data-copier-journal ${entrees.length ? '' : 'disabled'}>Copier le journal</button>
+      <button type="button" class="bouton bouton-contour" data-effacer-journal ${entrees.length ? '' : 'disabled'}>Effacer le journal</button>
+    </div>
+    <p class="menu-copie" id="journal-message" role="status" hidden></p>
+    <textarea class="menu-texte" id="journal-texte" readonly hidden aria-label="Journal à copier"></textarea>
+  </div>`;
+}
+
+export function activerJournal(contenu) {
+  const zone = contenu.querySelector('.journal-ecran');
+  if (!zone) return;
+  const message = zone.querySelector('#journal-message');
+  zone.addEventListener('click', async (evenement) => {
+    if (evenement.target.closest('[data-copier-journal]')) {
+      const texte = texteJournal(window.JournalOsteo?.lire() || []);
+      try {
+        await navigator.clipboard.writeText(texte);
+        message.textContent = 'Journal copié : collez-le dans un message au cabinet.';
+        message.hidden = false;
+      } catch (erreur) {
+        const champ = zone.querySelector('#journal-texte');
+        champ.value = texte;
+        champ.hidden = false;
+        champ.select();
+      }
+      return;
+    }
+    const effacer = evenement.target.closest('[data-effacer-journal]');
+    if (effacer) {
+      // Effacement en deux temps
+      if (effacer.dataset.confirme !== 'oui') {
+        effacer.dataset.confirme = 'oui';
+        effacer.textContent = "Confirmer l'effacement";
+        return;
+      }
+      window.JournalOsteo?.effacer();
+      zone.querySelector('.journal-liste')?.replaceWith(Object.assign(document.createElement('p'), {
+        className: 'vide', textContent: 'Aucune erreur notée sur ce téléphone.',
+      }));
+      zone.querySelectorAll('[data-copier-journal], [data-effacer-journal]').forEach((b) => { b.disabled = true; });
+      effacer.textContent = 'Effacer le journal';
+      message.textContent = 'Journal effacé.';
+      message.hidden = false;
+    }
+  });
 }

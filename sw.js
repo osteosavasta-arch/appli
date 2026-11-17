@@ -9,7 +9,7 @@
    rechargés depuis Internet quand il y a du réseau.
    ========================================================= */
 
-const VERSION = 'v26.1';
+const VERSION = 'v26.2';
 const CACHE = `osteo-savasta-${VERSION}`;
 
 // Fichiers enregistrés dès l'installation
@@ -19,6 +19,7 @@ const FICHIERS_DE_BASE = [
   'manifest.webmanifest',
   'assets/css/style.css',
   'assets/js/app.js',
+  'assets/js/journal.js',
   'assets/js/rappel.js',
   'assets/js/calcul-rappel.js',
   'assets/js/installation.js',
