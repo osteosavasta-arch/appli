@@ -185,10 +185,42 @@ window.addEventListener('hashchange', () => {
 preparerMenu();
 afficherEcran();
 
-/* ---------- Mode hors ligne ---------- */
+/* ---------- Mode hors ligne et mises à jour ----------
+   Quand une nouvelle version est publiée (VERSION de sw.js), le service worker la récupère
+   et en prend la main ; un bandeau propose alors de recharger l'appli pour l'utiliser.
+   Rien n'est envoyé ni enregistré : tout se passe dans le téléphone. */
+function proposerMiseAJour() {
+  if (document.querySelector('.bandeau-maj')) return;
+  const bandeau = document.createElement('div');
+  bandeau.className = 'bandeau-maj';
+  bandeau.setAttribute('role', 'status');
+  bandeau.innerHTML = `
+    <p><strong>Nouvelle version disponible.</strong> Mettez à jour pour profiter des dernières nouveautés.</p>
+    <div class="bandeau-maj-actions">
+      <button type="button" class="bouton bouton-secondaire" data-maj="oui">Mettre à jour</button>
+      <button type="button" class="lien-discret" data-maj="plus-tard">Plus tard</button>
+    </div>`;
+  bandeau.addEventListener('click', (evenement) => {
+    const choix = evenement.target.closest('[data-maj]')?.dataset.maj;
+    if (choix === 'oui') window.location.reload();
+    if (choix === 'plus-tard') bandeau.remove();
+  });
+  document.body.append(bandeau);
+}
+
 if ('serviceWorker' in navigator) {
+  // Première installation : pas de bandeau (l'appli est déjà à jour)
+  const dejaControlee = Boolean(navigator.serviceWorker.controller);
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dejaControlee) proposerMiseAJour();
+  });
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch((erreur) => {
+    navigator.serviceWorker.register('sw.js').then((enregistrement) => {
+      // Appli restée ouverte en arrière-plan : on revérifie à chaque retour, et toutes les heures
+      const verifier = () => enregistrement.update().catch(() => {});
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') verifier(); });
+      setInterval(verifier, 60 * 60 * 1000);
+    }).catch((erreur) => {
       console.error(erreur);
       window.JournalOsteo?.noter('hors-ligne', `Service worker non installé : ${erreur?.message || erreur}`, 'sw.js');
     });

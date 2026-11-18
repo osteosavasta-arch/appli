@@ -922,3 +922,23 @@ button.onglet-diet { border: 0; background: none; font-family: inherit; cursor: 
 .journal-entete span { color: var(--couleur-texte-doux); font-size: 0.9rem; }
 .journal-message { margin: 0; overflow-wrap: anywhere; }
 .journal-message small { color: var(--couleur-discret); }
+
+/* ---------- Bandeau « Nouvelle version disponible » ---------- */
+.bandeau-maj {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(var(--hauteur-menu) + env(safe-area-inset-bottom) + 12px);
+  z-index: 60;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 14px 16px;
+  background: var(--couleur-principale);
+  color: #fff;
+  border-radius: var(--rayon);
+  box-shadow: 0 6px 24px rgba(31, 42, 58, 0.25);
+}
+.bandeau-maj p { margin: 0 0 10px; }
+.bandeau-maj-actions { display: flex; align-items: center; gap: 16px; }
+.bandeau-maj .bouton { margin: 0; min-height: 44px; background: #fff; color: var(--couleur-principale); border-color: #fff; }
+.bandeau-maj .lien-discret { color: #fff; min-height: 44px; white-space: nowrap; }
