@@ -27,6 +27,7 @@ const minimum = (reglages, groupe) => reglages.aChoisir[groupe] || 0;
 let etat = {
   personnes: 2, mode: 'aliments', choisis: new Set(), aleatoires: new Set(), derniereAleatoire: '', resultat: null,
   recettes: new Set(), recettesAleatoires: new Set(), tendances: new Set(),
+  autres: new Map(), // aliments écrits par la personne (« Autre »), id → aliment
 };
 let valeursAffichees = null; // pour l'animation de la toile
 let complementsCiqual = {}; // vitamine E et oméga-3 des fiches, servent seulement à la toile
@@ -61,6 +62,130 @@ async function chargerDonnees() {
     proposes: proposes.concat(feculents, laitiers, gras),
     recettes: menu.recettes.filter(estVisible),
     populaires: tm ? recettesPopulaires(menu, aliments, moisCourant) : [],
+    // Tous les aliments connus, même hors saison : base de recherche des aliments « Autre »
+    catalogue: [
+      ...aliments.produits,
+      ...(menu.feculents?.aliments || []).map((m) => ({ ...m, type: 'féculent' })),
+      ...(menu.produitsLaitiers?.aliments || []).map((m) => ({ ...m, type: 'produit laitier', categorie: 'produit laitier' })),
+      ...(menu.matieresGrasses?.aliments || []).map((m) => ({ ...m, type: 'matière grasse', categorie: 'matière grasse' })),
+      ...(menu.alimentsRecettes?.aliments || []),
+    ],
+  };
+}
+
+/* ---------- Aliment « Autre » ----------
+   La personne écrit un aliment absent de la liste. Son intitulé est gardé tel quel ;
+   pour la toile et les quantités, l'appli prend les valeurs de l'aliment le plus proche
+   du même groupe (nom, synonyme courant ou orthographe voisine), sinon la moyenne du groupe. */
+const sansAccents = (texte) => texte.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/œ/g, 'oe');
+const MOTS_VIDES = new Set(['de', 'du', 'des', 'la', 'le', 'les', 'l', 'd', 'a', 'au', 'aux', 'en', 'et', 'frais', 'fraiche', 'fraiches',
+  'bio', 'type', 'cru', 'crue', 'cuit', 'cuite', 'surgele', 'surgeles', 'nature', 'entier', 'entiere', 'filet', 'filets']);
+const singulier = (mot) => (mot.length > 3 ? mot.replace(/(eaux|aux)$/, 'al').replace(/[sx]$/, '') : mot);
+const motsDe = (texte) => sansAccents(texte).replace(/[^a-z0-9 ]+/g, ' ').split(' ')
+  .filter((m) => m && !MOTS_VIDES.has(m)).map(singulier);
+
+// Synonymes courants → identifiant d'un aliment connu (même groupe)
+const SYNONYMES = {
+  butternut: 'butternut', 'courge butternut': 'butternut', doubeurre: 'butternut', potimarron: 'potiron', citrouille: 'potiron', kale: 'chou', roquette: 'laitue', mesclun: 'laitue',
+  batavia: 'laitue', frisee: 'laitue', scarole: 'laitue', epinards: 'epinard', champignons: 'champignon', girolle: 'champignon',
+  pleurote: 'champignon', shiitake: 'champignon', blettes: 'blette', bettes: 'blette', patisson: 'courge', chayotte: 'courgette',
+  echalion: 'echalote', ciboule: 'oignon', cebette: 'oignon', 'petits pois': 'petitpois', 'pois gourmand': 'haricotvert',
+  mangetout: 'haricotvert', edamame: 'petitpois', topinambours: 'topinambour', rutabaga: 'navet', 'chou rave': 'navet',
+  cerfeuil: 'persil', pamplemousses: 'pamplemousse', pomelo: 'pamplemousse', clementines: 'clementine', mirabelle: 'prune',
+  quetsche: 'prune', 'reine claude': 'reineclaude', airelle: 'myrtille', canneberge: 'myrtille', amande: 'noisette',
+  amandes: 'noisette', 'noix de cajou': 'noisette', pistache: 'noisette', 'noix de pecan': 'noix',
+  steak: 'boeuf-hache', 'steak hache': 'boeuf-hache', hache: 'boeuf-hache', bavette: 'boeuf', entrecote: 'boeuf',
+  roti: 'porc', cotelette: 'agneau', lardon: 'jambon', lardons: 'jambon', bacon: 'jambon', saucisse: 'porc', chipolata: 'porc',
+  canard: 'poulet', pintade: 'poulet', caille: 'poulet', lapin: 'poulet', volaille: 'poulet', escalope: 'dinde',
+  colin: 'merlu', lieu: 'lieu', dorade: 'cabillaud', daurade: 'cabillaud', bar: 'cabillaud', loup: 'cabillaud',
+  eglefin: 'cabillaud', haddock: 'cabillaud', merlan: 'cabillaud', crevette: 'cabillaud', crevettes: 'cabillaud',
+  moule: 'cabillaud', moules: 'cabillaud', 'saint jacques': 'cabillaud', calamar: 'cabillaud', anchois: 'sardine',
+  oeufs: 'oeuf', omelette: 'oeuf',
+  patate: 'pomme-de-terre', pdt: 'pomme-de-terre', 'pomme de terre': 'pomme-de-terre', spaghetti: 'pates', tagliatelle: 'pates',
+  penne: 'pates', coquillette: 'pates', macaroni: 'pates', nouille: 'pates', ble: 'boulgour', ebly: 'boulgour',
+  couscous: 'semoule', polenta: 'semoule', pain: 'pain-complet', baguette: 'pain-complet', avoine: 'flocons-avoine',
+  muesli: 'flocons-avoine', lentille: 'lentilles-vertes', 'lentille corail': 'lentilles-vertes', 'pois chiche': 'pois-chiches',
+  'haricot rouge': 'haricots-rouges', 'haricot blanc': 'haricots-rouges', flageolet: 'haricots-rouges', 'riz basmati': 'riz-blanc',
+  gnocchi: 'pomme-de-terre', galette: 'farine-sarrasin',
+  chevre: 'fromage-pate-molle', brie: 'fromage-pate-molle', mozzarella: 'fromage-pate-molle', reblochon: 'fromage-pate-molle',
+  feta: 'fromage-frais', ricotta: 'fromage-frais', skyr: 'fromage-frais', 'petit suisse': 'fromage-frais',
+  faisselle: 'fromage-frais', kefir: 'yaourt-nature', yogourt: 'yaourt-nature', yaourt: 'yaourt-nature',
+  parmesan: 'fromage-pate-dure', gruyere: 'fromage-pate-dure', emmental: 'fromage-pate-dure', cantal: 'fromage-pate-dure',
+  beaufort: 'fromage-pate-dure', tomme: 'fromage-pate-dure', creme: 'creme-fraiche', lait: 'lait',
+  margarine: 'beurre', ghee: 'beurre', 'huile de coco': 'beurre',
+};
+
+function distance(a, b) {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j += 1) d[0][j] = j;
+  for (let i = 1; i <= a.length; i += 1) {
+    for (let j = 1; j <= b.length; j += 1) {
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    }
+  }
+  return d[a.length][b.length];
+}
+const ressemblance = (a, b) => 1 - distance(a, b) / Math.max(a.length, b.length);
+
+/** Aliment connu le plus proche, dans le même groupe ; null si rien de convaincant. */
+function alimentProche(texte, groupe, catalogue) {
+  const candidats = catalogue.filter((f) => groupeDe(f) === groupe);
+  const mots = motsDe(texte);
+  const phrase = mots.join(' ');
+  const synonyme = SYNONYMES[phrase] || mots.map((m) => SYNONYMES[m]).find(Boolean);
+  if (synonyme) {
+    const trouve = candidats.find((f) => f.id === synonyme);
+    if (trouve) return trouve;
+  }
+  let meilleur = null;
+  for (const f of candidats) {
+    const motsF = motsDe(`${f.nom} ${f.id.replace(/-/g, ' ')}`);
+    let note = 0;
+    for (const m of mots) {
+      for (const n of motsF) {
+        const r = m === n ? 1 : (m.length >= 4 && n.length >= 4 && (m.startsWith(n) || n.startsWith(m))) ? 0.9 : ressemblance(m, n);
+        note = Math.max(note, r);
+      }
+    }
+    if (!meilleur || note > meilleur.note) meilleur = { f, note };
+  }
+  return meilleur && meilleur.note >= 0.75 ? meilleur.f : null;
+}
+
+/** Moyenne des valeurs de la toile pour un groupe (aliment inconnu). */
+function moyenneGroupe(reglages, groupe, catalogue) {
+  const liste = catalogue.filter((f) => groupeDe(f) === groupe);
+  const nutrition = {};
+  reglages.toile.forEach((axe) => {
+    const valeurs = liste.map((f) => quantite(f, axe.cle));
+    nutrition[axe.cle] = { valeur: String(valeurs.reduce((a, b) => a + b, 0) / (valeurs.length || 1)) };
+  });
+  const portions = liste.map((f) => f.portionParRepas).filter(Boolean).sort((a, b) => a - b);
+  return { id: `moyenne-${groupe}`, nom: '', type: liste[0]?.type, categorie: 'Autre', nutritionPour100g: nutrition,
+    portionParRepas: portions.length ? portions[Math.floor(portions.length / 2)] : undefined, moyenne: true };
+}
+
+/** Crée l'aliment « Autre » : intitulé de la personne, valeurs de l'aliment le plus proche. */
+function creerAutre(reglages, texte, groupe, catalogue) {
+  // Même groupe d'abord ; sinon un aliment très proche d'un autre groupe (« patate » écrit dans les légumes) ;
+  // sinon la moyenne du groupe
+  const ailleurs = () => GROUPES.map((g) => g.cle).filter((g) => g !== groupe)
+    .map((g) => alimentProche(texte, g, catalogue)).find(Boolean);
+  const proche = alimentProche(texte, groupe, catalogue) || ailleurs() || moyenneGroupe(reglages, groupe, catalogue);
+  const titreGroupe = GROUPES.find((g) => g.cle === groupe).titre.toLowerCase();
+  return {
+    id: `autre-${groupe}-${sansAccents(texte).replace(/[^a-z0-9]+/g, '-')}`,
+    nom: texte.trim().slice(0, 40),
+    // Le groupe reste celui où la personne l'a écrit
+    type: groupeDe(proche) === groupe ? proche.type : GROUPES.find((g) => g.cle === groupe).types[0],
+    categorie: proche.categorie,
+    nutritionPour100g: proche.nutritionPour100g,
+    portionParRepas: proche.portionParRepas,
+    uniteCourses: proche.uniteCourses,
+    densite: proche.densite,
+    procheId: proche.id,
+    procheNom: proche.moyenne ? `moyenne des ${titreGroupe}` : proche.nom,
+    autre: true,
   };
 }
 
@@ -111,7 +236,7 @@ const groupeDe = (f) => GROUPES.find((g) => g.types.includes(f.type)).cle;
 // Valeur Ciqual « 2,7 » → 2.7 ; « < 0,5 », « traces », « - » ou vide → 0.
 // Vitamine E et oméga-3 des fiches : repris de data/menu-semaine.json (apportsComplementaires).
 function quantite(f, cle) {
-  const brut = f.nutritionPour100g?.[cle]?.valeur || complementsCiqual[f.id]?.[cle] || '';
+  const brut = f.nutritionPour100g?.[cle]?.valeur || complementsCiqual[f.procheId || f.id]?.[cle] || '';
   const texte = String(brut).trim().replace(',', '.');
   return /^\d+(\.\d+)?$/.test(texte) ? Number(texte) : 0;
 }
@@ -339,17 +464,23 @@ function choisirRecettes(recettes, choisis, crudites) {
     recettes.filter((rc) => rc.aliments.some((e) => accepte(e, f, crudites))).length]));
   const retenues = [];
   const dejaPrises = new Set();
+  const signatures = new Set();
   for (let r = 0; r < 6; r += 1) {
     let meilleure = null;
     for (const recette of recettes) {
       const pris = remplir(recette, choisis, usage, crudites, souplesse);
       if (!pris) continue;
+      // Jamais deux fois exactement la même recette (même modèle, mêmes aliments) : avec peu
+      // d'aliments choisis, la semaine compte moins de 6 recettes, réparties sur les 14 repas
+      const signature = `${recette.id}|${Object.values(pris).map((f) => f.id).sort().join(',')}`;
+      if (signatures.has(signature)) continue;
       const nouveaux = Object.values(pris).filter((f) => usage.get(f.id) === 0).length;
       const score = nouveaux * 10 + (dejaPrises.has(recette.id) ? -100 : 0) - Object.values(pris).reduce((s, f) => s + usage.get(f.id), 0);
       if (!meilleure || score > meilleure.score) meilleure = { recette, pris, score };
     }
     if (!meilleure) break;
     dejaPrises.add(meilleure.recette.id);
+    signatures.add(`${meilleure.recette.id}|${Object.values(meilleure.pris).map((f) => f.id).sort().join(',')}`);
     Object.values(meilleure.pris).forEach((f) => usage.set(f.id, usage.get(f.id) + 1));
     retenues.push(meilleure);
   }
@@ -422,9 +553,13 @@ function portionRepas(reglages, f) {
 
 /** Quantités de chaque recette : la portion d'un repas (partagée entre les aliments du même groupe
     dans la recette), multipliée par les personnes et les repas servis par la recette. */
+/** Ordre des 14 repas pour k recettes : la répartition d'origine pour 6, à tour de rôle sinon. */
+const repartitionPour = (reglages, k) => (k === 6 ? REPARTITION : ordreRepas(reglages, Math.max(k, 1)));
+
 function detaillerRecettes(reglages, recettes, choisis, personnes) {
+  const repasParRecetteListe = recettes.length === 6 ? REPAS_PAR_RECETTE : repasParRecette(reglages, Math.max(recettes.length, 1));
   return recettes.map((rc, i) => {
-    const repas = REPAS_PAR_RECETTE[i];
+    const repas = repasParRecetteListe[i];
     const grammesAliments = {};
     const ingredients = rc.aliments.map((f) => {
       const memeGroupe = rc.aliments.filter((x) => groupeDe(x) === groupeDe(f)).length;
@@ -596,6 +731,14 @@ export function texteCourses(t, liste, personnes) {
   const blocs = liste.lignes.map((g) => `${g.titre}\n${g.elements.map((e) => `- ${e.nom} : ${e.quantite}`).join('\n')}`);
   blocs.push(`${t.autresIngredients}\n${liste.autres.map((a) => `- ${a}`).join('\n')}`);
   return `${t.titreCourses} (${personnes} ${personnes > 1 ? 'personnes' : 'personne'})\n\n${blocs.join('\n\n')}\n`;
+}
+
+function texteRecettes(t, recettes) {
+  return `${t.titreRecettes}\n\n${recettes.map((r, i) => [
+    `${i + 1}. ${r.titre} (${tempsTotal(r)})`,
+    ...(r.ingredients || []).map((x) => `   - ${x}`),
+    ...r.etapes.map((e, n) => `   ${n + 1}) ${e}`),
+  ].join('\n')).join('\n\n')}\n`;
 }
 
 function texteMenu(t, semaine, recettes) {
@@ -774,6 +917,12 @@ export async function afficherMenu() {
         ${(facultatif || g.cle === 'feculent') && t[g.texteAide] ? `<p class="menu-aide">${echapper(t[g.texteAide])}</p>` : ''}
         <div class="menu-choix">
           ${liste.map((f) => `<button type="button" class="menu-aliment${f.conseil ? ' menu-aliment-conseil' : ''}" data-aliment="${echapper(f.id)}" aria-pressed="${etat.choisis.has(f.id)}">${echapper(f.nom)}${f.conseil ? `<small>${echapper(f.conseil)}</small>` : ''}</button>`).join('')}
+          ${htmlAutres(g.cle)}
+        </div>
+        <div class="menu-autre">
+          <input type="text" maxlength="40" enterkeyhint="done" data-autre-champ="${g.cle}"
+            placeholder="Autre : écrivez-le ici" aria-label="Autre ${echapper(g.titre.toLowerCase())} : écrivez un aliment absent de la liste">
+          <button type="button" class="bouton bouton-contour" data-ajouter-autre="${g.cle}">Ajouter</button>
         </div>
       </fieldset>`;
   }).join('');
@@ -837,6 +986,13 @@ export async function afficherMenu() {
   </div>`;
 }
 
+/** Aliments « Autre » déjà ajoutés à un groupe (toucher pour les retirer). */
+function htmlAutres(groupe) {
+  return [...etat.autres.values()].filter((f) => groupeDe(f) === groupe).map((f) => `
+    <button type="button" class="menu-aliment menu-aliment-autre" data-autre-id="${echapper(f.id)}" aria-pressed="true"
+      aria-label="${echapper(f.nom)}, compté comme ${echapper(f.procheNom)} ; toucher pour retirer">${echapper(f.nom)}<small>compté comme ${echapper(f.procheNom)}</small></button>`).join('');
+}
+
 function boutonFavori(tc, rc, i) {
   if (!tc) return '';
   const deja = lireFavoris().some((f) => f.id === idRecette(rc.titre));
@@ -850,15 +1006,14 @@ function htmlResultat(t, reglages, res, tp, tr, tc) {
   const courses = res.courses.lignes.map((g) => `
     <h4 class="surtitre sous-groupe">${g.titre}</h4>
     <ul class="menu-courses">${g.elements.map((e) => `<li><span>${echapper(e.nom)}</span><span>${echapper(e.quantite)}</span></li>`).join('')}</ul>`).join('');
-  const enregistrer = tp ? `
-    <section class="menu-section menu-enregistrer">
-      ${res.horsSaison ? `<p class="menu-aide">${echapper(tp.horsSaison)}</p>` : ''}
-      <button type="button" class="bouton bouton-secondaire" data-enregistrer>${echapper(tp.boutonEnregistrer)}</button>
-      <p class="menu-copie" id="menu-enregistre" role="status" hidden></p>
-    </section>` : '';
+  // Deux boutons côte à côte : garder dans « Mon carnet » ou envoyer dans les notes du téléphone
+  const duo = (carnet, notes) => `
+    <div class="duo-boutons">
+      ${tp && carnet ? `<button type="button" class="bouton bouton-secondaire" ${carnet}>Enregistrer dans mon carnet</button>` : ''}
+      <button type="button" class="bouton bouton-contour" ${notes}>Mettre dans mes notes</button>
+    </div>`;
   return `
     ${htmlBilan(t, reglages, res.bilan)}
-    ${enregistrer}
     <section class="menu-section" id="menu-semaine">
       <h2>${echapper(t.titreSemaine)}</h2>
       <div class="filet-torii"></div>
@@ -871,19 +1026,23 @@ function htmlResultat(t, reglages, res, tp, tr, tc) {
       <button type="button" class="bouton bouton-contour" data-notes="menu">${echapper(t.boutonNotesMenu)}</button>
     </section>
     <section class="menu-section">
-      <h2>${echapper(t.titreRecettes)}</h2>
+      <h2>${echapper(res.recettes.length === 6 ? t.titreRecettes : res.recettes.length > 1 ? t.titreRecettes.replace(/\d+/, res.recettes.length) : res.recettes.length ? 'La recette' : 'Recettes')}</h2>
       <div class="filet-torii"></div>
       <p class="menu-copie" id="menu-favori" role="status" hidden></p>
-      ${recettes}
+      ${recettes || '<p class="menu-aide">Pas assez d\'aliments choisis pour proposer des recettes : la liste de courses est prête.</p>'}
+      ${recettes ? duo(tc ? 'data-enregistrer-recettes' : '', 'data-notes="recettes"') : ''}
+      <p class="menu-copie" id="menu-recettes-enregistrees" role="status" hidden></p>
     </section>
     <section class="menu-section">
       <h2>${echapper(t.titreCourses)}</h2>
       <div class="filet-torii"></div>
       <p class="menu-aide">${echapper(t.aideCourses)}</p>
       ${courses}
-      <h4 class="surtitre sous-groupe">${echapper(t.autresIngredients)}</h4>
-      <ul class="menu-courses">${res.courses.autres.map((a) => `<li><span>${echapper(a)}</span></li>`).join('')}</ul>
-      <button type="button" class="bouton bouton-secondaire" data-notes="courses">${echapper(t.boutonNotesCourses)}</button>
+      ${res.courses.autres.length ? `<h4 class="surtitre sous-groupe">${echapper(t.autresIngredients)}</h4>
+      <ul class="menu-courses">${res.courses.autres.map((a) => `<li><span>${echapper(a)}</span></li>`).join('')}</ul>` : ''}
+      ${res.horsSaison && tp ? `<p class="menu-aide">${echapper(tp.horsSaison)}</p>` : ''}
+      ${duo('data-enregistrer', 'data-notes="courses"')}
+      <p class="menu-copie" id="menu-enregistre" role="status" hidden></p>
       <p class="menu-copie" id="menu-copie" role="status" hidden>${echapper(t.copie)}</p>
       <textarea class="menu-texte" id="menu-texte" readonly hidden aria-label="Texte à copier"></textarea>
       <button type="button" class="lien-discret" data-modifier>${echapper(t.boutonModifier)}</button>
@@ -915,21 +1074,20 @@ export async function activerMenu(contenu) {
   // Écouteurs posés sur l'écran lui-même : ils disparaissent avec lui
   const zone = contenu.querySelector('.menu-ecran');
   if (!zone) return;
-  const { menu, t, tm, reglages, tendances, proposes, recettes, populaires } = await chargerDonnees();
+  const { menu, t, tm, reglages, tendances, proposes, recettes, populaires, catalogue } = await chargerDonnees();
   const r = reglages;
   const tp = estVisible(menu.textesPlus) ? menu.textesPlus : null;
   const tr = menu.textesRecettes;
   const tc = estVisible(menu.textesCarnet) ? menu.textesCarnet : null;
   const minRecettes = minimumRecettes(menu);
 
-  const choisis = () => proposes.filter((f) => etat.choisis.has(f.id));
+  const choisis = () => proposes.filter((f) => etat.choisis.has(f.id)).concat([...etat.autres.values()]);
   const choisies = () => populaires.filter((rc) => etat.recettes.has(rc.id));
   const parRecettes = () => etat.mode === 'recettes';
   const nombre = (cle) => choisis().filter((f) => groupeDe(f) === cle).length;
-  // Aucun maximum : il faut seulement atteindre le minimum de chaque groupe (ou de recettes)
-  const complet = () => (parRecettes()
-    ? choisies().length >= minRecettes
-    : GROUPES.every((g) => nombre(g.cle) >= minimum(r, g.cle)));
+  // Plus de minimum obligatoire : un seul aliment (ou une recette) suffit pour la liste de courses ;
+  // les nombres conseillés restent affichés
+  const complet = () => (parRecettes() ? choisies().length >= 1 : choisis().length >= 1);
   const axesTendance = () => [...etat.tendances];
 
   function effacerResultat() {
@@ -949,12 +1107,12 @@ export async function activerMenu(contenu) {
     if (parRecettes()) {
       const n = choisies().length;
       const compteur = zone.querySelector('[data-compte="recettes"]');
-      compteur.textContent = `${n} · ${t.auMoins} ${minRecettes}`;
+      compteur.textContent = `${n} · conseillé ${minRecettes}`;
       compteur.dataset.atteint = String(n >= minRecettes);
       zone.querySelectorAll('.menu-recette').forEach((b) => {
         b.setAttribute('aria-pressed', String(etat.recettes.has(b.dataset.recette)));
       });
-      zone.querySelector('#menu-manque').textContent = n < minRecettes ? tm.manqueRecettes.replace('{n}', minRecettes - n) : '';
+      zone.querySelector('#menu-manque').textContent = n && n < minRecettes ? `Conseillé pour varier la semaine : encore ${minRecettes - n} recette(s).` : '';
       zone.querySelector('#menu-creer').disabled = !complet();
       zone.querySelector('[data-vider]').disabled = n === 0;
       dessinerToile(zone, r, couverturesRecettes(r, choisies()), t);
@@ -965,17 +1123,18 @@ export async function activerMenu(contenu) {
       if (!compteur) return;
       const n = nombre(g.cle);
       const min = minimum(r, g.cle);
-      compteur.textContent = min ? `${n} · ${t.auMoins} ${min}` : String(n);
+      compteur.textContent = min ? `${n} · conseillé ${min}` : String(n);
       compteur.dataset.atteint = String(n >= min);
-      zone.querySelectorAll(`[data-groupe="${g.cle}"] .menu-aliment`).forEach((b) => {
+      zone.querySelectorAll(`[data-groupe="${g.cle}"] .menu-aliment[data-aliment]`).forEach((b) => {
         b.setAttribute('aria-pressed', String(etat.choisis.has(b.dataset.aliment)));
       });
     });
     const manque = GROUPES.filter((g) => nombre(g.cle) < minimum(r, g.cle))
       .map((g) => `${minimum(r, g.cle) - nombre(g.cle)} ${g.titre.toLowerCase()}`);
-    zone.querySelector('#menu-manque').textContent = manque.length ? `${t.manque} ${manque.join(', ')}.` : '';
+    zone.querySelector('#menu-manque').textContent = manque.length && choisis().length
+      ? `Conseillé pour une semaine équilibrée : encore ${manque.join(', ')}.` : '';
     zone.querySelector('#menu-creer').disabled = !complet();
-    zone.querySelector('[data-vider]').disabled = etat.choisis.size === 0;
+    zone.querySelector('[data-vider]').disabled = choisis().length === 0;
     dessinerToile(zone, r, couvertures(r, choisis()), t);
   }
 
@@ -986,17 +1145,18 @@ export async function activerMenu(contenu) {
     const feculents = liste.filter((f) => groupeDe(f) === 'feculent');
     const retenues = enregistree ? enregistree.recettes
       : detaillerRecettes(r, ajouterFeculents(choisirRecettes(recettes, liste, menu.crudites || []), feculents), liste, etat.personnes);
+    const ordre = repartitionPour(r, retenues.length);
     const semaine = enregistree ? enregistree.semaine : JOURS.map((jour, i) => ({
       jour,
-      midi: retenues[REPARTITION[i * 2]]?.titre || '',
-      soir: retenues[REPARTITION[i * 2 + 1]]?.titre || '',
+      midi: retenues[ordre[i * 2]]?.titre || '',
+      soir: retenues[ordre[i * 2 + 1]]?.titre || '',
     }));
     etat.resultat = {
       semaine,
       recettes: retenues,
       courses: enregistree ? enregistree.courses : courses(r, liste, etat.personnes, retenues),
       bilan: bilanSemaine(r, proposes, liste),
-      horsSaison: enregistree ? enregistree.choisis.length > liste.length : false,
+      horsSaison: enregistree ? enregistree.choisis.length + (enregistree.autres || []).length > liste.length : false,
     };
     zone.querySelector('#menu-resultat').innerHTML = htmlResultat(t, r, etat.resultat, tp, tr, tc);
     if (allerAuBilan) zone.querySelector('#menu-bilan').focus();
@@ -1022,6 +1182,31 @@ export async function activerMenu(contenu) {
     if (allerAuBilan) zone.querySelector('#menu-bilan').focus();
   }
 
+  /** Redessine les aliments « Autre » de chaque groupe. */
+  function afficherAutres() {
+    zone.querySelectorAll('.menu-aliment-autre').forEach((b) => b.remove());
+    GROUPES.forEach((g) => {
+      zone.querySelector(`[data-groupe="${g.cle}"] .menu-choix`)?.insertAdjacentHTML('beforeend', htmlAutres(g.cle));
+    });
+  }
+
+  function ajouterAutre(groupe) {
+    const champ = zone.querySelector(`[data-autre-champ="${groupe}"]`);
+    const texte = champ.value.trim();
+    if (!texte) { champ.focus(); return; }
+    const aliment = creerAutre(r, texte, groupe, catalogue);
+    etat.autres.set(aliment.id, aliment);
+    champ.value = '';
+    effacerResultat();
+    afficherAutres();
+    mettreAJour();
+  }
+
+  zone.addEventListener('keydown', (evenement) => {
+    const champ = evenement.target.closest('[data-autre-champ]');
+    if (champ && evenement.key === 'Enter') { evenement.preventDefault(); ajouterAutre(champ.dataset.autreChamp); }
+  });
+
   function enregistrerSemaine() {
     const res = etat.resultat;
     const aujourdhui = new Date();
@@ -1032,6 +1217,7 @@ export async function activerMenu(contenu) {
       score: res.bilan.score,
       mode: etat.mode,
       choisis: parRecettes() ? [] : [...etat.choisis],
+      autres: parRecettes() ? [] : [...etat.autres.values()],
       recettesChoisies: parRecettes() ? [...etat.recettes] : [],
       semaine: res.semaine,
       // Recettes sans les fiches complètes : seuls les noms des aliments sont gardés
@@ -1058,6 +1244,8 @@ export async function activerMenu(contenu) {
     } else {
       etat.choisis = new Set(s.choisis);
       etat.aleatoires = new Set();
+      etat.autres = new Map((s.autres || []).map((f) => [f.id, f]));
+      afficherAutres();
     }
     afficherMode();
     mettreAJour();
@@ -1099,6 +1287,16 @@ export async function activerMenu(contenu) {
       etat.recettes.add(nouveau);
       mettreAJour();
       creer();
+      return;
+    }
+    const ajout = evenement.target.closest('[data-ajouter-autre]');
+    if (ajout) { ajouterAutre(ajout.dataset.ajouterAutre); return; }
+    const autre = evenement.target.closest('[data-autre-id]');
+    if (autre) {
+      etat.autres.delete(autre.dataset.autreId);
+      effacerResultat();
+      afficherAutres();
+      mettreAJour();
       return;
     }
     const aliment = evenement.target.closest('[data-aliment]');
@@ -1147,6 +1345,19 @@ export async function activerMenu(contenu) {
       return;
     }
     if (evenement.target.closest('[data-enregistrer]') && etat.resultat) { enregistrerSemaine(); return; }
+    // Toutes les recettes de la semaine dans « Mon carnet » (recettes favorites)
+    if (evenement.target.closest('[data-enregistrer-recettes]') && etat.resultat && tc) {
+      const favoris = lireFavoris();
+      const nouvelles = etat.resultat.recettes
+        .map((rc) => ({ ...recetteAGarder(rc), id: idRecette(rc.titre), ajoutee: new Date().toISOString().slice(0, 10) }))
+        .filter((rc) => !favoris.some((f) => f.id === rc.id));
+      const ok = ecrireFavoris([...nouvelles, ...favoris]);
+      zone.querySelectorAll('[data-favori]').forEach((b) => { b.setAttribute('aria-pressed', 'true'); b.textContent = tc.retirerFavori; });
+      const message = zone.querySelector('#menu-recettes-enregistrees');
+      message.textContent = ok ? 'Recettes enregistrées dans « Mon carnet », onglet Recettes favorites.' : tp.echecEnregistrement;
+      message.hidden = false;
+      return;
+    }
     const favori = evenement.target.closest('[data-favori]');
     if (favori && etat.resultat && tc) {
       const rc = etat.resultat.recettes[Number(favori.dataset.favori)];
@@ -1186,6 +1397,8 @@ export async function activerMenu(contenu) {
       } else {
         etat.choisis.clear();
         etat.aleatoires.clear();
+        etat.autres.clear();
+        afficherAutres();
       }
       etat.resultat = null;
       zone.querySelector('#menu-resultat').innerHTML = '';
@@ -1197,6 +1410,7 @@ export async function activerMenu(contenu) {
     if (echange) {
       const [ancien, nouveau] = echange.dataset.remplacer.split('|');
       etat.choisis.delete(ancien);
+      if (etat.autres.delete(ancien)) afficherAutres();
       etat.choisis.add(nouveau);
       mettreAJour();
       creer();
@@ -1204,9 +1418,11 @@ export async function activerMenu(contenu) {
     }
     const notes = evenement.target.closest('[data-notes]');
     if (notes && etat.resultat) {
-      const pourCourses = notes.dataset.notes === 'courses';
-      versNotes(zone, pourCourses ? t.titreCourses : t.titre,
-        pourCourses ? texteCourses(t, etat.resultat.courses, etat.personnes) : texteMenu(t, etat.resultat.semaine, etat.resultat.recettes), t);
+      const quoi = notes.dataset.notes;
+      const res = etat.resultat;
+      if (quoi === 'courses') versNotes(zone, t.titreCourses, texteCourses(t, res.courses, etat.personnes), t);
+      else if (quoi === 'recettes') versNotes(zone, t.titreRecettes, texteRecettes(t, res.recettes), t);
+      else versNotes(zone, t.titre, texteMenu(t, res.semaine, res.recettes), t);
       return;
     }
     if (evenement.target.closest('[data-modifier], [data-voir-toile]')) {

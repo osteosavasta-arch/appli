@@ -2673,6 +2673,185 @@
       "toutLAnnee": false
     },
     {
+      "id": "butternut",
+      "nom": "Courge butternut",
+      "type": "légume",
+      "categorie": "Cucurbitacée",
+      "moisSaison": [
+        1,
+        2,
+        9,
+        10,
+        11,
+        12
+      ],
+      "ciqual": {
+        "code": "20138",
+        "nom": "Courge doubeurre (butternut), pulpe, crue",
+        "version": "Ciqual 2020 (table 2025 indisponible le 21/11/2026)"
+      },
+      "nutritionPour100g": {
+        "energie": {
+          "libelle": "Énergie",
+          "valeur": "",
+          "unite": "kcal"
+        },
+        "proteines": {
+          "libelle": "Protéines",
+          "valeur": "1",
+          "unite": "g"
+        },
+        "glucides": {
+          "libelle": "Glucides",
+          "valeur": "5,4",
+          "unite": "g"
+        },
+        "sucres": {
+          "libelle": "dont sucres",
+          "valeur": "2,2",
+          "unite": "g"
+        },
+        "lipides": {
+          "libelle": "Lipides",
+          "valeur": "0,1",
+          "unite": "g"
+        },
+        "fibres": {
+          "libelle": "Fibres",
+          "valeur": "2",
+          "unite": "g"
+        },
+        "eau": {
+          "libelle": "Eau",
+          "valeur": "86,4",
+          "unite": "g"
+        },
+        "vitamineC": {
+          "libelle": "Vitamine C",
+          "valeur": "21",
+          "unite": "mg"
+        },
+        "vitamineA": {
+          "libelle": "Vitamine A (équivalents rétinol)",
+          "valeur": "705",
+          "unite": "µg"
+        },
+        "betaCarotene": {
+          "libelle": "Bêta-carotène",
+          "valeur": "4230",
+          "unite": "µg"
+        },
+        "vitamineD": {
+          "libelle": "Vitamine D",
+          "valeur": "0",
+          "unite": "µg"
+        },
+        "vitamineE": {
+          "libelle": "Vitamine E",
+          "valeur": "1,44",
+          "unite": "mg"
+        },
+        "vitamineK1": {
+          "libelle": "Vitamine K1",
+          "valeur": "1,1",
+          "unite": "µg"
+        },
+        "vitamineB6": {
+          "libelle": "Vitamine B6",
+          "valeur": "0,15",
+          "unite": "mg"
+        },
+        "vitamineB9": {
+          "libelle": "Vitamine B9 (folates)",
+          "valeur": "27",
+          "unite": "µg"
+        },
+        "vitamineB12": {
+          "libelle": "Vitamine B12",
+          "valeur": "0",
+          "unite": "µg"
+        },
+        "potassium": {
+          "libelle": "Potassium",
+          "valeur": "352",
+          "unite": "mg"
+        },
+        "calcium": {
+          "libelle": "Calcium",
+          "valeur": "48",
+          "unite": "mg"
+        },
+        "magnesium": {
+          "libelle": "Magnésium",
+          "valeur": "34",
+          "unite": "mg"
+        },
+        "fer": {
+          "libelle": "Fer",
+          "valeur": "0,7",
+          "unite": "mg"
+        },
+        "iode": {
+          "libelle": "Iode",
+          "valeur": "",
+          "unite": "µg"
+        },
+        "manganese": {
+          "libelle": "Manganèse",
+          "valeur": "0,2",
+          "unite": "mg"
+        },
+        "cuivre": {
+          "libelle": "Cuivre",
+          "valeur": "0,072",
+          "unite": "mg"
+        }
+      },
+      "pointsForts": [
+        "Riche en vitamine A (88 % des valeurs de référence pour 100 g) : la vitamine A contribue au maintien d'une vision normale.",
+        "Source de vitamine C (26 % des valeurs de référence pour 100 g) : la vitamine C contribue au fonctionnement normal du système immunitaire.",
+        "Source de potassium (18 % des valeurs de référence pour 100 g)"
+      ],
+      "impact": "Courge d'automne et d'hiver à chair orangée, douce et un peu sucrée : en soupe, en purée ou rôtie au four.",
+      "recettes": [
+        {
+          "titre": "Velouté de butternut",
+          "temps": "35 min",
+          "ingredients": [
+            "1 courge butternut (environ 1 kg)",
+            "1 oignon",
+            "75 cl de bouillon de légumes",
+            "1 filet d'huile d'olive",
+            "Sel, poivre, muscade"
+          ],
+          "etapes": [
+            "Éplucher la butternut, retirer les graines et la couper en cubes ; émincer l'oignon.",
+            "Faire revenir l'oignon 3 minutes dans une casserole avec l'huile.",
+            "Ajouter la courge et le bouillon, cuire 25 minutes à couvert.",
+            "Mixer, saler, poivrer, ajouter une pointe de muscade et servir chaud."
+          ]
+        },
+        {
+          "titre": "Butternut rôtie au four",
+          "temps": "45 min",
+          "ingredients": [
+            "1 courge butternut",
+            "2 cuillères à soupe d'huile d'olive",
+            "Thym",
+            "Sel, poivre"
+          ],
+          "etapes": [
+            "Préchauffer le four à 200 °C.",
+            "Couper la butternut en deux dans la longueur, retirer les graines, puis la couper en tranches de 2 cm (la peau se mange une fois cuite).",
+            "Arroser d'huile, parsemer de thym, saler et poivrer.",
+            "Cuire 30 à 35 minutes en retournant à mi-cuisson."
+          ]
+        }
+      ],
+      "statut": "validee",
+      "toutLAnnee": false
+    },
+    {
       "id": "courgette",
       "nom": "Courgette",
       "type": "légume",

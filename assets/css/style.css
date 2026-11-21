@@ -942,3 +942,28 @@ button.onglet-diet { border: 0; background: none; font-family: inherit; cursor: 
 .bandeau-maj-actions { display: flex; align-items: center; gap: 16px; }
 .bandeau-maj .bouton { margin: 0; min-height: 44px; background: #fff; color: var(--couleur-principale); border-color: #fff; }
 .bandeau-maj .lien-discret { color: #fff; min-height: 44px; white-space: nowrap; }
+
+/* ---------- v26.4 : unité modifiable, boutons côte à côte, aliments « Autre » ---------- */
+.carnet-unite {
+  min-height: 40px;
+  padding: 0 4px;
+  border: 1px solid var(--couleur-bordure-champ);
+  border-radius: 4px;
+  background: var(--couleur-fond);
+  color: var(--couleur-texte);
+  font: inherit;
+}
+.duo-boutons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 12px 0; }
+.duo-boutons .bouton { margin: 0; min-height: 48px; font-size: 0.95rem; line-height: 1.2; }
+.menu-autre { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; margin-top: 8px; }
+.menu-autre input {
+  min-height: 48px;
+  padding: 0 10px;
+  border: 1px solid var(--couleur-bordure-champ);
+  border-radius: var(--rayon-bouton);
+  background: var(--couleur-fond);
+  color: var(--couleur-texte);
+  font: inherit;
+}
+.menu-autre .bouton { margin: 0; min-height: 48px; }
+.menu-aliment-autre { border-style: dashed; }

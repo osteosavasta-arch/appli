@@ -47,6 +47,18 @@ function decouper(quantite) {
   return m ? { nombre: m[1], unite: m[2] } : null;
 }
 
+// Unités proposées dans la liste de courses ; g ↔ kg et cl ↔ l se convertissent tout seuls
+const UNITES = ['g', 'kg', 'cl', 'l', 'unités'];
+const CONVERSIONS = { 'g>kg': 0.001, 'kg>g': 1000, 'cl>l': 0.01, 'l>cl': 100 };
+const nombreFr = (n) => String(Math.round(n * 1000) / 1000).replace('.', ',');
+
+function choixUnite(ligne, unite) {
+  const liste = UNITES.includes(unite) || !unite ? UNITES : [unite, ...UNITES];
+  return `<select class="carnet-unite" data-ligne-unite="${ligne}" aria-label="Unité">
+    ${liste.map((u) => `<option value="${echapper(u)}" ${u === (unite || 'unités') ? 'selected' : ''}>${echapper(u)}</option>`).join('')}
+  </select>`;
+}
+
 function htmlListe(s, t, tc, coches, ouverte) {
   const faits = new Set(coches[s.id] || []);
   // Quantité modifiable : un champ pour le nombre, l'unité à côté
@@ -54,7 +66,7 @@ function htmlListe(s, t, tc, coches, ouverte) {
     const q = decouper(quantite);
     const champ = q && tc.aideQuantites
       ? `<span class="carnet-quantite"><input type="text" inputmode="decimal" class="carnet-champ" data-ligne="${ligne}"
-           value="${echapper(q.nombre)}" aria-label="${echapper(`${tc.quantiteDe || 'Quantité :'} ${nom}`)}"><span>${echapper(q.unite)}</span></span>`
+           value="${echapper(q.nombre)}" aria-label="${echapper(`${tc.quantiteDe || 'Quantité :'} ${nom}`)}">${choixUnite(ligne, q.unite)}</span>`
       : (quantite ? `<span class="carnet-quantite">${echapper(quantite)}</span>` : '');
     return `
     <li class="carnet-ligne"><label class="carnet-case">
@@ -124,6 +136,9 @@ export async function activerCarnet(contenu) {
   const tc = menu.textesCarnet;
   if (!estVisible(tc)) return;
 
+  // Unité de départ de chaque liste déroulante (pour convertir au changement)
+  zone.querySelectorAll('[data-ligne-unite]').forEach((c) => { c.dataset.avant = c.value; });
+
   // Oublie les cases des semaines supprimées
   const coches = lireCoches();
   const ids = new Set(lireSemaines().map((s) => s.id));
@@ -132,14 +147,22 @@ export async function activerCarnet(contenu) {
 
   // Quantité modifiée : enregistrée dans la semaine (liste, notes et menu la reprennent)
   zone.addEventListener('change', (evenement) => {
-    const champ = evenement.target.closest('[data-ligne]');
+    const choix = evenement.target.closest('[data-ligne-unite]');
+    const champ = choix ? choix.previousElementSibling : evenement.target.closest('[data-ligne]');
     if (!champ) return;
+    if (choix) {
+      // Conversion automatique g ↔ kg, cl ↔ l ; sinon le nombre reste le même
+      const facteur = CONVERSIONS[`${choix.dataset.avant || ''}>${choix.value}`];
+      const valeur = Number(champ.value.replace(',', '.'));
+      if (facteur && Number.isFinite(valeur)) champ.value = nombreFr(valeur * facteur);
+      choix.dataset.avant = choix.value;
+    }
     const id = champ.closest('[data-semaine]').dataset.semaine;
     const semaines = lireSemaines();
     const s = semaines.find((x) => x.id === id);
     if (!s) return;
     const ligne = champ.dataset.ligne;
-    const unite = champ.nextElementSibling.textContent;
+    const unite = champ.nextElementSibling.value;
     const valeur = champ.value.trim().replace('.', ',');
     const ancienne = ligne.startsWith('a')
       ? s.courses.autres[Number(ligne.slice(1))].split(' : ')[1]
