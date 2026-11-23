@@ -94,6 +94,7 @@ function htmlListe(s, t, tc, coches, ouverte) {
         <button type="button" class="bouton bouton-contour" data-notes>${echapper(tc.envoyerNotes)}</button>
       </div>
       <button type="button" class="bouton bouton-secondaire" data-voir-semaine>${echapper(s.mode === 'liste' ? 'Modifier cette liste' : tc.ouvrirMenu)}</button>
+      <button type="button" class="bouton bouton-contour carnet-supprimer" data-supprimer-liste>${s.mode === 'liste' ? 'Supprimer cette liste' : 'Supprimer ce menu et sa liste'}</button>
     </details>`;
 }
 
@@ -203,6 +204,26 @@ export async function activerCarnet(contenu) {
     if (semaine && evenement.target.closest('[data-notes]')) {
       const s = lireSemaines().find((x) => x.id === semaine.dataset.semaine);
       if (s) versNotes(zone, menu.textes.titreCourses, texteCourses(menu.textes, s.courses, s.personnes), menu.textes);
+      return;
+    }
+    // Suppression en deux temps : le bouton demande une confirmation
+    const supprimer = evenement.target.closest('[data-supprimer-liste]');
+    if (semaine && supprimer) {
+      if (supprimer.dataset.confirme !== 'oui') {
+        supprimer.dataset.confirme = 'oui';
+        supprimer.textContent = 'Confirmer la suppression';
+        return;
+      }
+      const id = semaine.dataset.semaine;
+      ecrireSemaines(lireSemaines().filter((s) => s.id !== id));
+      const c = lireCoches();
+      delete c[id];
+      ecrireCoches(c);
+      const message = document.createElement('p');
+      message.className = 'menu-copie';
+      message.setAttribute('role', 'status');
+      message.textContent = lireSemaines().length ? 'Supprimé de votre carnet.' : `Supprimé de votre carnet. ${tc.aucuneListe}`;
+      semaine.replaceWith(message);
       return;
     }
     if (semaine && evenement.target.closest('[data-voir-semaine]')) {

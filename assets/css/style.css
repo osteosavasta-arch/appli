@@ -972,3 +972,21 @@ button.onglet-diet { border: 0; background: none; font-family: inherit; cursor: 
 .menu-ajout-carnet { margin: 20px 0 4px; padding-top: 16px; border-top: 1px solid var(--couleur-bordure); }
 .menu-ajout-carnet .bouton { margin: 0 0 4px; }
 .menu-ajout-carnet .menu-aide { margin: 0; }
+
+/* ---------- v26.6 : écran Paramètres (ordinateur du cabinet) et photo d'accueil facultative ---------- */
+html[data-sans-photo] .ouverture-photo { display: none; }
+.param-groupe { margin: 20px 0 0; padding: 0; border: 0; }
+.param-groupe legend { margin-bottom: 8px; font-family: var(--police-titres); font-weight: 600; font-size: 1.15rem; }
+.param-couleur, .param-case { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 6px 0; border-bottom: 1px solid var(--couleur-bordure); cursor: pointer; }
+.param-couleur input[type="color"] { flex: none; width: 52px; height: 40px; padding: 2px; border: 1px solid var(--couleur-bordure-champ); border-radius: var(--rayon-bouton); background: var(--couleur-fond); }
+.param-couleur span { display: flex; flex-direction: column; }
+.param-couleur small { color: var(--couleur-texte-doux); font-size: 0.85rem; }
+.param-choix { display: grid; gap: 4px; margin: 0 0 12px; }
+.param-choix select { min-height: 48px; padding: 0 8px; border: 1px solid var(--couleur-bordure-champ); border-radius: var(--rayon-bouton); background: var(--couleur-fond); color: var(--couleur-texte); font: inherit; }
+.param-curseur { display: grid; gap: 4px; margin: 0 0 14px; }
+.param-curseur span { display: flex; justify-content: space-between; }
+.param-curseur output { font-variant-numeric: tabular-nums; color: var(--couleur-texte-doux); }
+.param-curseur input[type="range"] { width: 100%; accent-color: var(--couleur-principale); }
+.param-case input { width: 22px; height: 22px; accent-color: var(--couleur-principale); }
+
+.carnet-semaine > .carnet-supprimer { margin: 0 0 16px; color: var(--couleur-alerte); border-color: var(--couleur-alerte); }

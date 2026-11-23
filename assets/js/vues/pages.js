@@ -5,6 +5,7 @@
 import { chargerJSON, echapper, bandeau } from '../app.js';
 import { blocInstallation } from '../installation.js';
 import { icone } from '../icones.js';
+import { ongletsInfos } from './parametres.js';
 
 export async function afficherInfos() {
   const cabinet = await chargerJSON('config/cabinet.json');
@@ -31,6 +32,7 @@ export async function afficherInfos() {
 
   return `
     ${bandeau({ titre: 'Infos pratiques' })}
+    ${ongletsInfos('infos')}
     ${adresse}
     <dl class="infos-liste">${lignes}</dl>
 

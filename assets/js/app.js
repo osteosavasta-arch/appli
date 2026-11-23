@@ -12,6 +12,8 @@ import { afficherDietetique, afficherSaison, afficherAliment, afficherComplement
 import { afficherInfos, afficherPageTexte, afficherJournal, activerJournal } from './vues/pages.js';
 import { afficherMenu, activerMenu, carnetDisponible } from './vues/menu.js';
 import { afficherCarnet, activerCarnet } from './vues/carnet.js';
+import { afficherParametres, activerParametres } from './vues/parametres.js';
+import { chargerApparence } from './apparence.js';
 import { activerRappel } from './rappel.js';
 import { icone } from './icones.js';
 import './renseignements.js';
@@ -22,7 +24,7 @@ import './partage.js';
    ?relecture à l'adresse affiche aussi les contenus « a-relire »,
    surlignés en jaune. Sur le site en ligne, ce mode est impossible :
    rien n'est montré au public sans votre validation. */
-const surOrdinateurLocal = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
+export const surOrdinateurLocal = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
 export const modeRelecture = surOrdinateurLocal && new URLSearchParams(location.search).has('relecture');
 
 /** Règle centrale : un contenu ne s'affiche que s'il est validé. */
@@ -92,6 +94,7 @@ const ecrans = {
   'confidentialite': () => afficherPageTexte('pages/confidentialite.md'),
   'mentions-legales': () => afficherPageTexte('pages/mentions-legales.md'),
   'journal': afficherJournal,
+  'parametres': afficherParametres,
 };
 
 // Écrans qui ont des boutons à brancher après affichage
@@ -100,6 +103,7 @@ const apresAffichage = {
   'menu': activerMenu,
   'carnet': activerCarnet,
   'journal': activerJournal,
+  'parametres': activerParametres,
 };
 
 const zone = document.getElementById('contenu');
@@ -182,6 +186,8 @@ window.addEventListener('hashchange', () => {
   zone.focus({ preventScroll: true }); // aide les lecteurs d'écran
 });
 
+// Apparence réglée dans Infos → Paramètres (config/apparence.json), appliquée dès le démarrage
+chargerApparence();
 preparerMenu();
 afficherEcran();
 

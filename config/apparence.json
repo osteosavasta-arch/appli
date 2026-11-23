@@ -1,0 +1,20 @@
+{
+  "_aide": "Apparence de l'appli, réglée depuis Infos → Paramètres sur l'ordinateur du cabinet. Couleurs au format #rrggbb ; polices : lora, lato, georgia ou systeme ; tailles en pixels.",
+  "couleurs": {
+    "principale": "#41546e",
+    "accent": "#d57c4e",
+    "plante": "#4f6b3a",
+    "texte": "#1f2a3a",
+    "fond": "#ffffff",
+    "carte": "#faf7f2",
+    "bordure": "#e6dfd5"
+  },
+  "polices": {
+    "titres": "lora",
+    "texte": "lato"
+  },
+  "tailleTexte": 17,
+  "rayonCartes": 16,
+  "rayonBoutons": 6,
+  "photoAccueil": true
+}
