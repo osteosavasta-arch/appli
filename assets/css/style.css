@@ -967,3 +967,8 @@ button.onglet-diet { border: 0; background: none; font-family: inherit; cursor: 
 }
 .menu-autre .bouton { margin: 0; min-height: 48px; }
 .menu-aliment-autre { border-style: dashed; }
+
+/* ---------- v26.5 : ajouter sa liste au carnet sans créer de menu ---------- */
+.menu-ajout-carnet { margin: 20px 0 4px; padding-top: 16px; border-top: 1px solid var(--couleur-bordure); }
+.menu-ajout-carnet .bouton { margin: 0 0 4px; }
+.menu-ajout-carnet .menu-aide { margin: 0; }

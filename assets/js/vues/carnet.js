@@ -86,14 +86,14 @@ function htmlListe(s, t, tc, coches, ouverte) {
   const personnes = `${s.personnes} ${s.personnes > 1 ? 'personnes' : 'personne'}`;
   return `
     <details class="carnet-semaine" data-semaine="${echapper(s.id)}" ${ouverte ? 'open' : ''}>
-      <summary><span>${echapper(tc.semaineDu.replace('{date}', dateLongue(s.date)))}</span> <small>${echapper(personnes)}</small></summary>
+      <summary><span>${echapper(s.mode === 'liste' ? `Liste du ${dateLongue(s.date)}` : tc.semaineDu.replace('{date}', dateLongue(s.date)))}</span> <small>${echapper(personnes)}</small></summary>
       ${tc.aideQuantites ? `<p class="menu-aide">${echapper(tc.aideQuantites)}</p>` : ''}
       ${groupes}${autres}
       <div class="carnet-actions">
         <button type="button" class="bouton bouton-contour" data-decocher>${echapper(tc.toutDecocher)}</button>
         <button type="button" class="bouton bouton-contour" data-notes>${echapper(tc.envoyerNotes)}</button>
       </div>
-      <button type="button" class="bouton bouton-secondaire" data-voir-semaine>${echapper(tc.ouvrirMenu)}</button>
+      <button type="button" class="bouton bouton-secondaire" data-voir-semaine>${echapper(s.mode === 'liste' ? 'Modifier cette liste' : tc.ouvrirMenu)}</button>
     </details>`;
 }
 

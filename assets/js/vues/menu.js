@@ -879,7 +879,7 @@ function htmlSemaines(tp) {
       <ul>
         ${semaines.map((s) => `
           <li>
-            <p><strong>${echapper(tp.semaineDu.replace('{date}', dateLongue(s.date)))}</strong>
+            <p><strong>${echapper(s.mode === 'liste' ? `Liste du ${dateLongue(s.date)}` : tp.semaineDu.replace('{date}', dateLongue(s.date)))}</strong>
               <span>${s.personnes} ${s.personnes > 1 ? 'personnes' : 'personne'} · ${pourcent(s.score)}</span></p>
             <div class="menu-semaines-actions">
               <button type="button" class="bouton bouton-secondaire" data-ouvrir-semaine="${echapper(s.id)}">${echapper(tp.ouvrir)}</button>
@@ -978,7 +978,13 @@ export async function afficherMenu() {
       <p class="menu-aide" id="menu-aleatoire-aide" aria-live="polite">${echapper(tp.aideAleatoire)}</p>` : ''}
     <button type="button" class="bouton bouton-contour menu-vider" data-vider>${echapper(t.boutonToutDeselectionner)}</button>
     <p class="menu-toile-aide">${echapper(t.explicationToile)}</p>
-    <div id="menu-zone-aliments" ${parRecettes ? 'hidden' : ''}>${groupes}</div>
+    <div id="menu-zone-aliments" ${parRecettes ? 'hidden' : ''}>${groupes}
+      ${tp && tc ? `<div class="menu-ajout-carnet">
+        <button type="button" class="bouton bouton-contour" data-ajouter-carnet>Ajouter au carnet</button>
+        <p class="menu-aide">Garde votre liste de courses dans « Mon carnet », sans créer de menu.</p>
+        <p class="menu-copie" id="menu-liste-enregistree" role="status" hidden></p>
+      </div>` : ''}
+    </div>
     <div id="menu-zone-recettes" ${parRecettes ? '' : 'hidden'}>${listeRecettes}</div>
     <p class="menu-manque" id="menu-manque" aria-live="polite"></p>
     <button type="button" class="bouton bouton-secondaire" id="menu-creer">${echapper(t.boutonCreer)}</button>
@@ -1249,7 +1255,40 @@ export async function activerMenu(contenu) {
     }
     afficherMode();
     mettreAJour();
+    if (s.mode === 'liste') {
+      effacerResultat();
+      zone.querySelector('#menu-zone-aliments').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
     creer(true, s);
+  }
+
+  /** Liste de courses seule, enregistrée dans « Mon carnet » sans créer de menu. */
+  function ajouterListeAuCarnet() {
+    const message = zone.querySelector('#menu-liste-enregistree');
+    const liste = choisis();
+    if (!liste.length) {
+      message.textContent = 'Choisissez au moins un aliment.';
+      message.hidden = false;
+      return;
+    }
+    const aujourdhui = new Date();
+    const entree = {
+      id: aujourdhui.getTime().toString(36),
+      date: `${aujourdhui.getFullYear()}-${String(aujourdhui.getMonth() + 1).padStart(2, '0')}-${String(aujourdhui.getDate()).padStart(2, '0')}`,
+      personnes: etat.personnes,
+      score: scoreGlobal(couvertures(r, liste)),
+      mode: 'liste',
+      choisis: [...etat.choisis],
+      autres: [...etat.autres.values()],
+      semaine: [],
+      recettes: [],
+      courses: courses(r, liste, etat.personnes, []),
+    };
+    const ok = ecrireSemaines([entree, ...lireSemaines()].slice(0, MAX_SEMAINES));
+    message.textContent = ok ? 'Liste ajoutée à « Mon carnet », onglet Listes de courses.' : tp.echecEnregistrement;
+    message.hidden = false;
+    zone.querySelector('#menu-semaines-zone').innerHTML = htmlSemaines(tp);
   }
 
 
@@ -1345,6 +1384,7 @@ export async function activerMenu(contenu) {
       return;
     }
     if (evenement.target.closest('[data-enregistrer]') && etat.resultat) { enregistrerSemaine(); return; }
+    if (evenement.target.closest('[data-ajouter-carnet]')) { ajouterListeAuCarnet(); return; }
     // Toutes les recettes de la semaine dans « Mon carnet » (recettes favorites)
     if (evenement.target.closest('[data-enregistrer-recettes]') && etat.resultat && tc) {
       const favoris = lireFavoris();
