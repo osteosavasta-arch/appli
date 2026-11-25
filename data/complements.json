@@ -393,6 +393,61 @@
       },
       "dateVerification": "2026-11-02",
       "statut": "validee"
+    },
+    {
+      "id": "zinc",
+      "nom": "Zinc",
+      "categorie": "Minéral (oligo-élément)",
+      "description": "Oligo-élément apporté notamment par les huîtres et les fruits de mer, la viande, les produits laitiers, les céréales complètes et les légumineuses.",
+      "role": [
+        "Le zinc contribue au fonctionnement normal du système immunitaire.",
+        "Le zinc contribue au maintien d’une peau normale.",
+        "Le zinc contribue au maintien de cheveux normaux.",
+        "Le zinc contribue au maintien d’ongles normaux.",
+        "Le zinc contribue au maintien d’une ossature normale.",
+        "Le zinc contribue au maintien d’une vision normale.",
+        "Le zinc contribue à une fonction cognitive normale.",
+        "Le zinc contribue à protéger les cellules contre le stress oxydatif.",
+        "Le zinc contribue à une synthèse protéique normale.",
+        "Le zinc contribue à la synthèse normale de l’ADN.",
+        "Le zinc joue un rôle dans le processus de division cellulaire.",
+        "Le zinc contribue au métabolisme normal des macronutriments.",
+        "Le zinc contribue à un métabolisme glucidique normal.",
+        "Le zinc contribue au métabolisme normal des acides gras.",
+        "Le zinc contribue au métabolisme normal de la vitamine A.",
+        "Le zinc contribue à un métabolisme acido-basique normal.",
+        "Le zinc contribue à une fertilité et une reproduction normales.",
+        "Le zinc contribue au maintien d’un taux normal de testostérone dans le sang."
+      ],
+      "nutritionPour100g": {},
+      "ciqual": {
+        "code": "",
+        "nom": ""
+      },
+      "precautions": [
+        "Un excès de zinc, surtout s'il dure, peut entraîner un manque de cuivre et une baisse du fer dans l'organisme.",
+        "Effets indésirables possibles : nausées, vomissements, diarrhée, goût métallique.",
+        "Les sprays nasaux au zinc peuvent irriter le nez et la gorge et faire perdre l'odorat : ils sont à éviter.",
+        "Le zinc peut diminuer l'efficacité de certains antibiotiques : les prises doivent être espacées, sur avis médical.",
+        "Le zinc peut diminuer l'efficacité de la pénicillamine, du cisplatine et du dolutégravir.",
+        "Certains médicaments font baisser le zinc : médicaments contre l’acidité gastrique (inhibiteurs de la pompe à protons), certains médicaments de la tension, corticoïdes, œstrogènes, certains antiépileptiques."
+      ],
+      "avisAutorites": [
+        {
+          "titre": "ANSES – Compléments alimentaires : nos conseils pour éviter les risques",
+          "url": "https://www.anses.fr/fr/content/complements-alimentaires-nos-conseils-pour-eviter-les-risques"
+        }
+      ],
+      "produit": {
+        "marque": "",
+        "forme": "",
+        "prixIndicatif": "",
+        "enseignes": [],
+        "urlProduit": "",
+        "lienAffilie": false
+      },
+      "dateVerification": "2026-11-25",
+      "statut": "validee"
     }
   ]
 }

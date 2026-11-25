@@ -119,6 +119,46 @@ Condition d'usage : le produit doit être au moins une « source d'iode » au se
 
 ---
 
+## 6. Zinc
+
+Date de la recherche : 25 novembre 2026.
+
+**Allégations de santé autorisées (UE)**, formulation exacte (règlement 432/2012, [EUR-Lex, texte en français](https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32012R0432), lu directement) : 18 allégations.
+- « Le zinc contribue à un métabolisme acido-basique normal »
+- « Le zinc contribue à un métabolisme glucidique normal »
+- « Le zinc contribue à une fonction cognitive normale »
+- « Le zinc contribue à la synthèse normale de l’ADN »
+- « Le zinc contribue à une fertilité et une reproduction normales »
+- « Le zinc contribue au métabolisme normal des macronutriments »
+- « Le zinc contribue au métabolisme normal des acides gras »
+- « Le zinc contribue au métabolisme normal de la vitamine A »
+- « Le zinc contribue à une synthèse protéique normale »
+- « Le zinc contribue au maintien d’une ossature normale »
+- « Le zinc contribue au maintien de cheveux normaux »
+- « Le zinc contribue au maintien d’ongles normaux »
+- « Le zinc contribue au maintien d’une peau normale »
+- « Le zinc contribue au maintien d’un taux normal de testostérone dans le sang »
+- « Le zinc contribue au maintien d’une vision normale »
+- « Le zinc contribue au fonctionnement normal du système immunitaire »
+- « Le zinc contribue à protéger les cellules contre le stress oxydatif »
+- « Le zinc joue un rôle dans le processus de division cellulaire »
+
+Condition d'usage, la même pour toutes : la denrée doit être au moins une « source de zinc » au sens du règlement (CE) n° 1924/2006.
+
+**Précautions et interactions** : [Manuels MSD, version grand public, « Supplémentation en zinc »](https://www.msdmanuals.com/fr/accueil/sujets-particuliers/compl%C3%A9ments-alimentaires-et-vitamines/suppl%C3%A9mentation-en-zinc) (dernière mise à jour juillet 2025), lu directement.
+- À forte dose, le zinc peut entraîner une carence en cuivre et une baisse du fer (anémie), et faire baisser le « bon cholestérol ».
+- Effets secondaires des pastilles : nausées, vomissements, diarrhée, irritation et aphtes buccaux, goût métallique.
+- Les sprays nasaux au zinc peuvent irriter le nez et la gorge et provoquer une perte de l'odorat : à éviter.
+- Interactions : baisse de l'absorption et de l'efficacité de certains antibiotiques (prises à espacer) ; baisse d'efficacité du cisplatine, du dolutégravir et de la pénicillamine.
+- Médicaments qui diminuent le zinc : inhibiteurs de la pompe à protons (oméprazole), lisinopril, corticoïdes, œstrogènes, certains anticonvulsivants.
+- Selon cette source, les compléments de zinc ne sont pas recommandés dans les pays développés, où l'alimentation en apporte généralement assez, sauf avis médical.
+
+**Non lu directement** : la fiche du NIH (Office of Dietary Supplements) sur le zinc. Le site demande une vérification anti-robot.
+
+**Alertes et avis** : pas d'avis ANSES propre au zinc trouvé lors de cette recherche. La fiche renvoie au conseil général de l'ANSES sur les compléments alimentaires.
+
+---
+
 ## Ce que je n'ai pas pu vérifier
 
 1. **Les rappels de produits (RappelConso)** : pas consultés pour ces cinq compléments. Ce sera le rôle de l'agent de veille (phase 4).
